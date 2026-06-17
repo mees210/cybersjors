@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Cyber-Sjors</title>
+<meta name="description" content="Een interactieve cursus die je in de praktijk leert nepberichten, virussen en andere internetgevaren te herkennen.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+<!-- Tailwind: alleen voor layout-utilities (flex/grid/spacing). De look komt uit style.css -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SCHERM 1 — AANMELDEN                                          -->
+<!-- ============================================================ -->
+<section id="screen-login" class="screen is-active">
+  <div class="login-wrap">
+    <div class="login-badge"><i class="fa-solid fa-shield-halved"></i></div>
+    <p class="eyebrow">Praktijkcursus online veiligheid</p>
+    <h1 class="login-title">Cyber-Sjors</h1>
+    <p class="login-intro">
+      Dit leer je niet uit een boekje — je maakt het hier gewoon mee. Een phishingmail, een neppe
+      QR-code, een "zoon" die plots geld nodig heeft: je komt het stuk voor stuk zelf tegen, en weet
+      daarna precies wat je moet doen.
+    </p>
+
+    <form id="login-form" class="login-form" autocomplete="off">
+      <div class="field-group">
+        <label class="field-label" for="name-input">Hoe mogen we je noemen?</label>
+        <input id="name-input" name="name" type="text" maxlength="20" placeholder="Bijvoorbeeld: Marieke" required>
+      </div>
+
+      <div class="field-group">
+        <span class="field-label" id="avatar-label">Kies je avatar</span>
+        <div id="avatar-grid" class="avatar-grid" role="radiogroup" aria-labelledby="avatar-label"></div>
+      </div>
+
+      <button type="submit" id="login-submit" class="btn btn-primary btn-lg btn-block" disabled>
+        Aan de slag <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCHERM 2 — DASHBOARD / ROUTEKAART                              -->
+<!-- ============================================================ -->
+<section id="screen-dashboard" class="screen">
+  <header class="app-header">
+    <div class="app-header-brand"><i class="fa-solid fa-shield-halved"></i><span>Cyber-Sjors</span></div>
+    <div class="app-header-user">
+      <div class="progress-pill">
+        <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="progress-label">0 / 0 voltooid</span>
+      </div>
+      <div class="user-chip">
+        <span id="user-avatar" class="user-chip-avatar"></span>
+        <span id="user-name" class="user-chip-name"></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <div id="dashboard-intro" class="dashboard-intro"></div>
+    <div id="roadmap" class="roadmap"></div>
+    <button id="reset-progress" class="reset-link" type="button">
+      <i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i> Voortgang wissen en opnieuw beginnen
+    </button>
+  </main>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCHERM 3 — LEVEL (interactief of theorie)                      -->
+<!-- ============================================================ -->
+<section id="screen-level" class="screen">
+  <header class="level-header">
+    <button id="level-back" class="btn-back" type="button"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Overzicht</button>
+    <div class="level-header-text">
+      <p id="level-eyebrow" class="eyebrow"></p>
+      <h1 id="level-title" class="level-title"></h1>
+    </div>
+  </header>
+  <main id="level-main" class="level-main"></main>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCHERM 4 — CYBER-RIJBEWIJS (CERTIFICAAT)                       -->
+<!-- ============================================================ -->
+<section id="screen-certificate" class="screen">
+  <main class="certificate-wrap">
+    <div class="certificate-card" id="certificate-card">
+      <div class="certificate-seal"><i class="fa-solid fa-shield-halved"></i></div>
+      <p class="certificate-eyebrow">Officieel uitgereikt door Cyber-Sjors</p>
+      <h1 class="certificate-title">Cyber-Rijbewijs</h1>
+      <p class="certificate-line">Hiermee verklaart Cyber-Sjors dat</p>
+      <p class="certificate-name"><span id="cert-avatar"></span> <span id="cert-name"></span></p>
+      <p class="certificate-line">alle gevaren op het internet succesvol heeft doorstaan en precies weet
+        hoe die te herkennen — van phishingmails tot nepfacturen.</p>
+      <div class="certificate-footer">
+        <div>
+          <p class="certificate-footer-label">Uitgereikt op</p>
+          <p id="cert-date" class="certificate-footer-value"></p>
+        </div>
+        <div class="certificate-signature">
+          <p class="certificate-signature-script">Sjors</p>
+          <p class="certificate-footer-label">jouw digitale buddy</p>
+        </div>
+      </div>
+    </div>
+    <div class="certificate-actions">
+      <button id="cert-print" class="btn btn-primary btn-lg" type="button"><i class="fa-solid fa-print" aria-hidden="true"></i> Bewaren / printen</button>
+      <button id="cert-back" class="btn btn-ghost btn-lg" type="button">Terug naar overzicht</button>
+    </div>
+  </main>
+</section>
+
+<!-- ============================================================ -->
+<!-- SJORS — vaste mascotte, op elk scherm beschikbaar              -->
+<!-- ============================================================ -->
+<div id="sjors-widget" class="sjors-widget">
+  <div id="sjors-bubble" class="sjors-bubble"></div>
+  <button id="sjors-avatar-btn" class="sjors-avatar-btn" type="button" aria-label="Vraag Sjors om een tip">
+    <span class="sjors-face" aria-hidden="true">
+      <span class="sjors-antenna"></span>
+      <span class="sjors-eye"></span><span class="sjors-eye"></span>
+      <span class="sjors-mouth"></span>
+    </span>
+  </button>
+</div>
+
+<!-- ============================================================ -->
+<!-- POPUPS / OVERLAYS (gevuld via JavaScript)                      -->
+<!-- ============================================================ -->
+<div id="popup-root"></div>
+<div id="toast-root" class="toast-root"></div>
+<div id="malvertising-root"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
