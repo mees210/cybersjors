@@ -83,7 +83,7 @@ const chapters = [
     id: 'h2',
     title: 'Slimme trucs & kwaadaardige bestanden',
     description: 'Een foute klik is zo gemaakt — en daar rekenen criminelen precies op.',
-    levelIds: ['l4', 'l5', 't2'],
+    levelIds: ['l4', 'l5', 'l6', 'l7', 't2'],
   },
   {
     id: 'h3',
@@ -542,6 +542,92 @@ const levels = {
     },
   },
 
+  l6: {
+    id: 'l6', chapterId: 'h2', kind: 'interactive', icon: 'fa-heart-crack',
+    nodeTitle: 'Datingfraude',
+    sjorsIntro: 'Je chatten al een paar weken met iemand op een datingapp. Ze voelen zich heel erg tot je aangetrokken. Dan gebeurt er iets...',
+    scenario: {
+      type: 'choice',
+      eyebrow: 'Dating-app gesprek',
+      headline: 'Een persoon verliefd op je',
+      lede: 'Na weken chatten zegt diegene opeens: "Ik ben verliefd op je. Ik wil je graag ontmoeten, maar ik zit vast in buitenland. Kun je me €500 lenen voor een vlucht? Ik betaal het dubbel terug zodra ik thuis ben."',
+      choices: [
+        { label: 'Het geld meteen overmaken — het voelt echt', outcome: 'wrong',
+          feedbackText: 'Dit is datingfraude: criminelen profielen stelen, bouwen maanden lang een fake relatie op met honderden mensen tegelijk, en vragen dan om geld. Zodra je betaalt, verdwijnen ze.' },
+        { label: 'Voordat je geld geeft: voorstellen via video te bellen', outcome: 'correct',
+          feedbackTitle: 'Slim.',
+          feedbackText: 'Een echt persoon kan makkelijk via video bellen. Een betrouwbare persoon snappen ook dat je voorzichtig bent. Deze persoon zal excuses verzinnen om niet te bellen — en dan is het tijd om afstand te nemen.' },
+        { label: 'Aan je vrienden vragen of je het moet doen', outcome: 'risky',
+          feedbackTitle: 'Je vraagt goed advies, maar...',
+          feedbackText: 'Het gaat niet om ja of nee van vrienden — het gaat om je eigen voorzichtigheid. Video-bellen of niet ontmoeten is de bottleneck.' },
+      ],
+    },
+    theory: {
+      accordion: [
+        { icon: 'fa-heart-crack', title: 'Waarom datingfraude werkt', paragraphs: [
+          'Criminelen spelen op gevoelens in plaats van paniek. Ze nemen weken de tijd, bouwen vertrouwen op, en vragen dan "even om hulp".',
+          'Ze gebruiken gestolen profielen of AI-gegenereerde foto\'s, zodat je niet direct doorhebt dat het nep is.',
+        ], video: { key: 'l6-theory-v1', title: 'Datingfraude herkennen' } },
+        { icon: 'fa-circle-check', title: 'Wat je doet', paragraphs: [
+          'Stel ALTIJD voor via video te bellen voordat je geld geeft — geen uitzonderingen.',
+          'Vertrouw je gevoel als iemand excuses bedenkt om niet te bellen.',
+        ] },
+      ],
+      quiz: {
+        question: 'Hoe lang bouwen oplichters meestal aan een valse relatie voordat ze geld vragen?',
+        options: ['Een paar uur', 'Een paar dagen', 'Weken tot maanden', 'Ze vragen meteen'],
+        correctIndex: 2,
+        feedbackCorrect: 'Klopt — ze nemen weken de tijd zodat je je veilig voelt.',
+        feedbackWrong: 'Ze zijn geduldig: weken of maanden is normaal, zodat je het vertrouwen hebt.',
+      },
+    },
+  },
+
+  l7: {
+    id: 'l7', chapterId: 'h2', kind: 'interactive', icon: 'fa-phone-slash',
+    nodeTitle: 'Bankhelpdeskfraude',
+    sjorsIntro: 'Je krijgt een telefoontje van iemand die zegt van je bank te zijn. Ze klinken professioneel en zeggen dat je account in gevaar is.',
+    scenario: {
+      type: 'choice',
+      eyebrow: 'Telefoongesprek',
+      headline: 'Een zogenaamde medewerker van de bank',
+      lede: 'Je krijgt gebeld door iemand die zegt van je bank te zijn: "Meneer/mevrouw, we hebben ongebruikelijke activiteiten gespot op uw rekening. Kunt u ter plaatse je PIN drie keer achtermekaar intypen om jezelf te verifiëren?"',
+      choices: [
+        { label: 'Je PIN zeggen/intypen — je wilt je account beschermen', outcome: 'wrong',
+          feedbackText: 'Je bank vraagt je nooit om je PIN. Dit is skimming: criminelen geven zich voor als de bank uit om je PIN en rekeninggegevens af te troggelen. Zodra ze die hebben, leegde je rekening.' },
+        { label: 'Het gesprek beëindigen en je bank zelf bellen op een nummer van hun site', outcome: 'correct',
+          feedbackTitle: 'Perfect.',
+          feedbackText: 'Een echte bank vraagt je nooit om sensitieve gegevens via de telefoon. Door zelf te bellen op het nummer van je bank (niet dat wat jij net hebt gekregen), verifieer je of het klopt.' },
+        { label: 'Vragen waarom ze je bellen en dan informatie geven', outcome: 'risky',
+          feedbackTitle: 'Alert, maar niet veilig genoeg.',
+          feedbackText: 'Criminelen hebben goede verhalen klaar. Veiliger is om nooit telefonisch sensitve gegevens af te geven — bel altijd zelf je bank terug.' },
+      ],
+    },
+    theory: {
+      accordion: [
+        { icon: 'fa-phone-slash', title: 'Bankhelpdeskfraude / Skimming', paragraphs: [
+          'Criminelen bellen je op en stellen zich voor als je bank, vaak met een voorprogrammeerde robot die je nam noemt en alarmeert over "onveilige activiteiten".',
+          'Doel: je PIN, rekeningnummer of twee-factor-verificatiecodes uit je mond krijgen. Zodra ze die hebben, hebben ze toegang.',
+        ], video: { key: 'l7-theory-v1', title: 'Bankfraude via telefoontjes' } },
+        { icon: 'fa-shield-halved', title: 'Gouden regel', paragraphs: [
+          'Je bank vraagt je nooit om je PIN, pincode of OTP (eenmalige codes) per telefoon, chat of e-mail.',
+          'Hang op en bel zelf je bank via het nummer op je bankpas of website — niet via het nummer dat jij net hebt ontvangen.',
+        ] },
+      ],
+      quiz: {
+        question: 'Wat zal een echt bankedewerker jou NOOIT via telefoon vragen?',
+        options: [
+          'Je rekeningnummer',
+          'Je PIN',
+          'Je inlognaam',
+          'Je adres ter verificatie',
+        ],
+        correctIndex: 1,
+        feedbackCorrect: 'Klopt — je PIN blijft altijd privé.',
+        feedbackWrong: 'Je PIN zal een echte bankmedewerker nooit vragen via de telefoon.',
+      },
+    },
+  }
 };
 
 const levelOrder = chapters.reduce((acc, c) => acc.concat(c.levelIds), []);
