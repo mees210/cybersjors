@@ -87,15 +87,21 @@ const chapters = [
   },
   {
     id: 'h3',
-    title: 'Geheimschrift door de eeuwen',
-    description: 'Voor versleutelde apps bestonden, deden mensen het al eeuwenlang met pen en koppie.',
-    levelIds: ['t3', 't4', 't5'],
+    title: 'Meer digitale gevaren',
+    description: 'Van een neppe inlogpagina tot een alarmerend pop-up: criminelen zijn creatief.',
+    levelIds: ['l8', 'l9', 'l10'],
   },
   {
     id: 'h4',
-    title: 'Wachtwoorden veilig bewaren',
-    description: 'Hoe een bedrijf jouw wachtwoord zou moeten opslaan — en wat er misgaat als dat niet gebeurt.',
-    levelIds: ['t6'],
+    title: 'Jouw digitale veiligheid',
+    description: 'Hoe beschermen jij — en de bedrijven waar je mee werkt — je gegevens echt?',
+    levelIds: ['t7', 't6'],
+  },
+  {
+    id: 'h5',
+    title: 'Afsluittoets',
+    description: 'Alles wat je hebt geleerd, samengebracht in één grote toets. Slaag je voor 70%?',
+    levelIds: ['l11'],
   },
 ];
 
@@ -211,7 +217,7 @@ const levels = {
         { icon: 'fa-user-secret', title: 'Wat is social engineering?', paragraphs: [
           'Social engineering is het psychologisch bespelen van mensen, in plaats van het technisch kraken van systemen.',
           'De meeste beveiligingsincidenten beginnen niet met slimme code, maar met iemand die overgehaald wordt om toegang of informatie weg te geven.',
-        ], video: { key: 't1-v1', title: 'Wat is social engineering?' } },
+        ], video: { key: 't1-v1', title: 'Wat is social eniigineering?' } },
         { icon: 'fa-envelope-open-text', title: 'De vaste kenmerken van een phishingmail', paragraphs: [
           'Een afzenderadres dat net niet klopt met het echte bedrijf, vaak met een kleine afwijking of een vreemde extensie.',
           'Kunstmatige tijdsdruk of een dreigement: een deadline van een paar uur, of de belofte dat een account anders geblokkeerd wordt.',
@@ -291,21 +297,18 @@ const levels = {
   l4: {
     id: 'l4', chapterId: 'h2', kind: 'interactive', icon: 'fa-qrcode',
     nodeTitle: 'QR-code op de parkeerautomaat',
-    sjorsIntro: 'Je staat bij een parkeerautomaat. Lees de situatie en kies wat jij zou doen.',
+    sjorsIntro: 'Je staat bij een parkeerautomaat in de stad. Bekijk de situatie goed voor je iets doet.',
     scenario: {
-      type: 'choice',
-      eyebrow: 'Bij de parkeerautomaat',
-      headline: 'Sneller betalen? Scan hier!',
-      lede: 'Naast het normale betaalscherm van de automaat hangt een los stickertje met een QR-code en de tekst "Sneller betalen? Scan hier!".',
+      type: 'parking-qr',
       choices: [
-        { label: 'De QR-code scannen en direct je kaartgegevens invullen', outcome: 'wrong',
-          feedbackText: 'Dit stickertje is los op de automaat geplakt door een crimineel en leidt naar een nepbetaalpagina. Je parkeergeld gaat zo rechtstreeks naar een vreemde — en je kaartgegevens erbij.' },
-        { label: 'Scannen, maar wel eerst de link goed bekijken voor je iets invult', outcome: 'risky',
-          feedbackTitle: 'Beter, maar nog niet ideaal.',
-          feedbackText: 'Een nepdomein kan verrassend overtuigend ogen, en onder tijdsdruk bij een automaat mis je een typfoutje zo. Veiliger is om losse stickertjes sowieso te negeren.' },
-        { label: 'De officiële parkeer-app gebruiken, of gewoon bij de automaat zelf betalen', outcome: 'correct',
-          feedbackTitle: 'Precies.',
-          feedbackText: 'Officiële betaalmethodes scan je niet via een los geplakt stickertje. Geen automaat of app beschikbaar? Dan is een telefoontje naar de gemeente veiliger dan scannen.' },
+        { label: 'QR-code scannen en betalen via de link', outcome: 'wrong',
+          feedbackText: 'Dit stickertje is vals — het is door een crimineel op de automaat geplakt. Erachter zit een nepbetaalpagina die jouw kaartgegevens doorstuurt. Je parkeert nergens voor en je kaartgegevens zijn gestolen.' },
+        { label: 'De sticker van de automaat halen en de gemeente bellen', outcome: 'correct',
+          feedbackTitle: 'Precies goed.',
+          feedbackText: 'Door de sticker te verwijderen bescherm jij ook de volgende persoon. Meld het aan de gemeente — zij kunnen de automaat laten controleren. Gebruik daarna de officiële parkeer-app of de automaat zelf.' },
+        { label: 'QR negeren — gewoon de officiële app of automaat gebruiken', outcome: 'risky',
+          feedbackTitle: 'Goed voor jezelf, maar...',
+          feedbackText: 'Jij betaalt veilig — dat is goed. Maar de nep-sticker hangt er nog steeds voor de volgende persoon. Het kost maar even om hem eraf te trekken en de gemeente te bellen.' },
       ],
     },
     theory: {
@@ -333,21 +336,30 @@ const levels = {
   l5: {
     id: 'l5', chapterId: 'h2', kind: 'interactive', icon: 'fa-file-invoice',
     nodeTitle: 'De factuur-val',
-    sjorsIntro: 'Je krijgt een mailtje met een bijlage. Bekijk de situatie rustig en bepaal wat jij zou doen.',
+    sjorsIntro: 'Je krijgt een mail binnen op je computer. Lees hem rustig door voor je een beslissing maakt.',
     scenario: {
-      type: 'choice',
-      eyebrow: 'Je inbox',
-      headline: 'Bijlage: Factuur.pdf.exe',
-      lede: 'Je krijgt een mail binnen met als onderwerp "Openstaande factuur" en één bijlage: Factuur.pdf.exe.',
+      type: 'inbox-attachment',
+      email: {
+        from: 'noreply@facturen-service-nl.com',
+        subject: 'Openstaande factuur — actie vereist',
+        body: [
+          'Geachte relatie,',
+          'Bijgevoegd vindt u onze factuur voor de geleverde diensten in de afgelopen periode. Wij verzoeken u dit bedrag binnen 5 werkdagen te voldoen.',
+          'Bij vragen kunt u contact opnemen via dit e-mailadres.',
+          'Met vriendelijke groet,',
+          'Facturatieafdeling',
+        ],
+        attachment: { safeName: 'Factuur.pdf', dangerExt: '.exe', size: '52 KB' },
+      },
       choices: [
-        { label: 'De bijlage direct openen om te kijken wat het is', outcome: 'wrong',
-          feedbackText: "Achter '.pdf.exe' gaat geen document schuil, maar een uitvoerbaar programma. Eenmaal geopend installeert het zichzelf gewoon — vaak gevolgd door een scherm dat losgeld eist, of stille spionagesoftware op de achtergrond." },
-        { label: 'De bijlage doorsturen naar een collega, met de vraag of die hem herkent', outcome: 'risky',
-          feedbackTitle: 'Begrijpelijk, maar...',
-          feedbackText: 'Zo verspreid je het risico alleen maar verder: opent jouw collega hem, dan is die net zo kwetsbaar. Meld een verdachte bijlage liever bij IT, of verwijder hem gewoon.' },
-        { label: 'De bestandsnaam goed bekijken, niets openen, en de mail verwijderen of melden', outcome: 'correct',
+        { label: 'De bijlage openen — misschien is het echt', outcome: 'wrong',
+          feedbackText: "Je hebt zojuist ransomware geïnstalleerd. De '.exe' na '.pdf' maakt het een uitvoerbaar programma, geen document. Eenmaal geopend versleutelt het jouw bestanden en eist losgeld om ze terug te krijgen." },
+        { label: 'Bestandsnaam bekijken: dat \".exe\" valt op — mail verwijderen of melden', outcome: 'correct',
           feedbackTitle: 'Goed gezien.',
-          feedbackText: "Een extensie als '.exe' na '.pdf' is een rode vlag: het bestand doet zich voor als een onschuldig document, maar is in werkelijkheid een programma." },
+          feedbackText: "Een echte factuur is een .pdf, .docx of .xlsx — nooit een .exe. Die extensie betekent: uitvoerbaar programma. Verwijder de mail of meld hem bij IT of de Fraudehelpdesk." },
+        { label: 'Doorsturen naar een collega — misschien herkent die hem', outcome: 'risky',
+          feedbackTitle: 'Begrijpelijk, maar gevaarlijk.',
+          feedbackText: 'Als jouw collega hem opent, is die net zo kwetsbaar. Stuur verdachte bijlagen nooit door — meld ze bij IT of de Fraudehelpdesk, of verwijder ze.' },
       ],
     },
     theory: {
@@ -396,152 +408,49 @@ const levels = {
     },
   },
 
-  /* ============================ H3 ============================ */
-
-  t3: {
-    id: 't3', chapterId: 'h3', kind: 'theory', icon: 'fa-feather-pointer',
-    nodeTitle: 'Verstoppen & verschuiven',
-    sjorsIntro: 'Voor het internet bestond, versleutelden mensen al eeuwenlang berichten — met inkt, rasters en een beetje rekenwerk. Puur theorie, lekker rustig doorlezen.',
-    theory: {
-      accordion: [
-        { icon: 'fa-droplet', title: 'Steganografie: een boodschap verstoppen', paragraphs: [
-          'Steganografie verstopt niet de inhoud van een bericht, maar het bestaan ervan: alleen wie weet waar te kijken, vindt het.',
-          'Een klassiek voorbeeld is onzichtbare inkt (zoals citroensap), die alleen leesbaar wordt als de brief wordt verhit. De moderne variant verstopt data binnen een gewoon ogend bestand, zoals een afbeelding.',
-        ], video: { key: 't3-v1', title: 'Steganografie: berichten verstoppen' } },
-        { icon: 'fa-shuffle', title: 'Transpositie: dezelfde letters, andere volgorde', paragraphs: [
-          'Bij transpositie verander je niets aan de letters zelf, maar wel aan hun volgorde.',
-          'Een eenvoudig voorbeeld: splits een zin in de letters op even posities en de letters op oneven posities, en schrijf die als twee losse reeksen op. Wie het trucje kent, kan het zo weer omdraaien.',
-        ] },
-        { icon: 'fa-shapes', title: 'Substitutie: de Pigpen-cipher en het cijfer van Caesar', paragraphs: [
-          'Substitutie vervangt elke letter door een ander teken volgens een vaste regel die afzender en ontvanger samen kennen.',
-          'De Pigpen-cipher gebruikt een raster waarin elke letter een eigen meetkundig symbool krijgt.',
-          'Het cijfer van Caesar schuift het hele alfabet een vast aantal plekken op: bij een verschuiving van 3 wordt de A bijvoorbeeld een D.',
-        ] },
-      ],
-      quiz: {
-        question: 'Bij het cijfer van Caesar verschuif je het hele alfabet met een vast aantal plekken. Als de verschuiving "2" is, waar wordt de letter A dan?',
-        options: ['B', 'C', 'Z', 'D'],
-        correctIndex: 1,
-        feedbackCorrect: 'Klopt — twee plekken opschuiven vanaf de A geeft de C.',
-        feedbackWrong: 'Tel het nog eens na: twee plekken vanaf de A in het alfabet komt uit op de C.',
-      },
-    },
-  },
-
-  t4: {
-    id: 't4', chapterId: 'h3', kind: 'theory', icon: 'fa-puzzle-piece',
-    nodeTitle: 'Code kraken',
-    sjorsIntro: 'Hoe kraak je een geheimschrift zonder de sleutel te kennen? Met geduld, statistiek — en uiteindelijk de eerste computer ooit.',
-    theory: {
-      accordion: [
-        { icon: 'fa-chart-column', title: 'Eén vaste vervanging is te kraken: frequentieanalyse', paragraphs: [
-          'Bij een monoalfabetische substitutie staat altijd vast welke letter een andere letter wordt. Daardoor blijft de natuurlijke frequentie van letters in een taal zichtbaar.',
-          "In het Nederlands is de 'e' bijvoorbeeld veruit de meest voorkomende letter. Door te tellen hoe vaak elk symbool in een versleuteld bericht voorkomt en dat te vergelijken met die bekende frequenties, kun je de vervangingen langzaam achterhalen.",
-        ], video: { key: 't4-v1', title: 'Frequentieanalyse: een geheimschrift kraken' } },
-        { icon: 'fa-table-cells', title: 'Polyalfabetische verwarring: het cijfer van Vigenère', paragraphs: [
-          'In plaats van één vaste verschuiving gebruikt het cijfer van Vigenère een herhaald sleutelwoord, waardoor de verschuiving per letter verschilt.',
-          'Hierdoor kan dezelfde letter uit de oorspronkelijke tekst telkens als een ander symbool verschijnen, wat eenvoudige frequentieanalyse onbruikbaar maakt.',
-        ] },
-        { icon: 'fa-gears', title: 'De Enigma-machine en de Bombe van Turing', paragraphs: [
-          'De Enigma was een mechanisch-elektrische versleutelmachine die door het Duitse leger in de Tweede Wereldoorlog werd gebruikt, met meerdere rotoren en een stekkerbord die samen een enorm aantal mogelijke instellingen opleverden.',
-          'De Brit Alan Turing ontwikkelde een machine, de "Bombe", die misbruik maakte van een voorspelbare gewoonte van Duitse operators: berichten altijd op dezelfde manier afsluiten. Daardoor kon de dagelijkse instelling vaak binnen ongeveer twintig minuten gevonden worden.',
-          'Historici schatten dat dit de oorlog met zo\u2019n twee jaar heeft verkort. De Bombe wordt vaak gezien als een van de eerste computers ooit.',
-        ] },
-      ],
-      quiz: {
-        question: 'Wat maakte het cijfer van Vigenère lastiger te kraken dan een simpel cijfer van Caesar?',
-        options: [
-          'Het gebruikte cijfers in plaats van letters',
-          'Dezelfde letter in de oorspronkelijke tekst kon door een herhaald sleutelwoord telkens anders verschijnen',
-          'Het werd alleen mondeling doorgegeven',
-          'Er was geen sleutel voor nodig',
-        ],
-        correctIndex: 1,
-        feedbackCorrect: 'Klopt — daardoor werkte een simpele frequentieanalyse niet meer.',
-        feedbackWrong: 'Niet helemaal. De kracht zat in het herhaalde sleutelwoord, waardoor dezelfde letter telkens anders versleuteld kon worden.',
-      },
-    },
-  },
-
-  t5: {
-    id: 't5', chapterId: 'h3', kind: 'theory', icon: 'fa-lock',
-    nodeTitle: 'Digitale sloten',
-    sjorsIntro: 'Dit is de stap van potlood-en-papier naar bits. Hoe vergrendel je iets digitaal — en wie heeft daar straks de sleutel toe nodig?',
-    theory: {
-      accordion: [
-        { icon: 'fa-code-compare', title: 'XOR: de digitale basisbewerking', paragraphs: [
-          'XOR is een bewerking die twee bits vergelijkt en alleen een 1 oplevert wanneer ze van elkaar verschillen.',
-          'Een handige eigenschap van XOR is dat hij zichzelf ongedaan maakt: pas je dezelfde sleutel twee keer toe, dan krijg je het origineel terug. Dat maakt XOR een eenvoudige bouwsteen voor digitale versleuteling.',
-        ], video: { key: 't5-v1', title: 'XOR-versleuteling uitgelegd' } },
-        { icon: 'fa-key', title: 'Symmetrisch versus asymmetrisch versleutelen', paragraphs: [
-          'Bij symmetrische encryptie vergrendelt en ontgrendelt één gedeelde sleutel het bericht — eenvoudig, maar riskant: onderschept iemand de sleutel, dan ligt alles open.',
-          'Bij asymmetrische encryptie gebruik je een wiskundig gekoppeld sleutelpaar: de publieke sleutel versleutelt, en alleen de bijbehorende privésleutel kan ontsleutelen. De publieke sleutel mag vrij gedeeld worden, zonder dat dit de beveiliging in gevaar brengt.',
-        ] },
-        { icon: 'fa-square-root-variable', title: 'RSA: een digitale weg met maar één richting', paragraphs: [
-          'RSA steunt op wiskundige eenrichtingsfuncties: in de ene richting makkelijk te berekenen, maar in de andere richting — zonder de juiste sleutel — extreem lastig om terug te draaien.',
-          'De methode is genoemd naar de drie uitvinders: Rivest, Shamir en Adleman.',
-        ] },
-        { icon: 'fa-certificate', title: 'Certificaten, man-in-the-middle en quantum computing', paragraphs: [
-          'Een certificaat, uitgegeven door een vertrouwde autoriteit, bewijst dat de publieke sleutel van een website daadwerkelijk bij die website hoort. Dit beschermt tegen een man-in-the-middle-aanvaller die ongezien het verkeer tussen twee partijen onderschept of aanpast.',
-          'Quantumcomputers vormen op de langere termijn een bedreiging: door hun fundamenteel andere manier van rekenen (met qubits) zouden ze in theorie veel sneller door huidige versleuteling heen kunnen breken, wat onderzoek naar nieuwe, quantumbestendige methodes nu al aanjaagt.',
-        ] },
-      ],
-      quiz: {
-        question: 'Wat is het grote voordeel van asymmetrische encryptie ten opzichte van symmetrische?',
-        options: [
-          'Het is altijd sneller',
-          'Je kunt de publieke sleutel vrij delen zonder dat dit de beveiliging in gevaar brengt',
-          'Er is geen sleutel nodig',
-          'Het werkt alleen offline',
-        ],
-        correctIndex: 1,
-        feedbackCorrect: 'Klopt — de publieke sleutel mag iedereen weten, alleen de privésleutel moet geheim blijven.',
-        feedbackWrong: 'Niet helemaal. Het grote voordeel is dat je de publieke sleutel vrij mag delen, zonder dat dit de beveiliging schaadt.',
-      },
-    },
-  },
-
   /* ============================ H4 ============================ */
 
   t6: {
-    id: 't6', chapterId: 'h4', kind: 'theory', icon: 'fa-fingerprint',
-    nodeTitle: 'Hashing, salt & pepper',
-    sjorsIntro: 'Hoe zou jouw wachtwoord eigenlijk opgeslagen moeten worden door een bedrijf waar je een account hebt? Niet zoals jij het intypt, in elk geval.',
+    id: 't6', chapterId: 'h4', kind: 'theory', icon: 'fa-network-wired',
+    nodeTitle: 'Keyloggers, IP-adressen & bedrijfsbeveiliging',
+    sjorsIntro: 'Als jij op internet zit, laat je sporen achter. En sommige software is er specifiek op gericht die sporen te misbruiken — ook bij grote bedrijven.',
     theory: {
       accordion: [
-        { icon: 'fa-fingerprint', title: 'Wat hashing is', paragraphs: [
-          'Hashing is een eenrichtings-wiskundige functie die een wachtwoord omzet in een vaste, onleesbare reeks tekens.',
-          'Dezelfde invoer levert altijd dezelfde hash op, maar een hash is niet terug te rekenen naar het oorspronkelijke wachtwoord. Een zorgvuldig ingericht systeem slaat daarom nooit het wachtwoord zelf op, alleen de hash.',
-        ], video: { key: 't6-v1', title: 'Hashing, salt en pepper uitgelegd' } },
-        { icon: 'fa-table-list', title: 'Rainbow tables: de zwakte van platte hashing', paragraphs: [
-          'Aanvallers berekenen vooraf enorme tabellen met veelgebruikte wachtwoorden en hun bijbehorende hashes, een "rainbow table".',
-          'Daarmee kunnen ze een gestolen hash direct opzoeken in plaats van hem te moeten kraken — met als gevolg dat populaire wachtwoorden overal dezelfde, voorspelbare hash opleveren.',
+        { icon: 'fa-keyboard', title: 'Wat een keylogger is', paragraphs: [
+          'Een keylogger is software die in het geheim elke toetsaanslag vastlegt — inclusief wachtwoorden, banknummers en privégesprekken.',
+          'Keyloggers verstopt zichzelf diep in het systeem en stuurt de gegevens periodiek door naar een aanvaller, zonder dat jij ook maar iets merkt.',
+          'Hoe kom je er een? Via een besmette bijlage, een nep-update, of een publieke computer die al besmet was. Tip: log nooit in op een publieke computer voor iets gevoeligs.',
+        ], video: { key: 't6-v1', title: 'Keyloggers: hoe criminelen meeluisteren' } },
+        { icon: 'fa-globe', title: 'IP-adressen: jouw digitale locatie', paragraphs: [
+          'Elk apparaat dat verbinding maakt met het internet krijgt een IP-adres — een soort huisnummer voor je verbinding.',
+          'Websites, apps en criminelen kunnen via je IP-adres zien bij welke provider je hoort en globaal in welke regio je zit.',
+          'Criminelen die IP-adressen verzamelen, kunnen die gebruiken om gerichte aanvallen te plannen of te achterhalen welk bedrijf achter een adres zit.',
         ] },
-        { icon: 'fa-mortar-pestle', title: 'Salt: een snufje toeval per wachtwoord', paragraphs: [
-          'Salt is een unieke, willekeurige waarde die voor elk wachtwoord apart wordt toegevoegd, vóór het hashen.',
-          'Twee mensen met exact hetzelfde wachtwoord krijgen daardoor toch twee volledig verschillende hashes — waardoor een vooraf berekende rainbow table niets meer oplevert.',
+        { icon: 'fa-door-open', title: 'Poorten & firewalls', paragraphs: [
+          'Een computer heeft duizenden digitale "poorten" — virtuele ingangen voor bepaald verkeer. Poort 80 is voor normale websites (HTTP), poort 443 voor beveiligde verbindingen (HTTPS), poort 22 voor externe toegang (SSH).',
+          'Een firewall bewaakt welke poorten open of dicht zijn. Poorten die niet nodig zijn worden afgesloten, zodat aanvallers geen toegang kunnen krijgen via ongebruikte ingangen.',
         ] },
-        { icon: 'fa-pepper-hot', title: 'Pepper, keyloggers, IP-adressen en poorten', paragraphs: [
-          'Pepper is net als salt een extra waarde, maar dan over de hele database heen toegepast en apart van elk wachtwoord opgeslagen — een gestolen database alleen is dan niet genoeg om er iets mee te doen.',
-          'Een keylogger is software die in het geheim elke toetsaanslag vastlegt — precies waarom een sterk opgeslagen wachtwoord geen verdediging is tegen een al besmet apparaat.',
-          'IP-adressen en poorten zijn de technische "adressen" waarmee computers elkaar online vinden; poort 80 is bijvoorbeeld de standaard voor normaal websiteverkeer.',
+        { icon: 'fa-building-shield', title: 'Hoe bedrijven zichzelf beveiligen', paragraphs: [
+          'Grote bedrijven hebben een Security Operations Center (SOC): een team dat 24/7 het netwerk in de gaten houdt op verdacht gedrag.',
+          'Ze gebruiken software die alle logins, bestandstoegang en netwerkverkeer bijhoudt — zo valt een keylogger of ongewone aanmelding snel op.',
+          'Medewerkers worden getraind om phishingmails te herkennen, want ook in een groot bedrijf is de medewerker vaak de zwakste schakel: één klik op een foute bijlage kan het hele netwerk in gevaar brengen.',
+          'Tweestapsverificatie, regelmatige back-ups en versleutelde opslag zijn de basismaatregelen die elk bedrijf zou moeten nemen.',
         ] },
       ],
       quiz: {
-        question: 'Waarom helpt "salt" tegen een rainbow table-aanval?',
+        question: 'Welke maatregel beschermt een bedrijfsnetwerk het best tegen verbindingen via ongebruikte digitale ingangen?',
         options: [
-          'Salt maakt het wachtwoord langer',
-          'Salt zorgt dat twee identieke wachtwoorden toch een andere hash krijgen, waardoor een vooraf berekende tabel niet meer werkt',
-          'Salt verstuurt het wachtwoord versleuteld',
-          'Salt is een ander woord voor wachtwoord',
+          'Een sterk wachtwoord voor de wifi',
+          'Een firewall die overbodige poorten sluit',
+          'Antivirussoftware op elke computer',
+          'Medewerkers verplichten hun wachtwoord elke week te wisselen',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — daardoor heeft een aanvaller geen bruikbare vooraf berekende tabel meer.',
-        feedbackWrong: 'Niet helemaal. Salt zorgt er vooral voor dat identieke wachtwoorden tóch verschillende hashes krijgen.',
+        feedbackCorrect: 'Klopt — een firewall die onnodige poorten dichtgooit, verkleint het aanvalsoppervlak aanzienlijk.',
+        feedbackWrong: 'Een firewall die onnodige poorten afsluit, is hiervoor het meest directe antwoord — het verkleint het aanvalsoppervlak.',
       },
     },
   },
-
   l6: {
     id: 'l6', chapterId: 'h2', kind: 'interactive', icon: 'fa-heart-crack',
     nodeTitle: 'Datingfraude',
@@ -683,8 +592,351 @@ const levels = {
         feedbackWrong: 'Je PIN zal een echte bankmedewerker nooit vragen via de telefoon.',
       },
     },
-  }
-};
+  },
+
+  /* ============================ H3 (nieuw) ============================ */
+
+  l8: {
+    id: 'l8', chapterId: 'h3', kind: 'interactive', icon: 'fa-globe',
+    nodeTitle: 'De neppe inlogpagina',
+    sjorsIntro: 'Je hebt op een link geklikt in een mail van "DigiD". Je belandt op de pagina hieronder. Kijk goed voor je iets doet...',
+    scenario: {
+      type: 'fake-site',
+      fakeUrl: 'www.digiid.nl',
+      brand: 'DigiD',
+      logoIcon: 'fa-id-card',
+      loginBtnText: 'Inloggen',
+      choices: [
+        { label: 'Inloggen — de site ziet er professioneel en echt uit', outcome: 'wrong',
+          feedbackText: 'Je gegevens zijn verstuurd naar een crimineel. "Digiid.nl" heeft twee keer de letter i in plaats van één — dat valt op het eerste gezicht nauwelijks op. Criminelen registreren bewust zulke look-alike domeinen om mensen te misleiden.' },
+        { label: 'De URL in de adresbalk goed bekijken — en de pagina verlaten', outcome: 'correct',
+          feedbackTitle: 'Goed gezien!',
+          feedbackText: '"digiid.nl" heeft twee i\'s — de echte dienst is "digid.nl". Één letter verschil, groot gevolg. Controleer altijd de URL voor je inlogt, en navigeer bij twijfel zelf naar de echte site via je favorieten.' },
+      ],
+    },
+    theory: {
+      accordion: [
+        { icon: 'fa-globe', title: 'Hoe een neppe inlogpagina werkt', paragraphs: [
+          'Criminelen maken een exacte kopie van een bekende website — zoals DigiD, je bank of een webshop — en registreren een domeinnaam die er heel op lijkt.',
+          'Ze sturen je via mail of sms naar die neppe pagina. Je typt niets fout, alles ziet er goed uit — maar je gegevens worden naar de crimineel gestuurd in plaats van naar de echte dienst.',
+        ], video: { key: 'l8-theory-v1', title: 'Neppe inlogpagina\'s herkennen' } },
+        { icon: 'fa-magnifying-glass', title: 'Hoe je de echte pagina herkent', paragraphs: [
+          'Controleer altijd de URL in de adresbalk: is het domein precies correct, zonder extra letters, koppeltekens of vreemd uitziende toevoegingen?',
+          'Gebruik bij voorkeur je favorieten of zoek de site zelf op, in plaats van op een link in een mail te klikken.',
+          'Twijfel je toch? Bel het bedrijf op het nummer dat je al had — nooit op een nummer in de verdachte mail zelf.',
+        ] },
+      ],
+      quiz: {
+        question: 'Je wil inloggen bij je bank. Wat is de veiligste manier om op de inlogpagina te komen?',
+        options: [
+          'De link in de e-mail van je bank volgen',
+          'De naam van de bank intypen in Google en de eerste link klikken',
+          'Het adres dat je al in je favorieten hebt staan gebruiken, of zelf intypen',
+          'Wachten tot je bank je een sms stuurt met een link',
+        ],
+        correctIndex: 2,
+        feedbackCorrect: 'Klopt — je favorieten of zelf intypen is het veiligst. Zoekresultaten en links in mails kunnen nep zijn.',
+        feedbackWrong: 'Niet de veiligste route. Gebruik je favorieten of typ het adres zelf in — zo kom je gegarandeerd op de echte site.',
+      },
+    },
+  },
+
+  l9: {
+    id: 'l9', chapterId: 'h3', kind: 'interactive', icon: 'fa-headset',
+    nodeTitle: 'Nep tech support',
+    sjorsIntro: 'Je bent rustig aan het internetten als dit scherm plotseling verschijnt...',
+    scenario: {
+      type: 'tech-support-popup',
+      fakeUrl: 'security-alert-windows-critical.ru/scan-result?id=498721',
+      popup: {
+        brand: 'Microsoft Windows Security',
+        title: 'KRITIEKE WAARSCHUWING',
+        subtitle: 'Uw computer is geïnfecteerd met 5 virussen',
+        body: 'Uw persoonlijke bestanden en wachtwoorden worden op dit moment gestolen. Bel ONMIDDELLIJK onze beveiligingslijn om uw computer te beschermen. Sluit dit venster NIET.',
+        phone: '0800-MICROSOFT\n0800 642 776 728',
+      },
+      choices: [
+        { label: 'Het nummer bellen — dit klinkt urgent', outcome: 'wrong',
+          feedbackText: 'Dit is nep tech support-fraude. Dat "noodhulp"-nummer verbindt je met een crimineel die doet alsof hij van Microsoft is. Ze vragen je om software te installeren waarmee ze afstand-toegang krijgen tot je computer — en dan gaan ze aan de haal met je bestanden of bankgegevens.' },
+        { label: 'Het browser-tabblad sluiten of de computer herstarten', outcome: 'correct',
+          feedbackTitle: 'Precies goed.',
+          feedbackText: 'Microsoft stuurt je nooit zulke pop-ups — ze weten niet eens dat jij dit scherm ziet. Dit soort meldingen werkt via gewone webscripts, geen echte virusscan. Altijd gewoon het tabblad sluiten. Als je zeker wil zijn: herstart de computer.' },
+        { label: 'Op de link in het scherm klikken voor meer informatie', outcome: 'wrong',
+          feedbackText: 'Klikken op links in dit soort schermen kan écht malware installeren. Het enige juiste is de pagina sluiten, zonder ergens op te klikken.' },
+      ],
+    },
+    theory: {
+      accordion: [
+        { icon: 'fa-headset', title: 'Nep tech support: hoe het werkt', paragraphs: [
+          'Criminelen maken een webpagina die de browser "bevriest" met een alarmerend scherm, inclusief nep-geluidseffecten en een telefoonnummer.',
+          'Wie belt, krijgt iemand aan de lijn die doet alsof hij van Microsoft of Apple is. Ze overtuigen je "bewijs" te zien van virussen en vragen dan om software te installeren waarmee ze afstand-toegang krijgen.',
+          'Zo kunnen ze wachtwoorden stelen, bestanden versleutelen voor losgeld, of betaalprogramma\'s installeren.',
+        ], video: { key: 'l9-theory-v1', title: 'Nep tech support herkennen' } },
+        { icon: 'fa-circle-check', title: 'Wat je doet als dit scherm verschijnt', paragraphs: [
+          'Klik nergens op — zelfs het kruisje kan een valkuil zijn op zo\'n nepscherm.',
+          'Sluit het tabblad via de tabbladbalk boven in je browser, of gebruik Taakbeheer (Windows) / Forceer afsluiten (Mac) om de browser geforceerd te sluiten.',
+          'Heeft iemand toch gebeld en toegang gegeven? Ontkoppel de wifi, zet de computer uit en neem contact op met een echte IT-expert of bel de Fraudehelpdesk.',
+        ] },
+      ],
+      quiz: {
+        question: 'Je ziet een alarmerend scherm met de tekst dat je computer besmet is en een Microsoft-nummer om te bellen. Wat doe je?',
+        options: [
+          'Het nummer bellen om te vragen wat er aan de hand is',
+          'Het browser-tabblad sluiten — Microsoft stuurt dit soort meldingen nooit',
+          'Je wachtwoord veranderen op de site die het scherm toont',
+          'Op de link in het scherm klikken voor meer uitleg',
+        ],
+        correctIndex: 1,
+        feedbackCorrect: 'Klopt — dit is altijd nep. Browser sluiten, eventueel herstarten.',
+        feedbackWrong: 'Dit soort scherm is altijd nep. Nooit het nummer bellen of ergens op klikken — gewoon het tabblad of de browser sluiten.',
+      },
+    },
+  },
+
+  l10: {
+    id: 'l10', chapterId: 'h3', kind: 'interactive', icon: 'fa-box',
+    nodeTitle: 'Pakketfraude',
+    sjorsIntro: 'Je wacht op een pakket en krijgt onderstaand sms-bericht op je telefoon. Kijk goed naar de details.',
+    scenario: {
+      type: 'sms-phishing',
+      sender: 'PostNL',
+      senderSub: 'Ontvangen via sms',
+      messages: [
+        { text: 'PostNL: Uw pakket (NL84730283) kon helaas niet worden bezorgd. Er zijn €1,95 douanekosten vereist. Betaal binnen 24 uur via: postnl-bezorging.ru/pakket of uw pakket wordt retour gestuurd.' },
+      ],
+      choices: [
+        { label: '€1,95 betalen via de link — dat is toch nauwelijks geld', outcome: 'wrong',
+          feedbackText: 'De link gaat niet naar PostNL, maar naar een nepsite die je betaalgegevens steelt. Criminelen kiezen bewust een klein bedrag zodat je er niet lang over nadenkt. Eenmaal ingevoerd zijn je kaartgegevens in handen van de oplichter.' },
+        { label: 'De link negeren en zelf het track-and-trace checken op postnl.nl', outcome: 'correct',
+          feedbackTitle: 'Precies.',
+          feedbackText: 'PostNL stuurt je nooit een betaallink per sms voor douanekosten. Controleer altijd via de echte PostNL-app of via postnl.nl — het pakket is gewoon te vinden als er echt iets mee is.' },
+        { label: 'Het bericht doorsturen naar vrienden — kennen zij dit?', outcome: 'risky',
+          feedbackTitle: 'Begrijpelijk, maar...',
+          feedbackText: 'Je verspreidt zo de oplichterij verder. Vrienden kunnen zomaar op de link klikken. Beter: het bericht melden bij Fraudehelpdesk.nl en direct verwijderen.' },
+      ],
+    },
+    theory: {
+      accordion: [
+        { icon: 'fa-box', title: 'Pakketfraude: slimme timing', paragraphs: [
+          'Criminelen sturen massaal sms-berichten met een neppe post- of pakketdienst als afzender. Ze kiezen bewust een vaag, geloofwaardig scenario: "er zijn douanekosten" of "uw pakket is tegengehouden".',
+          'Het gevraagde bedrag is expres laag — je twijfelt minder over €1,95 dan over €195. Maar zodra je betaalt, staan je kaartgegevens op de server van de oplichter.',
+        ], video: { key: 'l10-theory-v1', title: 'Pakketfraude via sms herkennen' } },
+        { icon: 'fa-magnifying-glass', title: 'Echt van nep onderscheiden', paragraphs: [
+          'De echte PostNL, DHL of DPD sturen nooit een betaallink per sms voor douanekosten.',
+          'Controleer altijd via de officiële app of website of er echt iets met je pakket aan de hand is.',
+          'Twijfel over het domein? Typ het adres van de echte dienst altijd zelf in — klik nooit op de link in het bericht.',
+        ] },
+      ],
+      quiz: {
+        question: 'Je krijgt een sms van "DHL" dat je €2,50 moet betalen voor douanekosten, met betaallink. Wat doe je?',
+        options: [
+          'Betalen — het is maar een klein bedragje',
+          'De link doorklikken om eerst te kijken waar je uitkomt',
+          'De link negeren en zelf checken op de echte DHL-site of -app',
+          'Het bericht bewaren voor als het pakket aankomt',
+        ],
+        correctIndex: 2,
+        feedbackCorrect: 'Klopt — altijd zelf naar de officiële site, nooit via de link in het bericht.',
+        feedbackWrong: 'Controleer altijd zelf via de echte DHL-site of -app — links in dit soort berichten gaan bijna nooit naar de echte dienst.',
+      },
+    },
+  },
+
+  /* ============================ H4 (nieuw) ============================ */
+
+  t7: {
+    id: 't7', chapterId: 'h4', kind: 'interactive', icon: 'fa-user-ninja',
+    nodeTitle: 'Wifi-gevaren in het café',
+    sjorsIntro: 'Je zit in een café en wil verbinding maken met wifi. Kijk goed naar de beschikbare netwerken voor je een keuze maakt.',
+    scenario: {
+      type: 'wifi-chooser',
+      setting: '☕ Grand Café De Hoek — Amsterdam',
+      intro: 'Je haalt je laptop tevoorschijn en opent de wifi-instellingen. Je ziet drie netwerken.',
+      networks: [
+        { id: 'official',  name: 'GrandCafe_DeHoek',   secured: true,  bars: 3, label: 'Beveiligd netwerk' },
+        { id: 'evil-twin', name: 'GrandCafe_DeHoek_',  secured: false, bars: 5, label: 'Open netwerk', highlight: true },
+        { id: 'suspicious',name: 'FREE_INTERNET_NOW',  secured: false, bars: 2, label: 'Open netwerk' },
+      ],
+      choices: [
+        { label: 'Verbinding maken met "GrandCafe_DeHoek_" — sterkste signaal!', outcome: 'wrong',
+          feedbackText: 'Dit is een "Evil Twin"-netwerk. Criminelen zetten bewust een netwerk neer met een bijna-identieke naam én het sterkste signaal. Al je wifi-verkeer gaat nu door de handen van de aanvaller — inclusief wachtwoorden.' },
+        { label: 'Verbinding maken met "GrandCafe_DeHoek" — ziet er officieel uit', outcome: 'risky',
+          feedbackTitle: 'Beter, maar nog niet ideaal.',
+          feedbackText: 'Je kiest tenminste niet de evil twin — goed. Maar openbaar wifi is nooit helemaal veilig. Gebruik altijd een VPN als je op openbaar wifi werkt, of schakel over naar je eigen mobiele data.' },
+        { label: 'Het personeel vragen welk netwerk echt van het café is, daarna pas verbinden', outcome: 'correct',
+          feedbackTitle: 'Precies goed.',
+          feedbackText: 'Door te vragen weet je zeker welk netwerk officieel is. Gebruik bij voorkeur ook een VPN op openbaar wifi, of schakel voor gevoelige zaken over naar je eigen mobiele data.' },
+      ],
+    },
+    theory: {
+      accordion: [
+        { icon: 'fa-user-ninja', title: 'Wat een man-in-the-middle-aanval is', paragraphs: [
+          'Bij een man-in-the-middle-aanval (MITM) plaatst een aanvaller zichzelf onzichtbaar tussen jou en de dienst waarmee je communiceert.',
+          'Het lijkt of je rechtstreeks met je bank praat, maar de aanvaller leest mee en kan gegevens aanpassen — zonder dat jij of de bank iets merkt.',
+          'Op openbaar wifi is dit technisch haalbaar via een "Evil Twin"-netwerk: bijna-identieke naam, sterker signaal.',
+        ], video: { key: 't7-v1', title: 'Man-in-the-middle en Evil Twin uitgelegd' } },
+        { icon: 'fa-lock', title: 'Hoe HTTPS en een VPN je beschermen', paragraphs: [
+          'HTTPS versleutelt de verbinding. Zelfs als een aanvaller meekijkt, ziet die alleen onleesbare data.',
+          'Een VPN versleutelt ook welke sites je bezoekt en maskeert je IP-adres. Handig op openbaar wifi.',
+          'Controleer altijd het slotje in de adresbalk — zeker op openbaar wifi.',
+        ] },
+      ],
+      quiz: {
+        question: 'Hoe herken je een "Evil Twin"-netwerk in een lijst met wifi-netwerken?',
+        options: [
+          'Het heeft altijd een heel andere naam dan het officiële netwerk',
+          'Het heeft een bijna-identieke naam én vaak het sterkste signaal',
+          'Het vraagt om een wachtwoord dat je niet kent',
+          'Het is onzichtbaar voor normale apparaten',
+        ],
+        correctIndex: 1,
+        feedbackCorrect: 'Klopt — bijna-identieke naam + sterkste signaal is het klassieke Evil Twin-patroon.',
+        feedbackWrong: 'Een Evil Twin gebruikt bijna dezelfde naam als het officiële netwerk, en heeft opzettelijk het sterkste signaal om apparaten aan te trekken.',
+      },
+    },
+  },
+
+  /* ============================ H5 — Afsluittoets ============================ */
+
+  l11: {
+    id: 'l11', chapterId: 'h5', kind: 'interactive', icon: 'fa-graduation-cap',
+    nodeTitle: 'Afsluittoets',
+    sjorsIntro: 'Je hebt alle onderdelen doorlopen — dit is de grote afsluittoets. Er zijn 10 vragen over alles wat je hebt geleerd. Slaag je voor 70% of hoger, dan ontvang je je Cyber-Rijbewijs.',
+    scenario: {
+      type: 'final-quiz',
+      questions: [
+        {
+          id: 'q1',
+          context: 'Je krijgt een WhatsApp van een onbekend nummer: "Hoi, dit is mijn nieuwe nummer. Ik zit klem — kun je me €650 voorschieten?"',
+          question: 'Wat is de juiste eerste stap?',
+          options: [
+            'Meteen overmaken — het klinkt dringend',
+            'Bellen op het vertrouwde, bekende nummer van die persoon',
+            'Het bericht beantwoorden voor meer informatie',
+            'Het nummer blokkeren',
+          ],
+          correctIndex: 1,
+          explanation: 'Altijd verifiëren via een kanaal dat je al vertrouwde. Eén telefoontje naar het bekende nummer onthult of het echt is.',
+        },
+        {
+          id: 'q2',
+          question: 'Welk van deze domeinen is waarschijnlijk NEPPAS?',
+          options: [
+            'digid.nl',
+            'belastingdienst.nl',
+            'ing-mijn-account-beveiligd.nl',
+            'postnl.nl',
+          ],
+          correctIndex: 2,
+          explanation: 'Echte diensten gebruiken een simpel, kort domein. Extra woorden als "beveiligd" of "mijn-account" met koppeltekens zijn een klassiek teken van phishing.',
+        },
+        {
+          id: 'q3',
+          question: 'Je ontvangt een mail met bijlage "Rekening_2025.pdf.exe". Wat betekent de extensie ".exe" hier?',
+          options: [
+            'Het is een beveiligd pdf-document',
+            'Het is een back-upkopie van een pdf',
+            'Het is een uitvoerbaar programma dat zichzelf kan installeren',
+            'Het geeft aan dat het bestand versleuteld is',
+          ],
+          correctIndex: 2,
+          explanation: '".exe" staat voor executable — een programma. Achter ".pdf.exe" gaat geen document schuil maar software, die zichzelf installeert zodra je erop klikt.',
+        },
+        {
+          id: 'q4',
+          question: 'Welke van de vier situaties is het MEEST een signaal van phishing?',
+          options: [
+            'Je bank stuurt je een mail ter bevestiging van een inlog',
+            'Je ontvangt een nieuwsbrief van een webshop',
+            'Een mail van "belastingdienst-teruggave@bd-overheid.ru" met een tijdslimiet',
+            'Je bank stuurt een OTP-code per SMS',
+          ],
+          correctIndex: 2,
+          explanation: 'Een ".ru"-domein (Rusland) in het afzenderadres + kunstmatige tijdsdruk zijn twee klassieke kenmerken van phishing. De Belastingdienst mailt nooit vanuit Rusland.',
+        },
+        {
+          id: 'q5',
+          question: 'Je bank belt en stelt een vraag. Welke vraag zou een echte bankmedewerker NOOIT stellen?',
+          options: [
+            'Of u een grote betaling herkent die zojuist is gedaan',
+            'Of u uw volledige pincode wil inspreken ter verificatie',
+            'Of u uw BSN-nummer kunt bevestigen',
+            'Of u de rekening van afgelopen maand hebt nagekeken',
+          ],
+          correctIndex: 1,
+          explanation: 'Je pincode blijft altijd privé — een bank vraagt er nooit naar, per telefoon, chat of e-mail. Dit is het meest misbruikte trucje bij bankhelpdeskfraude.',
+        },
+        {
+          id: 'q6',
+          context: 'Op een parkeerautomaat zit een los stickertje met een QR-code: "Scan hier voor sneller betalen!"',
+          question: 'Wat is de beste actie?',
+          options: [
+            'Scannen en betalen — het staat op de automaat',
+            'Scannen maar eerst de link controleren',
+            'De sticker verwijderen en het melden aan de gemeente',
+            'Een andere automaat zoeken',
+          ],
+          correctIndex: 2,
+          explanation: 'Losse stickers op automaten zijn klassieke "quishing". Door hem te verwijderen bescherm je ook anderen — en de gemeente wil dit weten.',
+        },
+        {
+          id: 'q7',
+          context: 'Iemand op een datingapp is al 3 weken heel lief, woont "tijdelijk in het buitenland" en kan nooit videobellen. Dan vraagt ze om €800 voor een vliegticket.',
+          question: 'Wat is dit vrijwel zeker?',
+          options: [
+            'Een echte noodsituatie die hulp vraagt',
+            'Een technisch probleem met haar videobel-app',
+            'Datingfraude — dit is het klassieke patroon',
+            'Een misverstand dat opgehelderd kan worden',
+          ],
+          correctIndex: 2,
+          explanation: 'Verliefdheid snel, nooit videobellen, geld nodig: de drie klassieke signalen van datingfraude. De enige test: videobellen afdwingen.',
+        },
+        {
+          id: 'q8',
+          context: 'Tijdens het surfen verschijnt plotseling een pop-up in je browser: "KRITIEKE WAARSCHUWING — Uw computer is besmet! Bel Microsoft: 0800-xxx."',
+          question: 'Wat doe je?',
+          options: [
+            'Het nummer bellen — misschien is het echt',
+            'Het browser-tabblad sluiten of de browser herstarten',
+            'Op de link in het scherm klikken voor meer informatie',
+            'Je wachtwoord veranderen via de knop in het scherm',
+          ],
+          correctIndex: 1,
+          explanation: 'Microsoft stuurt nooit zulke browser-pop-ups. Dit is altijd nep. Tabblad sluiten — niets aanklikken, niets bellen.',
+        },
+        {
+          id: 'q9',
+          context: 'Je ontvangt een SMS: "PostNL: Uw pakket (NL483920) kon niet worden bezorgd. Betaal €1,95 invoerrechten via: postnl-betaling.ru/pakket."',
+          question: 'Wat is het gevaarlijkste aan dit bericht?',
+          options: [
+            'Het gevraagde bedrag van €1,95',
+            'Het pakketnummer in het bericht',
+            'De link naar "postnl-betaling.ru" — een nep-domein',
+            'De afzendernaam "PostNL"',
+          ],
+          correctIndex: 2,
+          explanation: '".ru" verraadt het: dat is geen officieel PostNL-domein. De link gaat naar een nepsite die je betaalgegevens steelt.',
+        },
+        {
+          id: 'q10',
+          context: 'In een café zie je: "CafeDuivenvoorde" (beveiligd, 3 balken) en "CafeDuivenvoorde_" (open, 5 balken — sterkste signaal!).',
+          question: 'Welk netwerk is waarschijnlijk het gevaarlijkst?',
+          options: [
+            '"CafeDuivenvoorde" — het beveiligde netwerk',
+            '"CafeDuivenvoorde_" — bijna-identieke naam, sterkste signaal, open',
+            'Ze zijn even gevaarlijk',
+            'Openbaar wifi is altijd veilig als het café er voor betaalt',
+          ],
+          correctIndex: 1,
+          explanation: 'Bijna-identieke naam + sterkste signaal + open netwerk = Evil Twin. Criminelen zetten bewust een sterker signaal neer om apparaten naar hun netwerk te lokken.',
+        },
+      ],
+    },
+    theory: null,
+  },
+
+};;
 
 const levelOrder = chapters.reduce((acc, c) => acc.concat(c.levelIds), []);
 
@@ -736,6 +988,7 @@ function headerEyebrowFor(level){
   return `Level ${n} — in de praktijk`;
 }
 function isLevelUnlocked(id){
+  if(state.devMode) return true;
   const idx = levelOrder.indexOf(id);
   if(idx <= 0) return true;
   return state.completedLevels.includes(levelOrder[idx - 1]);
@@ -817,13 +1070,23 @@ function wireLogin(){
   document.getElementById('name-input').addEventListener('input', updateLoginSubmitState);
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    state.username = document.getElementById('name-input').value.trim();
+    const rawName = document.getElementById('name-input').value.trim();
+    state.username = rawName.replace(/\uD83D\uDD13/g, '').replace(/🔓/g, '').trim() || rawName;
     state.avatar = selectedAvatar;
+    if(rawName.includes('🔓')){
+      state.devMode = true;
+      state.completedLevels = [...levelOrder];
+      state.score = levelOrder.length * 10;
+    }
     saveState();
     Sfx.click();
     showScreen('screen-dashboard');
     renderDashboard();
-    showSjorsTip(`Welkom, ${state.username}. Onder elkaar zie je de route met alle onderdelen — werk ze van boven naar onder af, ik spring overal tussendoor met een tip.`);
+    if(state.devMode){
+      showSjorsTip('🔓 Dev-modus actief — alle onderdelen zijn ontgrendeld.');
+    } else {
+      showSjorsTip(`Welkom, ${state.username}. Onder elkaar zie je de route met alle onderdelen — werk ze van boven naar onder af, ik spring overal tussendoor met een tip.`);
+    }
   });
 }
 
@@ -1310,6 +1573,175 @@ function wirePhoneSim(level, sc){
   wireFeedbackButtons(level);
 }
 
+/* ---------------------------------------------------------------
+   PARKING-QR (l4) — visuele parkeerautomaat met plaksticker
+   --------------------------------------------------------------- */
+function renderParkingQr(level, sc){
+  return `<div class="scenario-card">
+    <p class="eyebrow">Bij de parkeerautomaat</p>
+    <h3>Er zit een QR-sticker op de automaat</h3>
+    <p class="scenario-lede">Je wil betalen. Op de parkeerautomaat zie je dit...</p>
+    <div class="parking-scene">
+      <div class="parking-meter">
+        <div class="parking-meter-head">
+          <div class="parking-meter-brand">
+            <i class="fa-solid fa-parking"></i><span>Gemeente Rotterdam</span>
+          </div>
+          <div class="parking-meter-screen">
+            <div>€ 2,50 / uur</div>
+            <div class="parking-screen-sub">Pin · App · Muntgeld</div>
+          </div>
+          <div class="parking-card-slot"><div class="parking-card-slot-inner"></div></div>
+          <div class="qr-sticker" id="qr-sticker" title="Sleep de sticker eraf">
+            <div class="qr-sticker-top">⚡ Snel betalen?</div>
+            <div class="qr-sticker-code"><i class="fa-solid fa-qrcode"></i></div>
+            <div class="qr-sticker-domain">parkeer-snel.ru/betaal</div>
+            <div class="qr-sticker-sub">Scan &amp; betaal in 30 sec!</div>
+            <div class="qr-drag-hint"><i class="fa-solid fa-hand"></i> Sleep de sticker eraf</div>
+          </div>
+        </div>
+        <div class="parking-meter-post"></div>
+      </div>
+    </div>
+    ${renderChoiceList(sc.choices)}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   INBOX-ATTACHMENT (l5) — e-mail met zichtbare .exe-bijlage
+   --------------------------------------------------------------- */
+function renderInboxAttachment(level, sc){
+  const em = sc.email;
+  return `<div class="scenario-card">
+    <p class="eyebrow">Je inbox</p>
+    <h3>Een mail met bijlage</h3>
+    <p class="scenario-lede">Je krijgt onderstaande mail binnen. Lees hem goed voor je iets doet.</p>
+    <div class="inbox-window">
+      <div class="inbox-meta">
+        <div class="inbox-meta-row"><b>Van</b> <span>${esc(em.from)}</span></div>
+        <div class="inbox-meta-row"><b>Aan</b> <span>jij@email.nl</span></div>
+        <div class="inbox-meta-row"><b>Onderwerp</b> <span>${esc(em.subject)}</span></div>
+      </div>
+      <div class="inbox-body">
+        ${em.body.map(p => `<p>${esc(p)}</p>`).join('')}
+        <div class="attachment-row" id="attachment-row" style="cursor:pointer" title="Klik om te openen">
+          <i class="fa-solid fa-file-code attachment-icon-bad"></i>
+          <span class="attachment-name">${esc(em.attachment.safeName)}<span class="attachment-ext-bad">${esc(em.attachment.dangerExt)}</span></span>
+          <span class="attachment-size">${esc(em.attachment.size)}</span>
+        </div>
+      </div>
+    </div>
+    ${renderChoiceList(sc.choices)}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   FAKE-SITE (l8) — neppe inlogpagina in browser-frame
+   --------------------------------------------------------------- */
+function renderFakeSite(level, sc){
+  return `<div class="scenario-card">
+    <p class="eyebrow">Je browser</p>
+    <h3>Je klikt op een link in een mail</h3>
+    <p class="scenario-lede">Je hebt op een link geklikt. Dit scherm verschijnt. Kijk goed voor je iets doet.</p>
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots">
+          <span class="browser-dot bd-red"></span>
+          <span class="browser-dot bd-yellow"></span>
+          <span class="browser-dot bd-green"></span>
+        </div>
+        <div class="url-bar">
+          <i class="fa-solid fa-lock" style="color:#aaa;font-size:.75rem"></i>
+          <span class="url-text">${esc(sc.fakeUrl)}</span>
+        </div>
+      </div>
+      <div class="fake-site-body">
+        <div class="fake-site-logo">
+          <i class="fa-solid ${sc.logoIcon}"></i><span>${esc(sc.brand)}</span>
+        </div>
+        <div class="fake-site-form">
+          <input class="fake-input" type="text" placeholder="Gebruikersnaam" disabled>
+          <input class="fake-input" type="password" placeholder="Wachtwoord" disabled>
+          <div class="fake-login-btn">${esc(sc.loginBtnText)}</div>
+        </div>
+      </div>
+    </div>
+    ${renderChoiceList(sc.choices)}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   TECH-SUPPORT-POPUP (l9) — nep Windows-beveiligingspop-up
+   --------------------------------------------------------------- */
+function renderTechSupportPopup(level, sc){
+  const p = sc.popup;
+  return `<div class="scenario-card">
+    <p class="eyebrow">Je browser</p>
+    <h3>Je bent aan het internetten als dit verschijnt</h3>
+    <p class="scenario-lede">Je zit op een website als plotseling dit in beeld verschijnt. Wat doe je?</p>
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots">
+          <span class="browser-dot bd-red"></span>
+          <span class="browser-dot bd-yellow"></span>
+          <span class="browser-dot bd-green"></span>
+        </div>
+        <div class="url-bar">
+          <i class="fa-solid fa-triangle-exclamation" style="color:#e67e22;font-size:.75rem"></i>
+          <span class="url-text">${esc(sc.fakeUrl || 'security-alert-windows-critical.ru/scan')}</span>
+        </div>
+      </div>
+      <div class="ts-browser-body">
+        <div class="ts-popup-shell">
+          <div class="ts-popup">
+            <div class="ts-popup-bar">
+              <span><i class="fa-solid fa-shield-halved"></i> ${esc(p.brand)}</span>
+              <span class="ts-fake-x">✕</span>
+            </div>
+            <div class="ts-popup-body">
+              <div class="ts-warning-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+              <h4 class="ts-warning-title">${esc(p.title)}</h4>
+              <p class="ts-warning-sub">${esc(p.subtitle)}</p>
+              <p class="ts-warning-body">${esc(p.body)}</p>
+              <div class="ts-phone-box">
+                <span class="ts-phone-label">Noodhulplijn</span>
+                <span class="ts-phone-number">${p.phone.replace(/\n/g, '<br>')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${renderChoiceList(sc.choices)}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   SMS-PHISHING (l10) — nep pakket-sms
+   --------------------------------------------------------------- */
+function renderSmsPhishing(level, sc){
+  return `<div class="scenario-card">
+    <p class="eyebrow">Jouw telefoon</p>
+    <h3>Je krijgt een sms-bericht</h3>
+    <p class="scenario-lede">Je wacht op een pakket als dit bericht binnenkomt. Wat doe je?</p>
+    <div class="sms-phone-shell">
+      <div class="sms-phone-top">
+        <span class="sms-sender"><i class="fa-solid fa-message"></i> ${esc(sc.sender)}</span>
+        <span class="sms-sender-sub">${esc(sc.senderSub)}</span>
+      </div>
+      <div class="sms-messages">
+        ${sc.messages.map(m => `<div class="sms-bubble">${esc(m.text)}</div>`).join('')}
+      </div>
+    </div>
+    ${renderChoiceList(sc.choices)}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+
 /* --------------------------------------------------------------- */
 
 function renderScenario(level){
@@ -1320,8 +1752,253 @@ function renderScenario(level){
   if(sc.type === 'inbox-investigate') return renderInboxInvestigate(level, sc);
   if(sc.type === 'dating-sim') return renderDatingSim(level, sc);
   if(sc.type === 'phone-sim') return renderPhoneSim(level, sc);
+  if(sc.type === 'parking-qr') return renderParkingQr(level, sc);
+  if(sc.type === 'inbox-attachment') return renderInboxAttachment(level, sc);
+  if(sc.type === 'fake-site') return renderFakeSite(level, sc);
+  if(sc.type === 'tech-support-popup') return renderTechSupportPopup(level, sc);
+  if(sc.type === 'sms-phishing') return renderSmsPhishing(level, sc);
+  if(sc.type === 'wifi-chooser') return renderWifiChooser(level, sc);
+  if(sc.type === 'final-quiz') return renderFinalQuiz(level, sc);
   return renderChoiceScenario(level, sc);
 }
+
+/* ---------------------------------------------------------------
+   WIFI-CHOOSER (t7) — café laptop met wifi-netwerken
+   --------------------------------------------------------------- */
+function renderWifiChooser(level, sc){
+  function signalBars(count){
+    return [1,2,3,4,5].map(i =>
+      `<span class="signal-bar ${i <= count ? 'active' : ''}"></span>`
+    ).join('');
+  }
+  const nets = sc.networks.map((n, i) => `
+    <div class="wifi-item ${n.highlight ? 'wifi-evil' : ''}" data-choice-index="${i === 0 ? 1 : i === 1 ? 0 : 2}">
+      <div class="wifi-item-left">
+        <div class="signal-bars">${signalBars(n.bars)}</div>
+        <div class="wifi-item-info">
+          <span class="wifi-name">${esc(n.name)}</span>
+          <span class="wifi-label">${n.secured ? '<i class="fa-solid fa-lock" style="color:#5cb85c;font-size:.7rem"></i> ' : '<i class="fa-solid fa-lock-open" style="color:#e67e22;font-size:.7rem"></i> '}${esc(n.label)}</span>
+        </div>
+      </div>
+      <button class="wifi-connect-btn" type="button">Verbinden</button>
+    </div>`).join('');
+  return `<div class="scenario-card">
+    <p class="eyebrow">Openbaar wifi</p>
+    <h3>${esc(sc.setting)}</h3>
+    <p class="scenario-lede">${esc(sc.intro)}</p>
+    <div class="cafe-scene">
+      <div class="laptop-panel">
+        <div class="laptop-panel-title"><i class="fa-solid fa-wifi"></i> Beschikbare netwerken</div>
+        <div class="wifi-list">${nets}</div>
+      </div>
+      <div class="cafe-staff-btn-wrap">
+        <button class="cafe-staff-btn" data-choice-index="2" type="button">
+          <i class="fa-solid fa-person"></i> Personeel vragen welk netwerk echt is
+        </button>
+      </div>
+    </div>
+    ${renderChoiceList(sc.choices)}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   FINAL-QUIZ (l11) — grote afsluittoets
+   --------------------------------------------------------------- */
+function renderFinalQuiz(level, sc){
+  if(runtime.finalDone && !runtime.finalReview) return renderFinalQuizResult(level, sc);
+  const idx = runtime.finalQ || 0;
+  const q = sc.questions[idx];
+  const total = sc.questions.length;
+  const answered = runtime.finalAnswers ? Object.keys(runtime.finalAnswers).length : 0;
+  if(runtime.finalReview && runtime.finalAnswers && runtime.finalAnswers[q.id] !== undefined){
+    const chosen = runtime.finalAnswers[q.id];
+    const correct = chosen === q.correctIndex;
+    const optHtml = q.options.map((o, i) => {
+      let cls = 'final-quiz-option';
+      if(i === q.correctIndex) cls += ' fq-correct';
+      else if(i === chosen && !correct) cls += ' fq-wrong';
+      return `<div class="${cls}">${i === q.correctIndex ? '<i class="fa-solid fa-check"></i> ' : (i === chosen ? '<i class="fa-solid fa-xmark"></i> ' : '')}${esc(o)}</div>`;
+    }).join('');
+    return `<div class="final-quiz-wrap">
+      <div class="final-quiz-progress">Vraag ${idx + 1} van ${total}</div>
+      <div class="final-quiz-card">
+        ${q.context ? `<p class="fq-context">${esc(q.context)}</p>` : ''}
+        <p class="fq-question">${esc(q.question)}</p>
+        <div class="fq-options">${optHtml}</div>
+        <div class="final-quiz-explanation"><i class="fa-solid fa-circle-info"></i> ${esc(q.explanation)}</div>
+        <div style="display:flex;gap:.75rem;margin-top:1rem;flex-wrap:wrap">
+          ${idx > 0 ? `<button class="btn btn-ghost btn-sm" id="fq-prev" type="button">← Vorige</button>` : ''}
+          ${idx < total - 1 ? `<button class="btn btn-primary btn-sm" id="fq-next" type="button">Volgende →</button>` : `<button class="btn btn-primary btn-sm" id="fq-next-result" type="button">Terug naar resultaat</button>`}
+        </div>
+      </div>
+    </div>`;
+  }
+  const chosen = runtime.finalAnswers && runtime.finalAnswers[q.id] !== undefined ? runtime.finalAnswers[q.id] : null;
+  const optHtml = q.options.map((o, i) =>
+    `<button class="final-quiz-option ${chosen === i ? 'fq-selected' : ''}" data-opt-index="${i}" type="button">${esc(o)}</button>`
+  ).join('');
+  return `<div class="final-quiz-wrap">
+    <div class="final-quiz-progress">
+      <span>Vraag ${idx + 1} van ${total}</span>
+      <div class="fq-progress-bar"><div class="fq-progress-fill" style="width:${Math.round(answered/total*100)}%"></div></div>
+    </div>
+    <div class="final-quiz-card">
+      ${q.context ? `<p class="fq-context">${esc(q.context)}</p>` : ''}
+      <p class="fq-question">${esc(q.question)}</p>
+      <div class="fq-options">${optHtml}</div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-top:1rem;align-items:center">
+      ${idx > 0 ? `<button class="btn btn-ghost btn-sm" id="fq-prev" type="button">← Vorige</button>` : ''}
+      ${chosen !== null ? (idx < total - 1 ? `<button class="btn btn-primary btn-sm" id="fq-next" type="button">Volgende →</button>` : `<button class="btn btn-primary" id="fq-finish" type="button">Bekijk resultaat</button>`) : ''}
+    </div>
+  </div>`;
+}
+
+function renderFinalQuizResult(level, sc){
+  const answers = runtime.finalAnswers || {};
+  let correct = 0;
+  sc.questions.forEach(q => { if(answers[q.id] === q.correctIndex) correct++; });
+  const pct = Math.round(correct / sc.questions.length * 100);
+  const grade = Math.round((correct / sc.questions.length) * 9 + 1);
+  const passed = pct >= 70;
+  const gradeClass = passed ? 'fq-grade-pass' : 'fq-grade-fail';
+  const rowsHtml = sc.questions.map((q, i) => {
+    const ch = answers[q.id];
+    const ok = ch === q.correctIndex;
+    return `<div class="fq-result-row ${ok ? 'fq-rr-ok' : 'fq-rr-wrong'}">
+      <span class="fq-rr-num">${i+1}</span>
+      <span class="fq-rr-text">${esc(q.question.length > 70 ? q.question.slice(0,70)+'…' : q.question)}</span>
+      <span class="fq-rr-icon">${ok ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>'}</span>
+    </div>`;
+  }).join('');
+  return `<div class="final-quiz-wrap">
+    <div class="fq-result-header">
+      <div class="fq-grade-circle ${gradeClass}">
+        <span class="fq-grade-number">${grade}</span>
+        <span class="fq-grade-sub">/ 10</span>
+      </div>
+      <div class="fq-result-summary">
+        <h3>${passed ? 'Geslaagd!' : 'Helaas, niet geslaagd'}</h3>
+        <p>${correct} van de ${sc.questions.length} vragen goed (${pct}%)</p>
+        ${passed ? '<p class="fq-pass-msg">Je hebt je Cyber-Rijbewijs verdiend.</p>' : '<p class="fq-fail-msg">Je hebt minimaal 70% nodig. Probeer het opnieuw!</p>'}
+      </div>
+    </div>
+    ${passed ? `<div class="fq-congrats-video">
+      <div class="video-card" data-video-key="l11-congrats" data-video-title="Gefeliciteerd met je Cyber-Rijbewijs!">
+        <span class="video-card-thumb"><i class="fa-solid fa-play"></i></span>
+        <span class="video-card-text"><b>Gefeliciteerd!</b><span>Kijk de felicitatieboodschap</span></span>
+      </div>
+    </div>` : ''}
+    <div class="fq-result-rows">${rowsHtml}</div>
+    <div style="display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap">
+      <button class="btn btn-ghost btn-sm" id="fq-review" type="button"><i class="fa-solid fa-magnifying-glass"></i> Antwoorden bekijken</button>
+      ${!passed ? `<button class="btn btn-primary" id="fq-retry-quiz" type="button"><i class="fa-solid fa-rotate-right"></i> Opnieuw proberen</button>` : `<button class="btn btn-primary" id="fq-claim" type="button"><i class="fa-solid fa-graduation-cap"></i> Ontvang je Cyber-Rijbewijs</button>`}
+    </div>
+  </div>`;
+}
+
+/* ---------------------------------------------------------------
+   WIRE — parking-qr drag
+   --------------------------------------------------------------- */
+function wireParkingQr(level, sc){
+  const sticker = document.getElementById('qr-sticker');
+  if(!sticker) return;
+  let startX = 0, startY = 0, curX = 0, curY = 0, dragging = false;
+  function getXY(e){ return e.touches ? {x: e.touches[0].clientX, y: e.touches[0].clientY} : {x: e.clientX, y: e.clientY}; }
+  function onStart(e){
+    if(runtime.feedback) return;
+    const p = getXY(e);
+    startX = p.x; startY = p.y;
+    curX = 0; curY = 0;
+    dragging = true;
+    sticker.style.transition = 'none';
+    sticker.style.cursor = 'grabbing';
+  }
+  function onMove(e){
+    if(!dragging) return;
+    e.preventDefault();
+    const p = getXY(e);
+    curX = p.x - startX;
+    curY = p.y - startY;
+    sticker.style.transform = `rotate(-2.8deg) translate(${curX}px,${curY}px)`;
+    const dist = Math.sqrt(curX*curX + curY*curY);
+    if(dist > 65){
+      dragging = false;
+      sticker.style.transition = 'opacity .3s, transform .3s';
+      sticker.style.opacity = '0';
+      sticker.style.transform = `rotate(-15deg) translate(${curX*2}px,${curY*2}px)`;
+      document.querySelector('.qr-drag-hint') && (document.querySelector('.qr-drag-hint').style.display='none');
+      setTimeout(() => resolveOutcome(level, sc.choices[1]), 350);
+    }
+  }
+  function onEnd(){ if(!dragging) return; dragging = false; sticker.style.transform = 'rotate(-2.8deg)'; sticker.style.cursor = 'grab'; }
+  sticker.addEventListener('mousedown', onStart);
+  sticker.addEventListener('touchstart', onStart, {passive:true});
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('touchmove', onMove, {passive:false});
+  document.addEventListener('mouseup', onEnd);
+  document.addEventListener('touchend', onEnd);
+  document.querySelectorAll('[data-choice-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(runtime.feedback) return;
+      const idx = parseInt(btn.getAttribute('data-choice-index'), 10);
+      resolveOutcome(level, sc.choices[idx]);
+    });
+  });
+  wireFeedbackButtons(level);
+}
+
+/* ---------------------------------------------------------------
+   WIRE — inbox-attachment click op .exe
+   --------------------------------------------------------------- */
+function wireInboxAttachment(level, sc){
+  const row = document.getElementById('attachment-row');
+  if(row) row.addEventListener('click', () => {
+    if(runtime.feedback) return;
+    resolveOutcome(level, sc.choices[0]);
+  });
+  document.querySelectorAll('[data-choice-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(runtime.feedback) return;
+      const idx = parseInt(btn.getAttribute('data-choice-index'), 10);
+      resolveOutcome(level, sc.choices[idx]);
+    });
+  });
+  wireFeedbackButtons(level);
+}
+
+/* ---------------------------------------------------------------
+   WIRE — final-quiz navigatie en opties
+   --------------------------------------------------------------- */
+function wireFinalQuiz(level, sc){
+  if(!runtime.finalAnswers) runtime.finalAnswers = {};
+  const total = sc.questions.length;
+  const idx = runtime.finalQ || 0;
+
+  document.querySelectorAll('[data-opt-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const chosen = parseInt(btn.getAttribute('data-opt-index'), 10);
+      runtime.finalAnswers[sc.questions[idx].id] = chosen;
+      renderLevelMain();
+    });
+  });
+  const nextBtn = document.getElementById('fq-next');
+  if(nextBtn) nextBtn.addEventListener('click', () => { runtime.finalQ = (runtime.finalQ||0) + 1; renderLevelMain(); });
+  const prevBtn = document.getElementById('fq-prev');
+  if(prevBtn) prevBtn.addEventListener('click', () => { runtime.finalQ = Math.max(0,(runtime.finalQ||0)-1); renderLevelMain(); });
+  const finBtn = document.getElementById('fq-finish');
+  if(finBtn) finBtn.addEventListener('click', () => { runtime.finalDone = true; runtime.finalReview = false; renderLevelMain(); });
+  const claimBtn = document.getElementById('fq-claim');
+  if(claimBtn) claimBtn.addEventListener('click', () => completeLevel(level));
+  const retryBtn = document.getElementById('fq-retry-quiz');
+  if(retryBtn) retryBtn.addEventListener('click', () => { runtime.finalQ = 0; runtime.finalAnswers = {}; runtime.finalDone = false; runtime.finalReview = false; renderLevelMain(); });
+  const reviewBtn = document.getElementById('fq-review');
+  if(reviewBtn) reviewBtn.addEventListener('click', () => { runtime.finalQ = 0; runtime.finalReview = true; renderLevelMain(); });
+  const backResultBtn = document.getElementById('fq-next-result');
+  if(backResultBtn) backResultBtn.addEventListener('click', () => { runtime.finalReview = false; renderLevelMain(); });
+}
+
 
 /* ---------------------------------------------------------------
    SCENARIO — wiring & afhandelen van een keuze
@@ -1393,6 +2070,9 @@ function wireFeedbackButtons(level){
 }
 function wireScenarioEvents(level){
   const sc = level.scenario;
+  if(sc.type === 'parking-qr'){ wireParkingQr(level, sc); return; }
+  if(sc.type === 'inbox-attachment'){ wireInboxAttachment(level, sc); return; }
+  if(sc.type === 'final-quiz'){ wireFinalQuiz(level, sc); return; }
   if(sc.type === 'inbox-flags'){
     wireInboxFlags(level, sc);
     wireFeedbackButtons(level);
