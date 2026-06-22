@@ -241,25 +241,25 @@ const levels = {
   l3: {
     id: 'l3', chapterId: 'h1', kind: 'interactive', icon: 'fa-envelope-open-text',
     nodeTitle: 'De e-mail van "de Belastingdienst"',
-    sjorsIntro: 'Hieronder staat een phishingmail nagebouwd. Speur de mail door en klik op de onderdelen die je verdacht vindt — er zitten precies drie addertjes onder het gras.',
+    sjorsIntro: 'Hieronder staat een verdachte mail nagebouwd. Lees hem goed door — klik op alles wat jou niet klopt. Geen aanwijzingen over hoeveel dingen er fout zijn: dat bedenk jij zelf.',
     scenario: {
-      type: 'inbox-flags',
+      type: 'inbox-investigate',
       headline: 'Een herinnering van "de Belastingdienst"',
-      lede: 'Je vindt onderstaande mail in je inbox. Klik op wat jou verdacht voorkomt.',
-      from: 'belastingdienst-teruggave@bd-overheid-nl.ru',
-      to: 'jij@email.nl',
-      subject: 'Laatste herinnering: teruggave van €438,29 vervalt',
-      bodyIntro: 'Geachte heer/mevrouw,',
-      bodyText1: 'Bij controle van uw belastingaangifte 2025 is gebleken dat u recht heeft op een teruggave van €438,29.',
-      bodyText2: 'Bevestig uw gegevens binnen de gestelde termijn via onderstaande link:',
-      ctaText: 'Bevestig mijn gegevens',
-      flags: [
-        { id: 'sender' },
-        { id: 'urgency', text: 'Reageert u niet binnen 2 uur, dan vervalt deze teruggave automatisch en wordt uw dossier opnieuw in behandeling genomen.' },
-        { id: 'link', text: 'belastingdienst-mijnaccount.ru/teruggave' },
+      lede: 'Klik op elk onderdeel van de mail dat jou verdacht lijkt. Je kunt zoveel of zo weinig onderdelen aanklikken als je wil.',
+      zones: [
+        { id: 'from',     area: 'meta', label: 'Van',       value: 'belastingdienst-teruggave@bd-overheid-nl.ru',   suspicious: true,  hint: 'Goed gezien! Het domein eindigt op ".ru" — dat is Rusland. De Belastingdienst stuurt altijd mail vanuit @belastingdienst.nl.' },
+        { id: 'to',       area: 'meta', label: 'Aan',       value: 'jij@email.nl',                                   suspicious: false, hint: 'Dit is gewoon jouw e-mailadres — hier valt niets op.' },
+        { id: 'subject',  area: 'meta', label: 'Onderwerp', value: 'Laatste herinnering: teruggave van €438,29 vervalt', suspicious: false, hint: 'Het klinkt urgent, maar een onderwerp alleen is geen bewijs van fraude. Let ook op de andere onderdelen.' },
+        { id: 'greeting', area: 'body', value: 'Geachte heer/mevrouw,',                                               suspicious: false, hint: '"Geachte heer/mevrouw" is onpersoonlijk — een kleine aanwijzing, maar niet genoeg op zichzelf.' },
+        { id: 'body1',    area: 'body', value: 'Bij controle van uw belastingaangifte 2025 is gebleken dat u recht heeft op een teruggave van €438,29.',  suspicious: false, hint: 'Een specifiek bedrag wekt vertrouwen — maar dat is precies de truc. Dit onderdeel zelf is niet het probleem.' },
+        { id: 'urgency',  area: 'body', value: 'Reageert u niet binnen 2 uur, dan vervalt deze teruggave automatisch en wordt uw dossier opnieuw in behandeling genomen.', suspicious: true, hint: 'Goed gezien! Dit is valse tijdsdruk. Een echte overheidsinstantie geeft je altijd weken de tijd — nooit twee uur. Haast is een klassiek trucje om je snel te laten klikken.' },
+        { id: 'body2',    area: 'body', value: 'Bevestig uw gegevens binnen de gestelde termijn via onderstaande link:', suspicious: false, hint: 'Dit verzoek op zich zegt nog niet alles — de link hieronder is het echte probleem.' },
+        { id: 'link',     area: 'link', value: 'belastingdienst-mijnaccount.ru/teruggave',                           suspicious: true,  hint: 'Goed gezien! Dit domein eindigt op ".ru" — Rusland, niet Nederland. De officiële Belastingdienst gebruikt altijd belastingdienst.nl.' },
       ],
-      wrongFeedback: 'Deze link stuurt je naar een nepsite die eruitziet als de echte, maar bedoeld is om je inlog- of betaalgegevens te stelen. De Belastingdienst vraagt nooit op deze manier om snel ergens op te klikken.',
-      correctFeedback: 'Goed gezien: een afzender die niet klopt, een opgelegde deadline van twee uur en een link naar een .ru-domein in plaats van belastingdienst.nl. Door te melden in plaats van te klikken, help je bovendien anderen.',
+      suspiciousIds: ['from', 'urgency', 'link'],
+      cta: { text: 'Bevestig mijn gegevens' },
+      wrongFeedback: 'Dit was een valstrik — deze knop stuurt je naar een nepsite die er professioneel uitziet, maar bedoeld is om je inlog- of bankgegevens te stelen. Zoek eerst de verdachte onderdelen in de mail zelf.',
+      correctFeedback: 'Goed speurwerk! De drie valstrikken: een afzenderadres met ".ru" in plaats van ".nl", valse tijdsdruk van twee uur, en een link naar een nepdomein. Door te melden in plaats van te klikken, bescherm je ook anderen.',
     },
     theory: {
       accordion: [
@@ -545,40 +545,89 @@ const levels = {
   l6: {
     id: 'l6', chapterId: 'h2', kind: 'interactive', icon: 'fa-heart-crack',
     nodeTitle: 'Datingfraude',
-    sjorsIntro: 'Je chatten al een paar weken met iemand op een datingapp. Ze voelen zich heel erg tot je aangetrokken. Dan gebeurt er iets...',
+    sjorsIntro: 'Je hebt een nieuw profiel gevonden op een datingapp. Lees het gesprek dat zich ontvouwt — en let op wanneer er iets niet klopt.',
     scenario: {
-      type: 'choice',
-      eyebrow: 'Dating-app gesprek',
-      headline: 'Een persoon verliefd op je',
-      lede: 'Na weken chatten zegt diegene opeens: "Ik ben verliefd op je. Ik wil je graag ontmoeten, maar ik zit vast in buitenland. Kun je me €500 lenen voor een vlucht? Ik betaal het dubbel terug zodra ik thuis ben."',
-      choices: [
-        { label: 'Het geld meteen overmaken — het voelt echt', outcome: 'wrong',
-          feedbackText: 'Dit is datingfraude: criminelen profielen stelen, bouwen maanden lang een fake relatie op met honderden mensen tegelijk, en vragen dan om geld. Zodra je betaalt, verdwijnen ze.' },
-        { label: 'Voordat je geld geeft: voorstellen via video te bellen', outcome: 'correct',
-          feedbackTitle: 'Slim.',
-          feedbackText: 'Een echt persoon kan makkelijk via video bellen. Een betrouwbare persoon snappen ook dat je voorzichtig bent. Deze persoon zal excuses verzinnen om niet te bellen — en dan is het tijd om afstand te nemen.' },
-        { label: 'Aan je vrienden vragen of je het moet doen', outcome: 'risky',
-          feedbackTitle: 'Je vraagt goed advies, maar...',
-          feedbackText: 'Het gaat niet om ja of nee van vrienden — het gaat om je eigen voorzichtigheid. Video-bellen of niet ontmoeten is de bottleneck.' },
+      type: 'dating-sim',
+      profile: {
+        emoji: '👩',
+        name: 'Lisa',
+        age: 36,
+        location: 'Utrecht (nu tijdelijk in Abu Dhabi)',
+        job: 'Verpleegkundige',
+        bio: 'Avontuurlijk, eerlijk en op zoek naar een echte connectie. Ik werk nu tijdelijk in het buitenland, maar mijn hart ligt in Nederland. Hou van reizen, koken en goede gesprekken.',
+        interests: ['Reizen ✈️', 'Koken 🍳', 'Fotografie 📷', 'Yoga 🧘'],
+      },
+      stages: [
+        {
+          id: 'week1',
+          label: '📱 Dag 1 — jij stuurt het eerste berichtje',
+          messages: [
+            { from: 'lisa', text: 'Hee! Wat leuk dat je reageert 😊 Hoe is jouw dag?' },
+            { from: 'lisa', text: 'Ik moet zeggen — jouw profiel springt er echt uit. Je lijkt iemand met diepgang.' },
+            { from: 'lisa', text: 'Ik ben nu in Abu Dhabi voor een tijdelijk contract als verpleegkundige. Ik mis Nederland zo. Heb jij ook weleens in het buitenland gewoond?' },
+          ],
+          userReply: 'Leuk! Nee, ik ben altijd in Nederland gebleven. Maar ik hoor wel graag hoe dat is!',
+          ctaText: 'Twee weken verder →',
+        },
+        {
+          id: 'week2',
+          label: '📱 Twee weken later — jullie chatten elke dag',
+          messages: [
+            { from: 'lisa', text: 'Goedemorgen! Ik dacht meteen aan jou toen ik wakker werd 😊' },
+            { from: 'lisa', text: 'Eerlijk gezegd voel ik me hier zo eenzaam. Mijn collega\'s hier zijn niet echt vriendelijk. Jij bent de enige met wie ik echt kan praten ❤️' },
+            { from: 'lisa', text: 'Ik word zo gelukkig van onze gesprekken. Is dat raar na zo\'n korte tijd?' },
+            { from: 'lisa', text: 'Mag ik je WhatsApp-nummer? Ik wil liever niet op de datingapp chatten. Ik wil je stem zo graag horen 🙏' },
+          ],
+          userReply: 'Dat gevoel heb ik ook. Hier is mijn nummer...',
+          ctaText: 'Nog een week later →',
+        },
+        {
+          id: 'ask',
+          label: '📱 Drie weken later — jullie spreken elkaar elke dag',
+          messages: [
+            { from: 'lisa', text: 'Lieverd... Ik moet je iets heel moeilijks vragen en ik schaam me er zo voor...' },
+            { from: 'lisa', text: 'Mijn bankpas is hier geblokkeerd. Ik kan niet betalen voor eten, laat staan voor mijn vliegticket terug. Ik zit hier echt vast.' },
+            { from: 'lisa', text: 'Zou jij me €500 kunnen overmaken? Ik betaal je zodra ik terug ben dubbel terug — dat beloof ik op mijn leven. Ik wil je zo graag zien 🙏❤️' },
+          ],
+          choices: [
+            { label: '€500 overmaken — ze heeft je nog nooit iets misdaan', outcome: 'wrong',
+              feedbackText: 'Dit is datingfraude. "Lisa" bestaat niet — het is een oplichter die tegelijk met honderden mensen exact dit gesprek heeft gevoerd. Zodra je betaalt, verdwijnen ze. De gevoelens leken echt, maar de persoon niet.' },
+            { label: 'Voorstellen eerst even te videobellen voor je een beslissing maakt', outcome: 'correct',
+              feedbackTitle: 'Slim en voorzichtig.',
+              feedbackText: 'Een echte persoon kan altijd videobellen. Iemand die echt om je geeft, begrijpt dat je dit wil checken. De oplichter zal zeggen dat de camera kapot is of het internet te slecht — en dan weet je genoeg.' },
+            { label: 'Zeggen dat je het geld helaas niet hebt', outcome: 'risky',
+              feedbackTitle: 'Begrijpelijk, maar niet veilig.',
+              feedbackText: 'Een doorgewinterde oplichter geeft niet zo snel op. Ze vragen een kleiner bedrag of bedenken een nieuw verhaal. Videobellen is de échte test — niemand die echt in nood zit, weigert dat consequent.' },
+          ],
+        },
       ],
     },
     theory: {
       accordion: [
         { icon: 'fa-heart-crack', title: 'Waarom datingfraude werkt', paragraphs: [
-          'Criminelen spelen op gevoelens in plaats van paniek. Ze nemen weken de tijd, bouwen vertrouwen op, en vragen dan "even om hulp".',
-          'Ze gebruiken gestolen profielen of AI-gegenereerde foto\'s, zodat je niet direct doorhebt dat het nep is.',
+          'Criminelen spelen niet op paniek, maar op gevoelens. Ze nemen weken de tijd, bouwen vertrouwen op, en vragen dan om hulp — op het moment dat je het minst argwaan hebt.',
+          'Ze gebruiken gestolen profielfoto\'s of AI-gegenereerde beelden. Soms voeren ze tegelijk gesprekken met honderden mensen via scripts.',
         ], video: { key: 'l6-theory-v1', title: 'Datingfraude herkennen' } },
-        { icon: 'fa-circle-check', title: 'Wat je doet', paragraphs: [
-          'Stel ALTIJD voor via video te bellen voordat je geld geeft — geen uitzonderingen.',
-          'Vertrouw je gevoel als iemand excuses bedenkt om niet te bellen.',
+        { icon: 'fa-video', title: 'De videobel-test', paragraphs: [
+          'Een oplichter kan niet live op beeld komen als ze gestolen of AI-gegenereerde foto\'s gebruiken. Stel ALTIJD voor te videobellen — vóór je ook maar een euro geeft.',
+          'Excuses zoals "mijn camera is kapot" of "het internet is hier te slecht" zijn bijna altijd een teken dat er iets niet klopt.',
+        ] },
+        { icon: 'fa-circle-check', title: 'Signalen die je herkent', paragraphs: [
+          'Iemand die zegt verliefd te zijn na een paar weken, die nooit kan videobellen, en die plotseling geld nodig heeft: dat is het patroon.',
+          'Vertrouw je gevoel als iets te mooi voelt om waar te zijn — en bespreek het altijd met iemand die je vertrouwt.',
         ] },
       ],
       quiz: {
-        question: 'Hoe lang bouwen oplichters meestal aan een valse relatie voordat ze geld vragen?',
-        options: ['Een paar uur', 'Een paar dagen', 'Weken tot maanden', 'Ze vragen meteen'],
-        correctIndex: 2,
-        feedbackCorrect: 'Klopt — ze nemen weken de tijd zodat je je veilig voelt.',
-        feedbackWrong: 'Ze zijn geduldig: weken of maanden is normaal, zodat je het vertrouwen hebt.',
+        question: 'Wat is de beste manier om snel te controleren of iemand op een datingapp echt is wie ze zeggen te zijn?',
+        options: [
+          'Meer foto\'s vragen',
+          'Een videogesprek voorstellen voor je geld geeft',
+          'Hun adres opvragen',
+          'Wachten tot ze zelf om geld vragen',
+        ],
+        correctIndex: 1,
+        feedbackCorrect: 'Klopt — een echte persoon kan altijd videobellen. Iemand die dat consequent weigert, is vrijwel zeker een oplichter.',
+        feedbackWrong: 'Videobellen is de enige echte check — foto\'s en adressen zijn makkelijk te vervalsen.',
       },
     },
   },
@@ -586,22 +635,29 @@ const levels = {
   l7: {
     id: 'l7', chapterId: 'h2', kind: 'interactive', icon: 'fa-phone-slash',
     nodeTitle: 'Bankhelpdeskfraude',
-    sjorsIntro: 'Je krijgt een telefoontje van iemand die zegt van je bank te zijn. Ze klinken professioneel en zeggen dat je account in gevaar is.',
+    sjorsIntro: 'Je telefoon gaat. Kijk wie er belt en beslis wat je doet — luister dan naar het gesprek.',
     scenario: {
-      type: 'choice',
-      eyebrow: 'Telefoongesprek',
-      headline: 'Een zogenaamde medewerker van de bank',
-      lede: 'Je krijgt gebeld door iemand die zegt van je bank te zijn: "Meneer/mevrouw, we hebben ongebruikelijke activiteiten gespot op uw rekening. Kunt u ter plaatse je PIN drie keer achtermekaar intypen om jezelf te verifiëren?"',
-      choices: [
-        { label: 'Je PIN zeggen/intypen — je wilt je account beschermen', outcome: 'wrong',
-          feedbackText: 'Je bank vraagt je nooit om je PIN. Dit is skimming: criminelen geven zich voor als de bank uit om je PIN en rekeninggegevens af te troggelen. Zodra ze die hebben, leegde je rekening.' },
-        { label: 'Het gesprek beëindigen en je bank zelf bellen op een nummer van hun site', outcome: 'correct',
-          feedbackTitle: 'Perfect.',
-          feedbackText: 'Een echte bank vraagt je nooit om sensitieve gegevens via de telefoon. Door zelf te bellen op het nummer van je bank (niet dat wat jij net hebt gekregen), verifieer je of het klopt.' },
-        { label: 'Vragen waarom ze je bellen en dan informatie geven', outcome: 'risky',
-          feedbackTitle: 'Alert, maar niet veilig genoeg.',
-          feedbackText: 'Criminelen hebben goede verhalen klaar. Veiliger is om nooit telefonisch sensitve gegevens af te geven — bel altijd zelf je bank terug.' },
-      ],
+      type: 'phone-sim',
+      ringing: {
+        caller: 'ING Bank',
+        number: '020 228 9800',
+      },
+      call: {
+        transcript: [
+          { who: 'Beller', text: 'Goedemiddag, u spreekt met Bas Vermeer van de afdeling Veiligheidszaken van ING Bank. Wij hebben zojuist ongebruikelijke activiteiten gedetecteerd op uw rekening — dit is dringend.' },
+          { who: 'Beller', highlight: true, text: '"Om uw account direct te beveiligen moeten we uw identiteit bevestigen. Kunt u uw pincode drie keer na elkaar inspreken? Dit is onze standaard verificatieprocedure."' },
+        ],
+        choices: [
+          { label: 'Je pincode geven — het klinkt officieel en dringend', outcome: 'wrong',
+            feedbackText: 'Je bank vraagt je nooit om je pincode — niet via telefoon, chat of e-mail. Dit is bankhelpdeskfraude: criminelen doen zich voor als de bank om je pincode en gegevens te stelen. Zodra ze die hebben, plunderen ze je rekening.' },
+          { label: 'Het gesprek beëindigen en zelf de bank bellen via het nummer op je bankpas of banksite', outcome: 'correct',
+            feedbackTitle: 'Precies goed.',
+            feedbackText: 'Een echte bank vraagt nooit om je pincode. Door zelf te bellen — op het nummer dat jij al kende — verifieer je of er echt iets aan de hand is, zonder dat jij je gegevens blootgeeft.' },
+          { label: 'Vragen naar zijn naam en medewerkersnummer, dan pas meegaan', outcome: 'risky',
+            feedbackTitle: 'Alert, maar niet veilig.',
+            feedbackText: 'Criminelen hebben goede verhalen klaar, inclusief verzonnen namen en nummers. Geen enkele echte bankmedewerker vraagt ooit om je pincode — ongeacht hoe overtuigend ze klinken.' },
+        ],
+      },
     },
     theory: {
       accordion: [
@@ -971,11 +1027,299 @@ function renderInboxFlags(level, sc){
     ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
   </div>`;
 }
+/* ---------------------------------------------------------------
+   INBOX-INVESTIGATE (l3) — harder email investigation
+   --------------------------------------------------------------- */
+function renderInboxInvestigate(level, sc){
+  const found = runtime.foundFlags || new Set();
+  const suspIds = sc.suspiciousIds;
+  const allFound = suspIds.every(id => found.has(id));
+  const foundCount = suspIds.filter(id => found.has(id)).length;
+
+  function zoneEl(zone){
+    let cls = 'email-zone';
+    if(found.has(zone.id)) cls += ' is-flagged';
+    if(zone.area === 'link') cls += ' email-zone-link';
+    const badge = found.has(zone.id) ? `<span class="zone-badge"><i class="fa-solid fa-flag"></i></span>` : '';
+    return `<span class="${cls}" data-zone-id="${zone.id}">${esc(zone.value)}${badge}</span>`;
+  }
+
+  const metaZones = sc.zones.filter(z => z.area === 'meta');
+  const bodyZones = sc.zones.filter(z => z.area === 'body');
+  const linkZone  = sc.zones.find(z => z.area === 'link');
+
+  const metaHtml = metaZones.map(z => `<div class="inbox-meta-row"><b>${z.label}</b> ${zoneEl(z)}</div>`).join('');
+  const bodyHtml  = bodyZones.map(z => `<p>${zoneEl(z)}</p>`).join('');
+  const linkHtml  = linkZone ? `<p style="margin-top:.5rem">${zoneEl(linkZone)}</p>` : '';
+
+  const noteHtml = runtime.lastNote
+    ? `<div class="zone-note ${runtime.lastNoteSuspicious ? 'is-suspicious' : 'is-safe'}">
+        <i class="fa-solid ${runtime.lastNoteSuspicious ? 'fa-flag' : 'fa-circle-info'}"></i>
+        <p>${runtime.lastNote}</p>
+       </div>`
+    : '';
+
+  let progressHtml;
+  if(found.size === 0){
+    progressHtml = `<div class="flag-progress"><span class="flag-progress-hint">Klik op een onderdeel dat je verdacht vindt</span></div>`;
+  } else {
+    progressHtml = `<div class="flag-progress">
+      ${suspIds.map((_, i) => `<span class="flag-dot ${i < foundCount ? 'is-on' : ''}"></span>`).join('')}
+      <span>${foundCount} verdacht${foundCount === 1 ? '' : 'e'} onderdeel${foundCount === 1 ? '' : 'en'} gemarkeerd</span>
+    </div>`;
+  }
+
+  return `<div class="scenario-card">
+    <p class="eyebrow">Onderzoek de mail</p>
+    <h3>${esc(sc.headline)}</h3>
+    <p class="scenario-lede">${sc.lede}</p>
+    <div class="inbox-window inbox-investigate">
+      <div class="inbox-meta">${metaHtml}</div>
+      <div class="inbox-body">
+        ${bodyHtml}
+        ${linkHtml}
+        <div class="inbox-cta-wrap" style="margin-top:.9rem">
+          <span class="inbox-cta" id="inbox-cta">${esc(sc.cta.text)}</span>
+        </div>
+      </div>
+      ${progressHtml}
+    </div>
+    ${noteHtml}
+    ${allFound && !runtime.feedback ? `<div class="level-complete-bar"><button class="btn btn-accent btn-lg" id="report-btn" type="button"><i class="fa-solid fa-flag"></i> Melden als phishing</button></div>` : ''}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+function wireInboxInvestigate(level, sc){
+  document.querySelectorAll('[data-zone-id]').forEach(el => {
+    el.addEventListener('click', () => {
+      if(runtime.feedback) return;
+      const id = el.getAttribute('data-zone-id');
+      const zone = sc.zones.find(z => z.id === id);
+      if(!zone) return;
+      if(!runtime.foundFlags) runtime.foundFlags = new Set();
+      if(zone.suspicious){
+        if(!runtime.foundFlags.has(id)){ runtime.foundFlags.add(id); Sfx.click(); }
+        runtime.lastNote = zone.hint;
+        runtime.lastNoteSuspicious = true;
+        renderLevelMain();
+      } else {
+        runtime.noteGen = (runtime.noteGen || 0) + 1;
+        const gen = runtime.noteGen;
+        runtime.lastNote = zone.hint;
+        runtime.lastNoteSuspicious = false;
+        Sfx.click();
+        renderLevelMain();
+        setTimeout(() => {
+          if(runtime.noteGen === gen){ runtime.lastNote = null; renderLevelMain(); }
+        }, 2800);
+      }
+    });
+  });
+  const cta = document.getElementById('inbox-cta');
+  if(cta) cta.addEventListener('click', () => {
+    if(runtime.feedback) return;
+    resolveOutcome(level, { outcome: 'wrong', feedbackText: sc.wrongFeedback });
+  });
+  const reportBtn = document.getElementById('report-btn');
+  if(reportBtn) reportBtn.addEventListener('click', () => {
+    resolveOutcome(level, { outcome: 'correct', feedbackTitle: 'Goed speurwerk!', feedbackText: sc.correctFeedback });
+  });
+  wireFeedbackButtons(level);
+}
+
+/* ---------------------------------------------------------------
+   DATING-SIM (l6) — step-by-step dating app experience
+   --------------------------------------------------------------- */
+function renderDatingSim(level, sc){
+  if(!runtime.datingStarted) return renderDatingProfile(sc);
+  const stageIdx = runtime.datingStage || 0;
+  const stage = sc.stages[stageIdx];
+  if(stage.choices) return renderDatingAsk(sc, stage);
+  return renderDatingChatStage(sc, stage);
+}
+function renderDatingProfile(sc){
+  const p = sc.profile;
+  return `<div class="dating-app-shell">
+    <div class="dating-app-bar"><i class="fa-solid fa-heart"></i> ConnectNu</div>
+    <div class="dating-profile-card">
+      <div class="dating-avatar">${p.emoji}</div>
+      <div class="dating-profile-info">
+        <h3>${esc(p.name)}, ${p.age} <span class="dating-verified"><i class="fa-solid fa-circle-check"></i></span></h3>
+        <p class="dating-sub"><i class="fa-solid fa-location-dot"></i> ${esc(p.location)}</p>
+        <p class="dating-sub"><i class="fa-solid fa-briefcase"></i> ${esc(p.job)}</p>
+      </div>
+      <p class="dating-bio">${esc(p.bio)}</p>
+      <div class="dating-interests">${p.interests.map(i => `<span class="dating-tag">${esc(i)}</span>`).join('')}</div>
+      <button class="btn btn-block dating-start-btn" id="dating-start" type="button">
+        <i class="fa-solid fa-comment"></i> Stuur een berichtje
+      </button>
+    </div>
+  </div>`;
+}
+function renderDatingChatStage(sc, stage){
+  const msgs = stage.messages || [];
+  return `<div class="dating-app-shell">
+    <div class="dating-app-bar">
+      <span>${sc.profile.emoji} ${esc(sc.profile.name)}</span>
+      <span class="dating-online-dot"></span>
+    </div>
+    <div class="dating-stage-label">${stage.label}</div>
+    <div class="dating-chat-window">
+      ${msgs.map(m => `<div class="dating-msg dating-msg-other">${esc(m.text)}</div>`).join('')}
+      ${stage.userReply ? `<div class="dating-msg dating-msg-self">${esc(stage.userReply)}</div>` : ''}
+    </div>
+    <div class="dating-chat-footer">
+      <button class="btn btn-primary" id="dating-next" type="button">${stage.ctaText || 'Volgende →'} <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>`;
+}
+function renderDatingAsk(sc, stage){
+  return `<div class="dating-app-shell">
+    <div class="dating-app-bar">
+      <span>${sc.profile.emoji} ${esc(sc.profile.name)}</span>
+      <span class="dating-online-dot"></span>
+    </div>
+    <div class="dating-stage-label">${stage.label}</div>
+    <div class="dating-chat-window">
+      ${stage.messages.map(m => `<div class="dating-msg dating-msg-other">${esc(m.text)}</div>`).join('')}
+    </div>
+    <div class="dating-choice-section">
+      <p class="dating-choice-prompt">Wat doe jij?</p>
+      ${renderChoiceList(stage.choices)}
+      ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+    </div>
+  </div>`;
+}
+function wireDatingSim(level, sc){
+  const startBtn = document.getElementById('dating-start');
+  if(startBtn) startBtn.addEventListener('click', () => {
+    runtime.datingStarted = true;
+    runtime.datingStage = 0;
+    Sfx.click();
+    renderLevelMain();
+  });
+  const nextBtn = document.getElementById('dating-next');
+  if(nextBtn) nextBtn.addEventListener('click', () => {
+    runtime.datingStage = (runtime.datingStage || 0) + 1;
+    Sfx.click();
+    renderLevelMain();
+  });
+  document.querySelectorAll('[data-choice-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(runtime.feedback) return;
+      const idx = parseInt(btn.getAttribute('data-choice-index'), 10);
+      const stageIdx = runtime.datingStage || 0;
+      const stage = sc.stages[stageIdx];
+      if(stage.choices) resolveOutcome(level, stage.choices[idx]);
+    });
+  });
+  wireFeedbackButtons(level);
+}
+
+/* ---------------------------------------------------------------
+   PHONE-SIM (l7) — ringing phone → call transcript
+   --------------------------------------------------------------- */
+function renderPhoneSim(level, sc){
+  if(runtime.phoneDeclined) return renderPhoneDeclined(level, sc);
+  if(runtime.phoneStage === 'answered') return renderPhoneCall(level, sc);
+  return renderPhoneRinging(sc);
+}
+function renderPhoneRinging(sc){
+  return `<div class="scenario-card">
+    <p class="eyebrow">Inkomend gesprek</p>
+    <h3>Je telefoon gaat</h3>
+    <p class="scenario-lede">Jij krijgt een telefoontje. Wat doe je?</p>
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="phone-incoming-label">Inkomend gesprek</div>
+        <div class="phone-caller-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="phone-caller-name">${esc(sc.ringing.caller)}</div>
+        <div class="phone-caller-number">${esc(sc.ringing.number)}</div>
+        <div class="phone-actions">
+          <div class="phone-action-wrap">
+            <button class="phone-btn phone-decline" id="phone-decline" type="button" aria-label="Weigeren"><i class="fa-solid fa-phone-slash"></i></button>
+            <span>Weigeren</span>
+          </div>
+          <div class="phone-action-wrap">
+            <button class="phone-btn phone-answer" id="phone-answer" type="button" aria-label="Opnemen"><i class="fa-solid fa-phone"></i></button>
+            <span>Opnemen</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function renderPhoneCall(level, sc){
+  return `<div class="scenario-card">
+    <p class="eyebrow">Aan de telefoon</p>
+    <h3>${esc(sc.ringing.caller)}</h3>
+    <p class="scenario-lede">Je hebt opgenomen. Luister naar wat de beller zegt.</p>
+    <div class="phone-transcript-card">
+      ${sc.call.transcript.map(line => `
+        <div class="phone-transcript-line ${line.highlight ? 'phone-transcript-highlight' : ''}">
+          <span class="phone-transcript-who">${esc(line.who)}:</span>
+          <span>${esc(line.text)}</span>
+        </div>`).join('')}
+    </div>
+    <p class="dating-choice-prompt" style="margin-top:1.2rem">Wat doe jij?</p>
+    ${renderChoiceList(sc.call.choices)}
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+function renderPhoneDeclined(level, sc){
+  return `<div class="scenario-card">
+    <p class="eyebrow">Telefoongesprek</p>
+    <h3>Je hebt het gesprek geweigerd</h3>
+    <div class="phone-shell">
+      <div class="phone-screen phone-screen-ended">
+        <div class="phone-caller-icon" style="animation:none;opacity:.6"><i class="fa-solid fa-phone-slash"></i></div>
+        <div class="phone-caller-name">${esc(sc.ringing.caller)}</div>
+        <div class="phone-caller-number" style="color:rgba(255,255,255,.5)">Geweigerd</div>
+      </div>
+    </div>
+    ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
+  </div>`;
+}
+function wirePhoneSim(level, sc){
+  const declineBtn = document.getElementById('phone-decline');
+  if(declineBtn) declineBtn.addEventListener('click', () => {
+    if(!state.completedLevels.includes(level.id)){
+      state.completedLevels.push(level.id);
+      state.score += 10;
+      saveState();
+      updateHeaderProgress();
+    }
+    runtime.phoneDeclined = true;
+    runtime.feedback = { kind: 'correct', title: 'Goed instinct!', text: 'Je hoeft nooit in te gaan op zo\'n telefoontje. Bel je bank altijd zelf terug via het nummer op je bankpas of banksite — nooit via een nummer dat iemand jou geeft. Dan weet je zeker wie je aan de lijn hebt.' };
+    Sfx.success();
+    renderLevelMain();
+  });
+  const answerBtn = document.getElementById('phone-answer');
+  if(answerBtn) answerBtn.addEventListener('click', () => {
+    runtime.phoneStage = 'answered';
+    Sfx.click();
+    renderLevelMain();
+  });
+  document.querySelectorAll('[data-choice-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(runtime.feedback) return;
+      const idx = parseInt(btn.getAttribute('data-choice-index'), 10);
+      resolveOutcome(level, sc.call.choices[idx]);
+    });
+  });
+  wireFeedbackButtons(level);
+}
+
+/* --------------------------------------------------------------- */
+
 function renderScenario(level){
   const sc = level.scenario;
   if(sc.type === 'chat') return renderChatScenario(level, sc);
   if(sc.type === 'password-trap') return renderPasswordTrap(level, sc);
   if(sc.type === 'inbox-flags') return renderInboxFlags(level, sc);
+  if(sc.type === 'inbox-investigate') return renderInboxInvestigate(level, sc);
+  if(sc.type === 'dating-sim') return renderDatingSim(level, sc);
+  if(sc.type === 'phone-sim') return renderPhoneSim(level, sc);
   return renderChoiceScenario(level, sc);
 }
 
@@ -1052,6 +1396,18 @@ function wireScenarioEvents(level){
   if(sc.type === 'inbox-flags'){
     wireInboxFlags(level, sc);
     wireFeedbackButtons(level);
+    return;
+  }
+  if(sc.type === 'inbox-investigate'){
+    wireInboxInvestigate(level, sc);
+    return;
+  }
+  if(sc.type === 'dating-sim'){
+    wireDatingSim(level, sc);
+    return;
+  }
+  if(sc.type === 'phone-sim'){
+    wirePhoneSim(level, sc);
     return;
   }
   if(sc.type === 'password-trap' && runtime.pwStage !== 'question'){

@@ -514,3 +514,183 @@ img{ max-width: 100%; display:block; }
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+
+/* =================================================================
+   INBOX-INVESTIGATE — klikbare e-mail zonder pre-markering
+   ================================================================= */
+.inbox-investigate .email-zone{
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  transition: background-color .12s;
+  display: inline;
+}
+.inbox-investigate .email-zone:hover{ background: rgba(99,102,241,.1); }
+.inbox-investigate .email-zone.is-flagged{ background: var(--success-soft); }
+.inbox-investigate .email-zone.is-flagged.email-zone-link{ color: #06513c; text-decoration: none; }
+.email-zone-link{ color: var(--secondary-dark); text-decoration: underline; word-break: break-all; }
+
+.zone-badge{
+  display: inline-flex; align-items:center; justify-content:center;
+  width: 18px; height: 18px; border-radius: 50%; background: var(--success);
+  color: #fff; font-size: .6rem; margin-left: 5px; vertical-align: middle;
+}
+.zone-note{
+  display: flex; gap: .7rem; align-items: flex-start;
+  border-radius: var(--radius-md); padding: .9rem 1.1rem; margin-top: .9rem;
+  animation: popIn .18s ease both;
+}
+.zone-note i{ flex:none; margin-top: .1rem; }
+.zone-note p{ font-size: .92rem; line-height: 1.5; margin:0; }
+.zone-note.is-suspicious{ background: var(--success-soft); color: #06513c; }
+.zone-note.is-suspicious i{ color: var(--success); }
+.zone-note.is-safe{ background: var(--secondary-soft); color: var(--primary); }
+.zone-note.is-safe i{ color: var(--secondary); }
+
+.flag-progress-hint{ color: var(--ink-muted); font-style: italic; }
+
+/* =================================================================
+   DATING-SIM — neppe dating-app interface
+   ================================================================= */
+.dating-app-shell{
+  border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden;
+  background: var(--white); box-shadow: var(--shadow-card); margin-bottom: 1.6rem;
+}
+.dating-app-bar{
+  background: #e11d48; color: #fff;
+  padding: .85rem 1.2rem; display: flex; align-items: center; gap: .7rem;
+  font-family: var(--font-head); font-weight: 700; font-size: .95rem;
+}
+.dating-app-bar i{ font-size: 1rem; }
+.dating-online-dot{
+  width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+  margin-left: auto; box-shadow: 0 0 0 2px rgba(163,230,53,.35);
+}
+
+.dating-profile-card{
+  padding: 1.8rem 1.4rem; display: flex; flex-direction: column;
+  align-items: center; text-align: center; gap: 1rem;
+}
+.dating-avatar{
+  width: 96px; height: 96px; border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #e11d48);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; box-shadow: var(--shadow-card);
+}
+.dating-profile-info h3{ font-size: 1.35rem; }
+.dating-verified{ color: #3b82f6; font-size: .95rem; }
+.dating-sub{
+  color: var(--ink-muted); font-size: .85rem;
+  display: flex; align-items: center; gap: .35rem; justify-content: center; margin-top: .2rem;
+}
+.dating-bio{ font-size: .94rem; color: var(--ink); line-height: 1.6; max-width: 360px; }
+.dating-interests{ display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
+.dating-tag{
+  background: #fce7f3; color: #be185d;
+  border-radius: 999px; padding: .3rem .8rem;
+  font-size: .8rem; font-family: var(--font-head); font-weight: 600;
+}
+.dating-start-btn{
+  background: #e11d48; color: #fff; max-width: 280px;
+  box-shadow: 0 8px 20px rgba(225,29,72,.3);
+  font-family: var(--font-head); font-weight: 700;
+  border: none; border-radius: var(--radius-sm); padding: .85rem 1.5rem;
+  cursor: pointer; font-size: 1rem; display: inline-flex; align-items: center;
+  justify-content: center; gap: .55rem; min-height: 48px; width: 100%;
+  transition: filter .15s;
+}
+.dating-start-btn:hover{ filter: brightness(.92); }
+
+.dating-stage-label{
+  background: var(--secondary-soft); color: var(--primary);
+  font-size: .82rem; font-family: var(--font-head); font-weight: 700;
+  text-align: center; padding: .6rem 1rem; border-bottom: 1px solid var(--line);
+}
+.dating-chat-window{
+  padding: 1rem; background: #f1f4f9;
+  display: flex; flex-direction: column; gap: .55rem; min-height: 180px;
+}
+.dating-msg{
+  max-width: 80%; border-radius: 14px; padding: .7rem 1rem;
+  font-size: .93rem; line-height: 1.5;
+}
+.dating-msg-other{
+  align-self: flex-start; background: #fff;
+  border-radius: 14px 14px 14px 4px; box-shadow: 0 1px 2px rgba(0,0,0,.07);
+}
+.dating-msg-self{
+  align-self: flex-end; background: var(--accent-soft);
+  border-radius: 14px 14px 4px 14px; color: var(--primary);
+}
+.dating-chat-footer{
+  padding: 1rem 1.2rem; border-top: 1px solid var(--line);
+  display: flex; justify-content: flex-end;
+}
+.dating-choice-section{ padding: .8rem 1.2rem 1.2rem; }
+.dating-choice-prompt{
+  font-family: var(--font-head); font-weight: 700;
+  color: var(--primary); font-size: .95rem; margin-bottom: .6rem;
+}
+
+/* =================================================================
+   PHONE-SIM — rinkelende telefoon en gesprek-transcript
+   ================================================================= */
+.phone-shell{ max-width: 300px; margin: 1.2rem auto; }
+.phone-screen{
+  background: linear-gradient(160deg, #1a1a2e, #16213e);
+  border-radius: var(--radius-lg); padding: 2.5rem 1.5rem 2rem;
+  color: #fff; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  box-shadow: var(--shadow-pop);
+}
+.phone-screen-ended{ opacity: .75; }
+.phone-incoming-label{
+  font-size: .72rem; color: rgba(255,255,255,.6);
+  font-family: var(--font-head); text-transform: uppercase; letter-spacing: .08em;
+}
+.phone-caller-icon{
+  width: 78px; height: 78px; border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.7rem; color: var(--accent);
+  animation: phonePulse 1.6s ease-in-out infinite;
+}
+@keyframes phonePulse{
+  0%,100%{ box-shadow: 0 0 0 0 rgba(163,230,53,.45); }
+  50%{ box-shadow: 0 0 0 18px rgba(163,230,53,0); }
+}
+.phone-caller-name{ font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; }
+.phone-caller-number{ font-size: .84rem; color: rgba(255,255,255,.6); }
+.phone-actions{ display: flex; gap: 2.2rem; margin-top: .5rem; }
+.phone-action-wrap{ display: flex; flex-direction: column; align-items: center; gap: .45rem; }
+.phone-action-wrap span{ font-size: .72rem; color: rgba(255,255,255,.65); }
+.phone-btn{
+  width: 62px; height: 62px; border-radius: 50%; border: none;
+  font-size: 1.35rem; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform .12s, filter .12s;
+}
+.phone-btn:active{ transform: scale(.9); }
+.phone-decline{ background: var(--danger); color: #fff; box-shadow: 0 4px 16px rgba(239,68,68,.45); }
+.phone-decline:hover{ filter: brightness(.9); }
+.phone-answer{
+  background: var(--success); color: #fff; box-shadow: 0 4px 16px rgba(16,185,129,.45);
+  animation: phoneAnswerPulse .9s ease-in-out infinite;
+}
+.phone-answer:hover{ filter: brightness(.9); animation: none; }
+@keyframes phoneAnswerPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.07); } }
+
+.phone-transcript-card{
+  background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: 1.1rem; margin-bottom: .8rem;
+  display: flex; flex-direction: column; gap: .8rem;
+}
+.phone-transcript-line{ display: flex; gap: .6rem; font-size: .92rem; }
+.phone-transcript-who{
+  font-family: var(--font-head); font-weight: 700;
+  color: var(--secondary); flex: none; min-width: 50px;
+}
+.phone-transcript-highlight{
+  background: var(--warning-soft); border-radius: var(--radius-sm);
+  padding: .75rem; border-left: 3px solid var(--warning);
+}
