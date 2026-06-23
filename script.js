@@ -754,8 +754,7 @@ const levels = {
       intro: 'Je haalt je laptop tevoorschijn en opent de wifi-instellingen. Je ziet drie netwerken.',
       networks: [
         { id: 'official',  name: 'GrandCafe_DeHoek',   secured: true,  bars: 3, label: 'Beveiligd netwerk' },
-        { id: 'evil-twin', name: 'GrandCafe_DeHoek_',  secured: false, bars: 5, label: 'Open netwerk', highlight: true },
-        { id: 'suspicious',name: 'FREE_INTERNET_NOW',  secured: false, bars: 2, label: 'Open netwerk' },
+        { id: 'evil-twin', name: 'GrandCafe_DeHoek_',  secured: false, bars: 5, label: 'Open netwerk' },
       ],
       choices: [
         { label: 'Verbinding maken met "GrandCafe_DeHoek_" — sterkste signaal!', outcome: 'wrong',
@@ -820,7 +819,7 @@ const levels = {
         },
         {
           id: 'q2',
-          question: 'Welk van deze domeinen is waarschijnlijk NEPPAS?',
+          question: 'Welk van deze domeinen is waarschijnlijk NEP?',
           options: [
             'digid.nl',
             'belastingdienst.nl',
@@ -1797,7 +1796,6 @@ function renderWifiChooser(level, sc){
         </button>
       </div>
     </div>
-    ${renderChoiceList(sc.choices)}
     ${runtime.feedback ? renderFeedbackPanel(runtime.feedback) : ''}
   </div>`;
 }
