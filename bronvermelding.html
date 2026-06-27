@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bronvermelding — Cyber-Sjors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+    font-family: var(--font-body);
+  }
+  .bronnen-page {
+    width: 100%;
+    max-width: 720px;
+  }
+  .bronnen-page-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .bronnen-back {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .85rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .35rem .85rem;
+    transition: background .15s;
+  }
+  .bronnen-back:hover { background: var(--surface); }
+  .bronnen-page h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .bronnen-page .bronnen-list {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+    list-style: decimal;
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+  }
+  .bronnen-page .bronnen-list li {
+    font-size: .9rem;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .bronnen-page .bronnen-list a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .bronnen-page .bronnen-list a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="bronnen-page">
+  <div class="bronnen-page-header">
+    <a href="index.html" class="bronnen-back">
+      <i class="fa-solid fa-arrow-left"></i> Terug naar Cyber-Sjors
+    </a>
+  </div>
+  <h1>Bronvermelding</h1>
+  <p style="color:var(--ink-muted);font-size:.88rem;margin:.5rem 0 1.5rem;">De onderstaande bronnen zijn gebruikt bij het samenstellen van de cursus Cyber-Sjors.</p>
+  <ul class="bronnen-list">
+    <li>Slachtofferwijzer.nl — <em>Datingfraude: oplichters via datingsites</em>. <a href="https://slachtofferwijzer.nl/artikelen/datingfraude-oplichters-via-datingsites" target="_blank" rel="noopener">slachtofferwijzer.nl</a></li>
+    <li>Fraudehelpdesk.nl — <em>Hulpvraagfraude: laat je niet neppen tijdens het appen</em>. <a href="https://www.fraudehelpdesk.nl/campagnes/hulpvraagfraude-laat-je-niet-neppen-tijdens-het-appen/" target="_blank" rel="noopener">fraudehelpdesk.nl</a></li>
+    <li>NCSC — <em>Tips voor het bedenken van een sterk wachtwoord</em>. <a href="https://www.ncsc.nl/multifactor-authenticatie/tips-voor-het-bedenken-van-een-sterk-wachtwoord" target="_blank" rel="noopener">ncsc.nl</a></li>
+    <li>NCSC — <em>Social engineering</em>. <a href="https://www.ncsc.nl/mensgerichte-beveiliging/social-engineering" target="_blank" rel="noopener">ncsc.nl</a></li>
+    <li>NCSC — <em>Phishing uitgelegd</em>. <a href="https://www.ncsc.nl/phishing/phishing-uitgelegd" target="_blank" rel="noopener">ncsc.nl</a></li>
+    <li>Politie.nl — <em>Wat is fraude met QR-codes (quishing)?</em> <a href="https://www.politie.nl/informatie/wat-is-fraude-met-qr-codes-quishing.html" target="_blank" rel="noopener">politie.nl</a></li>
+    <li>Fraudehelpdesk.nl — <em>Ik ben gebeld door mijn bank</em>. <a href="https://www.fraudehelpdesk.nl/fraude/ik-ben-gebeld-door-mijn-bank/" target="_blank" rel="noopener">fraudehelpdesk.nl</a></li>
+    <li>G. Nieuwkoop — <em>SamenvattingSecurity.pdf</em> (eigen lesmateriaal).</li>
+    <li>Kaspersky — <em>How to spot fake login pages</em>. <a href="https://www.kaspersky.nl/resource-center/preemptive-safety/how-to-spot-fake-login-pages" target="_blank" rel="noopener">kaspersky.nl</a></li>
+    <li>PostNL — <em>Phishing herkennen</em>. <a href="https://www.postnl.nl/phishing/phishing-herkennen/" target="_blank" rel="noopener">postnl.nl</a></li>
+    <li>Wikipedia — <em>TCP- en UDP-poorten</em>. <a href="https://nl.wikipedia.org/wiki/TCP-_en_UDP-poorten" target="_blank" rel="noopener">nl.wikipedia.org</a></li>
+    <li>NCSC — <em>Wat is een firewall?</em> <a href="https://www.ncsc.nl/preventieve-beveiligingsmaatregelen/wat-is-een-firewall" target="_blank" rel="noopener">ncsc.nl</a></li>
+  </ul>
+</div>
+</body>
+</html>

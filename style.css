@@ -1,4 +1,4 @@
-/* =================================================================
+﻿/* =================================================================
    CYBER-SJORS — stylesheet
    Idee: een digitaal "dossier" (theorie) gekruist met een speelse
    routekaart (praktijk). Vaste kleuren/fonts uit de opdracht.
@@ -1039,3 +1039,209 @@ img{ max-width: 100%; display:block; }
 }
 .qr-sticker{ cursor:grab; user-select:none; }
 .qr-sticker:active{ cursor:grabbing; }
+
+/* ============================================================
+   BRONNENVERMELDING FOOTER
+   ============================================================ */
+.bronnen-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 1rem 3rem;
+  margin-top: 0;
+}
+.bronnen-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.bronnen-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.bronnen-list {
+  list-style: decimal;
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.bronnen-list li {
+  font-size: .85rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+.bronnen-list a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.bronnen-list a:hover {
+  text-decoration: underline;
+}
+.bronnen-note {
+  font-size: .75rem;
+  color: var(--ink-muted);
+  margin-top: 1.25rem;
+  opacity: .7;
+}
+
+.bronnen-link {
+  display: block;
+  text-align: center;
+  font-size: .78rem;
+  color: var(--ink-muted);
+  opacity: .6;
+  margin-top: .75rem;
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.bronnen-link:hover { opacity: 1; }
+/* ── Password-trap fake website (L2) ───────────────────────── */
+.url-text-unsafe {
+  color: #b91c1c;
+  font-weight: 600;
+  font-size: .78rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+.url-text-domain {
+  color: #374151;
+  font-size: .82rem;
+}
+.pw-site-body {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.pw-site-header {
+  background: #1d4ed8;
+  color: #fff;
+  padding: .65rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 700;
+  font-family: var(--font-head);
+  font-size: .95rem;
+}
+.pw-site-tld { opacity: .65; }
+.pw-site-main {
+  padding: 1.75rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .9rem;
+  text-align: center;
+}
+.pw-site-title {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.pw-site-sub {
+  font-size: .85rem;
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 380px;
+}
+.pw-site-form {
+  display: flex;
+  gap: .5rem;
+  width: 100%;
+  max-width: 420px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.pw-site-input {
+  flex: 1;
+  min-width: 160px;
+  padding: .65rem 1rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: .92rem;
+  font-family: var(--font-body);
+  background: #f9fafb;
+  transition: border-color .15s;
+}
+.pw-site-input:focus { outline: none; border-color: #1d4ed8; }
+.pw-site-btn {
+  background: #1d4ed8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: .65rem 1.2rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .88rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  transition: background .15s;
+  white-space: nowrap;
+}
+.pw-site-btn:hover { background: #1e40af; }
+.pw-site-btn:disabled { opacity: .55; cursor: default; }
+.pw-site-trust {
+  padding: .55rem 1rem .75rem;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  font-size: .72rem;
+  color: #9ca3af;
+  flex-wrap: wrap;
+}
+.pw-site-trust i { color: #1d4ed8; margin-right: .2rem; }
+
+/* Overlay + modal for question stage */
+.pw-site-overlay {
+  position: relative;
+}
+.pw-site-blurred {
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+}
+.pw-site-modal-wrap {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 10;
+}
+.pw-site-modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem 1.25rem 1.25rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.3);
+}
+.pw-site-modal-icon {
+  font-size: 2rem;
+  color: #f59e0b;
+  text-align: center;
+  margin-bottom: .4rem;
+}
+.pw-site-modal-title {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  margin: 0 0 .5rem;
+}
+.pw-site-modal-body {
+  font-size: .87rem;
+  color: var(--ink-muted);
+  text-align: center;
+  margin: 0 0 1rem;
+  line-height: 1.55;
+}
