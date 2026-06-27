@@ -411,14 +411,13 @@ img{ max-width: 100%; display:block; }
   background: #0c0d1f; border-radius: var(--radius-md); aspect-ratio: 16/9; display:flex; align-items:center;
   justify-content:center; position:relative; overflow:hidden;
 }
-.video-play-btn{
-  width: 64px; height: 64px; border-radius:50%; background: rgba(255,255,255,.14); border: 2px solid rgba(255,255,255,.5);
-  color:#fff; font-size: 1.4rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2;
-  transition: transform .15s, background .15s;
+.video-stage video, .video-stage iframe{ width:100%; height:100%; border-radius:var(--radius-md); display:block; }
+.video-pending{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.75rem;
+  color:rgba(255,255,255,.5); text-align:center; padding:1.5rem;
 }
-.video-play-btn:hover{ transform: scale(1.06); background: rgba(255,255,255,.22); }
-.video-pending-text{ position:absolute; bottom: .9rem; left:0; right:0; text-align:center; color: rgba(255,255,255,.55); font-size: .78rem; }
-.video-stage video{ width:100%; height:100%; object-fit:cover; }
+.video-pending i{ font-size:2.5rem; }
+.video-pending p{ font-size:.85rem; margin:0; max-width:220px; line-height:1.5; }
 
 /* Toasts */
 .toast-root{ position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%); z-index: 200; display:flex; flex-direction:column; gap:.5rem; align-items:center; }

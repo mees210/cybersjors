@@ -2284,33 +2284,35 @@ function completeLevel(level){
 function openVideoModal(key, title){
   const entry = videoLibrary[key] || {};
   const root = document.getElementById('popup-root');
+
+  let stage;
+  if(entry.src){
+    const isEmbed = entry.src.includes('youtube') || entry.src.includes('youtu.be') || entry.src.includes('vimeo');
+    stage = isEmbed
+      ? `<iframe src="${entry.src}" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;aspect-ratio:16/9;border-radius:8px;display:block"></iframe>`
+      : `<video src="${entry.src}" controls preload="metadata" playsinline style="width:100%;border-radius:8px;display:block"></video>`;
+  } else {
+    stage = `<div class="video-pending">
+        <i class="fa-solid fa-clapperboard"></i>
+        <p>Sjors is deze video aan het inspreken — komt binnenkort!</p>
+      </div>`;
+  }
+
   root.innerHTML = `
     <div class="overlay" id="video-overlay">
       <div class="video-modal">
         <button class="video-modal-close" id="video-modal-close" type="button" aria-label="Sluiten"><i class="fa-solid fa-xmark"></i></button>
         <p class="eyebrow">Uitlegvideo</p>
         <h3>${title}</h3>
-        <div class="video-stage" id="video-stage">
-          <button class="video-play-btn" id="video-play-btn" type="button" aria-label="Afspelen"><i class="fa-solid fa-play"></i></button>
-          <span class="video-pending-text">Video volgt binnenkort</span>
-        </div>
+        <div class="video-stage" id="video-stage">${stage}</div>
       </div>
     </div>`;
   document.getElementById('video-modal-close').addEventListener('click', closeOverlay);
   document.getElementById('video-overlay').addEventListener('click', (e) => {
     if(e.target.id === 'video-overlay') closeOverlay();
   });
-  document.getElementById('video-play-btn').addEventListener('click', () => {
-    if(entry.src){
-      const isEmbed = entry.src.includes('youtube') || entry.src.includes('youtu.be') || entry.src.includes('vimeo');
-      document.getElementById('video-stage').innerHTML = isEmbed
-        ? `<iframe src="${entry.src}" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" style="width:100%;aspect-ratio:16/9;border-radius:8px"></iframe>`
-        : `<video src="${entry.src}" controls autoplay playsinline style="width:100%;border-radius:8px"></video>`;
-    } else {
-      showToast('Deze video volgt nog — Sjors is hem aan het inspreken.', 'fa-clapperboard');
-    }
-  });
 }
+
 
 /* ---------------------------------------------------------------
    "HELAAS, GEHACKT!"-OVERLAY
