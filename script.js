@@ -1,5 +1,5 @@
 ﻿/* =================================================================
-   CYBER-SJORS — script.js
+   CYBER-SJORS - script.js
    Vanilla JS, geen frameworks. Inhoud, state-management en alle
    render-logica staan hier samen zodat het overzichtelijk blijft.
 
@@ -33,7 +33,7 @@ function loadState(){
 }
 function saveState(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-  catch(e){ /* opslag niet beschikbaar (bv. privémodus) — gewoon negeren */ }
+  catch(e){ /* opslag niet beschikbaar (bv. privémodus) - gewoon negeren */ }
 }
 
 let state = loadState();
@@ -43,7 +43,7 @@ let sjorsTipIndex = -1;
 let sjorsHideTimer = null;
 
 /* ---------------------------------------------------------------
-   VIDEOLIBRARY — vul hier later de echte video's in
+   VIDEOLIBRARY - vul hier later de echte video's in
    ---------------------------------------------------------------
    Voorbeeld: 'l1-uitleg': { src: 'https://jouwserver.nl/videos/l1.mp4' }
    Een lege of ontbrekende sleutel toont automatisch de
@@ -58,12 +58,8 @@ const videoLibrary = {
   'l4-theory-v1':  { src: 'videos/l4-theory-v1.mp4' },   // Quishing: phishing via een QR-code
   'l5-theory-v1':  { src: 'videos/l5-theory-v1.mp4' },   // Verdachte bijlagen herkennen
   't2-v1':         { src: 'videos/t2-v1.mp4' },           // Virus, Trojan of worm: het verschil
-  't6-v1':         { src: 'videos/t6-v1.mp4' },           // Keyloggers: hoe criminelen meeluisteren
   'l6-theory-v1':  { src: 'videos/l6-theory-v1.mp4' },   // Datingfraude herkennen
   'l7-theory-v1':  { src: 'videos/l7-theory-v1.mp4' },   // Bankfraude via telefoontjes
-  'l8-theory-v1':  { src: 'videos/l8-theory-v1.mp4' },   // Neppe inlogpagina's herkennen
-  'l9-theory-v1':  { src: 'videos/l9-theory-v1.mp4' },   // Nep tech support herkennen
-  'l10-theory-v1': { src: 'videos/l10-theory-v1.mp4' },  // Pakketfraude via sms herkennen
   't7-v1':         { src: 'videos/t7-v1.mp4' },           // Man-in-the-middle en Evil Twin uitgelegd
 
   // ── Uitlegvideo na fout antwoord (interactieve levels) ─────
@@ -93,13 +89,13 @@ const sjorsTips = [
   'Hoe langer en gekker je wachtwoord, hoe langer een computer erover doet om het te raden.',
   'Onbekend nummer, een dringend verhaal, snel geld nodig? Altijd even apart checken voor je iets doet.',
   'Geen idee waar een QR-code naartoe leidt? Niet scannen.',
-  'Eén wachtwoord op meerdere plekken gebruiken voelt handig — tot het op één plek lekt en alles openligt.',
+  'Eén wachtwoord op meerdere plekken gebruiken voelt handig - tot het op één plek lekt en alles openligt.',
   'Een onverwachte pop-up over een "kritieke update"? Dat is bijna altijd nep.',
   'Bij twijfel: even wachten en navragen kost niets. Een verkeerde klik kost soms alles.',
 ];
 
 /* ---------------------------------------------------------------
-   INHOUD — hoofdstukken en levels
+   INHOUD - hoofdstukken en levels
    --------------------------------------------------------------- */
 const chapters = [
   {
@@ -111,7 +107,7 @@ const chapters = [
   {
     id: 'h2',
     title: 'Slimme trucs & kwaadaardige bestanden',
-    description: 'Een foute klik is zo gemaakt — en daar rekenen criminelen precies op.',
+    description: 'Een foute klik is zo gemaakt - en daar rekenen criminelen precies op.',
     levelIds: ['l4', 'l5', 'l6', 'l7', 't2'],
   },
   {
@@ -123,7 +119,7 @@ const chapters = [
   {
     id: 'h4',
     title: 'Jouw digitale veiligheid',
-    description: 'Hoe beschermen jij — en de bedrijven waar je mee werkt — je gegevens echt?',
+    description: 'Hoe beschermen jij - en de bedrijven waar je mee werkt - je gegevens echt?',
     levelIds: ['t7', 't6'],
   },
   {
@@ -141,7 +137,7 @@ const levels = {
   l1: {
     id: 'l1', chapterId: 'h1', kind: 'interactive', icon: 'fa-comment-dots',
     nodeTitle: "Bericht van 'Tom'",
-    sjorsIntro: 'Dit is een live chatgesprek. Lees rustig mee en kies onderaan wat jij zou doen — er staat geen klok mee te tikken.',
+    sjorsIntro: 'Dit is een live chatgesprek. Lees rustig mee en kies onderaan wat jij zou doen - er staat geen klok mee te tikken.',
     scenario: {
       type: 'chat',
       eyebrow: 'WhatsApp-gesprek',
@@ -184,7 +180,7 @@ const levels = {
           'Het bericht doorsturen naar vrienden om te vragen wat zij ervan vinden',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Precies — even apart verifiëren via een manier die je al vertrouwde, kost een paar seconden en is dus de veiligste optie.',
+        feedbackCorrect: 'Precies - even apart verifiëren via een manier die je al vertrouwde, kost een paar seconden en is dus de veiligste optie.',
         feedbackWrong: 'Toch niet de veiligste route. Kies een ander antwoord.',
       },
     },
@@ -201,10 +197,10 @@ const levels = {
       lede: 'Welkom bij testmijnwachtwoord.nl. Typ een wachtwoord in het vak en wij laten precies zien hoe sterk het is.',
       inputPlaceholder: 'Typ hier een wachtwoord...',
       questionHeadline: 'Wacht eens even...',
-      question: 'Is dit toevallig je échte wachtwoord — hetzelfde dat je ook voor je e-mail of bank gebruikt?',
+      question: 'Is dit toevallig je échte wachtwoord - hetzelfde dat je ook voor je e-mail of bank gebruikt?',
       choices: [
         { label: 'Ja, dat is mijn echte wachtwoord', outcome: 'wrong',
-          feedbackText: "Dit 'check je wachtwoord'-trucje is een klassieke manier om wachtwoorden te verzamelen. Sommige van deze sites slaan precies op wat je intikt — zo lekt je wachtwoord naar de verkeerde mensen, zonder dat er ooit iemand iets heeft 'gehackt' in de echte zin van het woord." },
+          feedbackText: "Dit 'check je wachtwoord'-trucje is een klassieke manier om wachtwoorden te verzamelen. Sommige van deze sites slaan precies op wat je intikt - zo lekt je wachtwoord naar de verkeerde mensen, zonder dat er ooit iemand iets heeft 'gehackt' in de echte zin van het woord." },
         { label: 'Nee, ik verzon gewoon iets', outcome: 'correct',
           feedbackTitle: 'Gelukkig...',
           feedbackText: "Een wachtwoordchecker heeft jouw échte wachtwoord helemaal niet nodig om te laten zien hoe sterk wachtwoorden in het algemeen zijn. Wachtwoordcheckers kunnen jouw ingevulde input namelijk opslaan waardoor ze jouw wachtwoord weten. Verzin voor zo'n test daarom altijd iets los, of gebruik zo'n site gewoon niet." },
@@ -218,7 +214,7 @@ const levels = {
         ], video: { key: 'l2-theory-v1', title: 'Wachtwoordcheckers: handig of riskant?' } },
         { icon: 'fa-shield-halved', title: 'Een sterk wachtwoord in drie vuistregels', paragraphs: [
           'Gebruik, kleine letters, hoofdletters, cijfers, speciale tekens en spaties. Een langer wachtwoord is moeilijker om te kraken.',
-          'Gebruik nooit hetzelfde wachtwoord op meerdere plekken — lekt er één, dan liggen ze allemaal open voor een hacker. Gebruik ook geen wachtwoorden die makkelijk te raden zijn zoals "wachtwoord" of "hallo123".',
+          'Gebruik nooit hetzelfde wachtwoord op meerdere plekken - lekt er één, dan liggen ze allemaal open voor een hacker. Gebruik ook geen wachtwoorden die makkelijk te raden zijn zoals "wachtwoord" of "hallo123".',
           'Maak gebruik van een wachtwoordmanager waardoor je maar één wachtwoord hoeft te onthouden om toegang te krijgen tot al je andere wachtwoorden. Je kunt je wachtwoorden hierdoor extra ingewikkeld maken.',
         ] },
       ],
@@ -231,7 +227,7 @@ const levels = {
           'Het wachtwoord twee keer typen bij het instellen',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — elke extra letter of teken vermenigvuldigt het aantal mogelijkheden dat geraden moet worden.',
+        feedbackCorrect: 'Klopt - elke extra letter of teken vermenigvuldigt het aantal mogelijkheden dat geraden moet worden.',
         feedbackWrong: 'Niet de belangrijkste factor. Vooral de lengte van een wachtwoord maakt het werk voor een hacker ingewikkelder.',
       },
     },
@@ -252,10 +248,10 @@ const levels = {
           'Tijdsdruk: een deadline van een paar uur, of de belofte dat een account anders geblokkeerd wordt.',
           'Een verzoek om via een link in te loggen of te betalen, vaak met een onpersoonlijke aanhef en net iets andere opmaak dan je gewend bent.',
         ] },
-        { icon: 'fa-circle-check', title: 'Wat je wel — en nooit — doet', paragraphs: [
+        { icon: 'fa-circle-check', title: 'Wat je wel - en nooit - doet', paragraphs: [
           'Log nooit in via een link in een mail of sms. Ga altijd zelf naar de site of app van het bedrijf.',
           'Twijfel je toch? Verifieer het verzoek via een plek dat je al vertrouwde, zoals een telefoonnummer dat je al had of een mailtje van eerder.',
-          'Meld verdachte mail liever dan hem alleen te verwijderen — daarmee help je ook anderen.',
+          'Meld verdachte mail liever dan hem alleen te verwijderen - daarmee help je ook anderen.',
         ] },
       ],
       quiz: {
@@ -267,7 +263,7 @@ const levels = {
           'Antwoorden op de mail om te vragen of het klopt',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — altijd zelf naar de officiële plek toe gaan, nooit via een link in een mail.',
+        feedbackCorrect: 'Klopt - altijd zelf naar de officiële plek toe gaan, nooit via een link in een mail.',
         feedbackWrong: 'Niet de veiligste keuze. Ga in plaats daarvan altijd zelf, los van de mail, naar de site of app van je bank.',
       },
     },
@@ -276,31 +272,31 @@ const levels = {
   l3: {
     id: 'l3', chapterId: 'h1', kind: 'interactive', icon: 'fa-envelope-open-text',
     nodeTitle: 'De e-mail van "de Belastingdienst"',
-    sjorsIntro: 'Hieronder staat een verdachte mail nagebouwd. Lees hem goed door — klik op alles wat jou niet klopt. Geen aanwijzingen over hoeveel dingen er fout zijn: dat bedenk jij zelf.',
+    sjorsIntro: 'Hieronder staat een verdachte mail nagebouwd. Lees hem goed door - klik op alles wat jou niet klopt. Geen aanwijzingen over hoeveel dingen er fout zijn: dat bedenk jij zelf.',
     scenario: {
       type: 'inbox-investigate',
       headline: 'Een herinnering van "de Belastingdienst"',
       lede: 'Klik op elk onderdeel van de mail dat jou verdacht lijkt. Je kunt zoveel of zo weinig onderdelen aanklikken als je wil.',
       zones: [
-        { id: 'from',     area: 'meta', label: 'Van',       value: 'belastingdienst-teruggave@bd-overheid-nl.ru',   suspicious: true,  hint: 'Goed gezien! Het domein eindigt op ".ru" — dat is Rusland. De Belastingdienst stuurt altijd mail vanuit @belastingdienst.nl.' },
-        { id: 'to',       area: 'meta', label: 'Aan',       value: 'jij@email.nl',                                   suspicious: false, hint: 'Dit is gewoon jouw e-mailadres — hier valt niets op.' },
+        { id: 'from',     area: 'meta', label: 'Van',       value: 'belastingdienst-teruggave@bd-overheid-nl.ru',   suspicious: true,  hint: 'Goed gezien! Het domein eindigt op ".ru" - dat is Rusland. De Belastingdienst stuurt altijd mail vanuit @belastingdienst.nl.' },
+        { id: 'to',       area: 'meta', label: 'Aan',       value: 'jij@email.nl',                                   suspicious: false, hint: 'Dit is gewoon jouw e-mailadres - hier valt niets op.' },
         { id: 'subject',  area: 'meta', label: 'Onderwerp', value: 'Laatste herinnering: teruggave van €438,29 vervalt', suspicious: false, hint: 'Het klinkt urgent, maar een onderwerp alleen is geen bewijs van fraude. Let ook op de andere onderdelen.' },
-        { id: 'greeting', area: 'body', value: 'Geachte heer/mevrouw,',                                               suspicious: false, hint: '"Geachte heer/mevrouw" is onpersoonlijk — een kleine aanwijzing, maar niet genoeg op zichzelf.' },
-        { id: 'body1',    area: 'body', value: 'Bij controle van uw belastingaangifte 2025 is gebleken dat u recht heeft op een teruggave van €438,29.',  suspicious: false, hint: 'Een specifiek bedrag wekt vertrouwen — maar dat is precies de truc. Dit onderdeel zelf is niet het probleem.' },
-        { id: 'urgency',  area: 'body', value: 'Reageert u niet binnen 2 uur, dan vervalt deze teruggave automatisch en wordt uw dossier opnieuw in behandeling genomen.', suspicious: true, hint: 'Goed gezien! Dit is valse tijdsdruk. Een echte overheidsinstantie geeft je altijd weken de tijd — nooit twee uur. Haast is een klassiek trucje om je snel te laten klikken.' },
-        { id: 'body2',    area: 'body', value: 'Bevestig uw gegevens binnen de gestelde termijn via onderstaande link:', suspicious: false, hint: 'Dit verzoek op zich zegt nog niet alles — de link hieronder is het echte probleem.' },
-        { id: 'link',     area: 'link', value: 'belastingdienst-mijnaccount.ru/teruggave',                           suspicious: true,  hint: 'Goed gezien! Dit domein eindigt op ".ru" — Rusland, niet Nederland. De officiële Belastingdienst gebruikt altijd belastingdienst.nl.' },
+        { id: 'greeting', area: 'body', value: 'Geachte heer/mevrouw,',                                               suspicious: false, hint: '"Geachte heer/mevrouw" is onpersoonlijk - een kleine aanwijzing, maar niet genoeg op zichzelf.' },
+        { id: 'body1',    area: 'body', value: 'Bij controle van uw belastingaangifte 2025 is gebleken dat u recht heeft op een teruggave van €438,29.',  suspicious: false, hint: 'Een specifiek bedrag wekt vertrouwen - maar dat is precies de truc. Dit onderdeel zelf is niet het probleem.' },
+        { id: 'urgency',  area: 'body', value: 'Reageert u niet binnen 2 uur, dan vervalt deze teruggave automatisch en wordt uw dossier opnieuw in behandeling genomen.', suspicious: true, hint: 'Goed gezien! Dit is valse tijdsdruk. Een echte overheidsinstantie geeft je altijd weken de tijd - nooit twee uur. Haast is een klassiek trucje om je snel te laten klikken.' },
+        { id: 'body2',    area: 'body', value: 'Bevestig uw gegevens binnen de gestelde termijn via onderstaande link:', suspicious: false, hint: 'Dit verzoek op zich zegt nog niet alles - de link hieronder is het echte probleem.' },
+        { id: 'link',     area: 'link', value: 'belastingdienst-mijnaccount.ru/teruggave',                           suspicious: true,  hint: 'Goed gezien! Dit domein eindigt op ".ru" - Rusland, niet Nederland. De officiële Belastingdienst gebruikt altijd belastingdienst.nl.' },
       ],
       suspiciousIds: ['from', 'urgency', 'link'],
       cta: { text: 'Bevestig mijn gegevens' },
-      wrongFeedback: 'Dit was een valstrik — deze knop stuurt je naar een nepsite die er professioneel uitziet, maar bedoeld is om je inlog- of bankgegevens te stelen. Zoek eerst de verdachte onderdelen in de mail zelf.',
+      wrongFeedback: 'Dit was een valstrik - deze knop stuurt je naar een nepsite die er professioneel uitziet, maar bedoeld is om je inlog- of bankgegevens te stelen. Zoek eerst de verdachte onderdelen in de mail zelf.',
       correctFeedback: 'Goed speurwerk! De drie valstrikken: een afzenderadres met ".ru" in plaats van ".nl", valse tijdsdruk van twee uur, en een link naar een nepdomein. Door te melden in plaats van te klikken, bescherm je ook anderen.',
     },
     theory: {
       accordion: [
         { icon: 'fa-flag', title: 'Wat je net hebt gedaan', paragraphs: [
           'Je hebt drie kenmerken van een phishingmail uitgezocht: een afzender die niet klopt, tijdsdruk en een link naar een nepdomein.',
-          'Officiële instanties zoals de Belastingdienst communiceren nooit op deze manier — geen dreigende deadlines en geen verzoek om snel via een link in te loggen.',
+          'Officiële instanties zoals de Belastingdienst communiceren nooit op deze manier - geen dreigende deadlines en geen verzoek om snel via een link in te loggen.',
         ], video: { key: 'l3-theory-v1', title: 'Phishingmail melden: zo doe je dat' } },
         { icon: 'fa-flag-checkered', title: 'Waarom melden net zo belangrijk is als verwijderen', paragraphs: [
           "Door verdachte mails te melden, bijvoorbeeld bij de Fraudehelpdesk of via de 'phishing melden'-knop van je mailprogramma, help je voorkomen dat anderen er wél intrappen.",
@@ -315,8 +311,8 @@ const levels = {
           'Een link naar een onbekend of verkeerd gespeld domein',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — juist een rustige, geduldige toon past niet bij phishing. Oplichters hebben haast nodig om je te laten klikken.',
-        feedbackWrong: 'Toch niet. Phishingmails missen juist een rustige, geduldige toon — ze hebben haast nodig om je tot klikken te verleiden.',
+        feedbackCorrect: 'Klopt - juist een rustige, geduldige toon past niet bij phishing. Oplichters hebben haast nodig om je te laten klikken.',
+        feedbackWrong: 'Toch niet. Phishingmails missen juist een rustige, geduldige toon - ze hebben haast nodig om je tot klikken te verleiden.',
       },
     },
   },
@@ -331,19 +327,19 @@ const levels = {
       type: 'parking-qr',
       choices: [
         { label: 'QR-code scannen en betalen via de link', outcome: 'wrong',
-          feedbackText: 'Dit stickertje is vals — het is door een crimineel op de automaat geplakt. Erachter zit een nepbetaalpagina die jouw kaartgegevens doorstuurt. Je parkeert nergens voor en je kaartgegevens zijn gestolen.' },
+          feedbackText: 'Dit stickertje is vals - het is door een crimineel op de automaat geplakt. Erachter zit een nepbetaalpagina die jouw kaartgegevens doorstuurt. Je parkeert nergens voor en je kaartgegevens zijn gestolen.' },
         { label: 'De sticker van de automaat halen en de gemeente bellen', outcome: 'correct',
           feedbackTitle: 'Precies goed.',
-          feedbackText: 'Door de sticker te verwijderen bescherm jij ook de volgende persoon. Meld het aan de gemeente — zij kunnen de automaat laten controleren. Gebruik daarna de officiële parkeer-app of de automaat zelf.' },
-        { label: 'QR negeren — gewoon de officiële app of automaat gebruiken', outcome: 'risky',
+          feedbackText: 'Door de sticker te verwijderen bescherm jij ook de volgende persoon. Meld het aan de gemeente - zij kunnen de automaat laten controleren. Gebruik daarna de officiële parkeer-app of de automaat zelf.' },
+        { label: 'QR negeren - gewoon de officiële app of automaat gebruiken', outcome: 'risky',
           feedbackTitle: 'Goed voor jezelf, maar...',
-          feedbackText: 'Jij betaalt veilig — dat is goed. Maar de nep-sticker hangt er nog steeds voor de volgende persoon. Het kost maar even om hem eraf te trekken en de gemeente te bellen.' },
+          feedbackText: 'Jij betaalt veilig - dat is goed. Maar de nep-sticker hangt er nog steeds voor de volgende persoon. Het kost maar even om hem eraf te trekken en de gemeente te bellen.' },
       ],
     },
     theory: {
       accordion: [
         { icon: 'fa-qrcode', title: 'Waarom QR-codes zo handig én zo riskant zijn', paragraphs: [
-          'Een QR-code laat vooraf niets van de bestemming zien — je scant hem en vertrouwt erop dat het wel goed zal zijn.',
+          'Een QR-code laat vooraf niets van de bestemming zien - je scant hem en vertrouwt erop dat het wel goed zal zijn.',
           "Oplichters plakken eigen stickers over of naast officiële codes, op parkeerautomaten, terrasjes en zelfs pakketbonnen. 'Quishing' wordt dit genoemd: phishing via een QR-code.",
         ], video: { key: 'l4-theory-v1', title: 'Quishing: phishing via een QR-code' } },
       ],
@@ -352,11 +348,11 @@ const levels = {
         options: [
           'Scannen en zo snel mogelijk betalen',
           'Scannen, en alleen de link goed nalezen voor je iets invult',
-          'Niet scannen — de officiële app of de automaat zelf gebruiken',
+          'Niet scannen - de officiële app of de automaat zelf gebruiken',
           'Een foto maken en delen op social media',
         ],
         correctIndex: 2,
-        feedbackCorrect: 'Goed — een los geplakt stickertje vermijd je sowieso liever helemaal.',
+        feedbackCorrect: 'Goed - een los geplakt stickertje vermijd je sowieso liever helemaal.',
         feedbackWrong: 'Veiliger is om het stickertje gewoon te negeren en de officiële app of automaat te gebruiken.',
       },
     },
@@ -370,7 +366,7 @@ const levels = {
       type: 'inbox-attachment',
       email: {
         from: 'noreply@facturen-service-nl.com',
-        subject: 'Openstaande factuur — actie vereist',
+        subject: 'Openstaande factuur - actie vereist',
         body: [
           'Geachte relatie,',
           'Bijgevoegd vindt u onze factuur voor de geleverde diensten in de afgelopen periode. Wij verzoeken u dit bedrag binnen 5 werkdagen te voldoen.',
@@ -381,14 +377,14 @@ const levels = {
         attachment: { safeName: 'Factuur.pdf', dangerExt: '.exe', size: '52 KB' },
       },
       choices: [
-        { label: 'De bijlage openen — misschien is het echt', outcome: 'wrong',
+        { label: 'De bijlage openen - misschien is het echt', outcome: 'wrong',
           feedbackText: "Je hebt zojuist ransomware geïnstalleerd. De '.exe' na '.pdf' maakt het een uitvoerbaar programma, geen document. Eenmaal geopend kan het bijvoorbeeld jouw bestanden versleutelen en eisen om losgeld om ze terug te krijgen." },
-        { label: 'Bestandsnaam bekijken: dat \".exe\" valt op — mail verwijderen of melden', outcome: 'correct',
+        { label: 'Bestandsnaam bekijken: dat \".exe\" valt op - mail verwijderen of melden', outcome: 'correct',
           feedbackTitle: 'Goed gezien.',
-          feedbackText: "Een echte factuur is een .pdf, .docx of .xlsx — nooit een .exe. Die extensie betekent: uitvoerbaar programma. Verwijder de mail of meld hem bij IT of de Fraudehelpdesk." },
-        { label: 'Doorsturen naar een collega — misschien herkent die hem', outcome: 'risky',
+          feedbackText: "Een echte factuur is een .pdf, .docx of .xlsx - nooit een .exe. Die extensie betekent: uitvoerbaar programma. Verwijder de mail of meld hem bij IT of de Fraudehelpdesk." },
+        { label: 'Doorsturen naar een collega - misschien herkent die hem', outcome: 'risky',
           feedbackTitle: 'Begrijpelijk, maar gevaarlijk.',
-          feedbackText: 'Als jouw collega hem opent, is die net zo kwetsbaar. Stuur verdachte bijlagen nooit door — meld ze bij IT of de Fraudehelpdesk, of verwijder ze.' },
+          feedbackText: 'Als jouw collega hem opent, is die net zo kwetsbaar. Stuur verdachte bijlagen nooit door - meld ze bij IT of de Fraudehelpdesk, of verwijder ze.' },
       ],
     },
     theory: {
@@ -402,7 +398,7 @@ const levels = {
         question: 'Welk bestandstype zou je het meest moeten laten afgaan bij een onverwachte "factuur" in je mail?',
         options: ['.pdf', '.jpg', '.exe', '.txt'],
         correctIndex: 2,
-        feedbackCorrect: "Klopt — '.exe' is een uitvoerbaar programma, geen document.",
+        feedbackCorrect: "Klopt - '.exe' is een uitvoerbaar programma, geen document.",
         feedbackWrong: "Let vooral op '.exe': dat is een uitvoerbaar programma, geen onschuldig document.",
       },
     },
@@ -411,7 +407,7 @@ const levels = {
   t2: {
     id: 't2', chapterId: 'h2', kind: 'theory', icon: 'fa-bug',
     nodeTitle: 'Virussen, Trojans & wormen',
-    sjorsIntro: 'Drie soorten kwaadaardige software die nogal eens door elkaar worden gehaald. Hier het verschil — handig voor de volgende keer dat je twijfelt over een bijlage.',
+    sjorsIntro: 'Drie soorten kwaadaardige software die nogal eens door elkaar worden gehaald. Hier het verschil - handig voor de volgende keer dat je twijfelt over een bijlage.',
     theory: {
       accordion: [
         { icon: 'fa-bug', title: 'Het verschil tussen een virus, een Trojaans paard en een worm', paragraphs: [
@@ -431,7 +427,7 @@ const levels = {
         question: 'Welke van deze drie verspreidt zichzelf automatisch over een netwerk, zonder dat iemand er iets voor moet doen?',
         options: ['Virus', 'Trojaans paard', 'Worm', 'Phishingmail'],
         correctIndex: 2,
-        feedbackCorrect: 'Klopt — een worm heeft geen menselijke actie nodig om zich te verspreiden.',
+        feedbackCorrect: 'Klopt - een worm heeft geen menselijke actie nodig om zich te verspreiden.',
         feedbackWrong: 'Niet helemaal. Een worm is degene die zichzelf automatisch verspreidt, zonder hulp van een gebruiker.',
       },
     },
@@ -442,14 +438,14 @@ const levels = {
   t6: {
     id: 't6', chapterId: 'h4', kind: 'theory', icon: 'fa-network-wired',
     nodeTitle: 'Keyloggers, IP-adressen & bedrijfsbeveiliging',
-    sjorsIntro: 'Als jij op internet zit, laat je sporen achter. En sommige software is er specifiek op gericht die sporen te misbruiken — ook bij grote bedrijven.',
+    sjorsIntro: 'Als jij op internet zit, laat je sporen achter. En sommige software is er specifiek op gericht die sporen te misbruiken - ook bij grote bedrijven.',
     theory: {
       accordion: [
         { icon: 'fa-keyboard', title: 'Wat een keylogger is', paragraphs: [
           'Een keylogger is software die in het geheim elke toetsaanslag op je toetsenbord vastlegt. Hij krijgt dus ook je wachtwoorden, banknummers en privégesprekken mee.',
           'Keyloggers verstoppen zichzelf diep in het systeem en stuurt de gegevens periodiek door naar de oplichter, zonder dat jij ook maar iets merkt.',
           'Hoe kom je eraan? Via een virus, een nep-update, of een publieke computer die al besmet was. Tip: log nooit in op een publieke computer voor iets gevoeligs.',
-        ], video: { key: 't6-v1', title: 'Keyloggers: hoe criminelen meeluisteren' } },
+        ] },
         { icon: 'fa-globe', title: 'IP-adressen', paragraphs: [
           'Elk apparaat dat verbinding maakt met het internet krijgt een IP-adres, het is je unieke adres op het internet (een soort huisnummer voor je verbinding).',
           'Websites, apps en oplichters kunnen via je IP-adres zien bij welke provider je hoort en globaal in welke regio je zit.',
@@ -469,15 +465,15 @@ const levels = {
           'Medewerkers verplichten hun wachtwoord elke week te wisselen',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — een firewall die onnodige poorten dichtgooit, verkleint het aanvalsoppervlak aanzienlijk.',
-        feedbackWrong: 'Een firewall die onnodige poorten afsluit, is hiervoor het meest directe antwoord — het verkleint het aanvalsoppervlak.',
+        feedbackCorrect: 'Klopt - een firewall die onnodige poorten dichtgooit, verkleint het aanvalsoppervlak aanzienlijk.',
+        feedbackWrong: 'Een firewall die onnodige poorten afsluit, is hiervoor het meest directe antwoord - het verkleint het aanvalsoppervlak.',
       },
     },
   },
   l6: {
     id: 'l6', chapterId: 'h2', kind: 'interactive', icon: 'fa-heart-crack',
     nodeTitle: 'Datingfraude',
-    sjorsIntro: 'Je hebt een nieuw profiel gevonden op een datingapp. Lees het gesprek dat zich ontvouwt — en let op wanneer er iets niet klopt.',
+    sjorsIntro: 'Je hebt een nieuw profiel gevonden op een datingapp. Lees het gesprek dat zich ontvouwt - en let op wanneer er iets niet klopt.',
     scenario: {
       type: 'dating-sim',
       profile: {
@@ -492,10 +488,10 @@ const levels = {
       stages: [
         {
           id: 'week1',
-          label: '📱 Dag 1 — jij stuurt het eerste berichtje',
+          label: '📱 Dag 1 - jij stuurt het eerste berichtje',
           messages: [
             { from: 'lisa', text: 'Hee! Wat leuk dat je reageert 😊 Hoe is jouw dag?' },
-            { from: 'lisa', text: 'Ik moet zeggen — jouw profiel springt er echt uit. Je lijkt iemand met diepgang.' },
+            { from: 'lisa', text: 'Ik moet zeggen - jouw profiel springt er echt uit. Je lijkt iemand met diepgang.' },
             { from: 'lisa', text: 'Ik ben nu in Abu Dhabi voor een tijdelijk contract als verpleegkundige. Ik mis Nederland zo. Heb jij ook weleens in het buitenland gewoond?' },
           ],
           userReply: 'Leuk! Nee, ik ben altijd in Nederland gebleven. Maar ik hoor wel graag hoe dat is!',
@@ -503,7 +499,7 @@ const levels = {
         },
         {
           id: 'week2',
-          label: '📱 Twee weken later — jullie chatten elke dag',
+          label: '📱 Twee weken later - jullie chatten elke dag',
           messages: [
             { from: 'lisa', text: 'Goedemorgen! Ik dacht meteen aan jou toen ik wakker werd 😊' },
             { from: 'lisa', text: 'Eerlijk gezegd voel ik me hier zo eenzaam. Mijn collega\'s hier zijn niet echt vriendelijk. Jij bent de enige met wie ik echt kan praten ❤️' },
@@ -515,21 +511,21 @@ const levels = {
         },
         {
           id: 'ask',
-          label: '📱 Drie weken later — jullie spreken elkaar elke dag',
+          label: '📱 Drie weken later - jullie spreken elkaar elke dag',
           messages: [
             { from: 'lisa', text: 'Lieverd... Ik moet je iets heel moeilijks vragen en ik schaam me er zo voor...' },
             { from: 'lisa', text: 'Mijn bankpas is hier geblokkeerd. Ik kan niet betalen voor eten, laat staan voor mijn vliegticket terug. Ik zit hier echt vast.' },
-            { from: 'lisa', text: 'Zou jij me €500 kunnen overmaken? Ik betaal je zodra ik terug ben dubbel terug — dat beloof ik op mijn leven. Ik wil je zo graag zien 🙏❤️' },
+            { from: 'lisa', text: 'Zou jij me €500 kunnen overmaken? Ik betaal je zodra ik terug ben dubbel terug - dat beloof ik op mijn leven. Ik wil je zo graag zien 🙏❤️' },
           ],
           choices: [
-            { label: '€500 overmaken — ze heeft je nog nooit iets misdaan', outcome: 'wrong',
-              feedbackText: 'Dit is datingfraude. "Lisa" bestaat niet — het is een oplichter die tegelijk met honderden mensen exact dit gesprek heeft gevoerd. Zodra je betaalt, verdwijnen ze. De gevoelens leken echt, maar de persoon niet.' },
+            { label: '€500 overmaken - ze heeft je nog nooit iets misdaan', outcome: 'wrong',
+              feedbackText: 'Dit is datingfraude. "Lisa" bestaat niet - het is een oplichter die tegelijk met honderden mensen exact dit gesprek heeft gevoerd. Zodra je betaalt, verdwijnen ze. De gevoelens leken echt, maar de persoon niet.' },
             { label: 'Voorstellen eerst even te videobellen voor je een beslissing maakt', outcome: 'correct',
               feedbackTitle: 'Slim en voorzichtig.',
-              feedbackText: 'Een echte persoon kan altijd videobellen. Iemand die echt om je geeft, begrijpt dat je dit wil checken. De oplichter zal zeggen dat de camera kapot is of het internet te slecht — en dan weet je genoeg.' },
+              feedbackText: 'Een echte persoon kan altijd videobellen. Iemand die echt om je geeft, begrijpt dat je dit wil checken. De oplichter zal zeggen dat de camera kapot is of het internet te slecht - en dan weet je genoeg.' },
             { label: 'Zeggen dat je het geld helaas niet hebt', outcome: 'risky',
               feedbackTitle: 'Begrijpelijk, maar niet veilig.',
-              feedbackText: 'Een doorgewinterde oplichter geeft niet zo snel op. Ze vragen een kleiner bedrag of bedenken een nieuw verhaal. Videobellen is de échte test — niemand die echt in nood zit, weigert dat consequent.' },
+              feedbackText: 'Een doorgewinterde oplichter geeft niet zo snel op. Ze vragen een kleiner bedrag of bedenken een nieuw verhaal. Videobellen is de échte test - niemand die echt in nood zit, weigert dat consequent.' },
           ],
         },
       ],
@@ -541,12 +537,12 @@ const levels = {
           'Ze gebruiken gestolen profielfoto\'s of AI-gegenereerde beelden. Soms voeren ze tegelijk gesprekken met honderden mensen via scripts.',
         ], video: { key: 'l6-theory-v1', title: 'Datingfraude herkennen' } },
         { icon: 'fa-video', title: 'De videobel-test', paragraphs: [
-          'Een oplichter kan niet live op beeld komen als ze gestolen of AI-gegenereerde foto\'s gebruiken. Stel ALTIJD voor te videobellen — vóór je ook maar een euro geeft.',
+          'Een oplichter kan niet live op beeld komen als ze gestolen of AI-gegenereerde foto\'s gebruiken. Stel ALTIJD voor te videobellen - vóór je ook maar een euro geeft.',
           'Excuses zoals "mijn camera is kapot" of "het internet is hier te slecht" zijn bijna altijd een teken dat er iets niet klopt.',
         ] },
         { icon: 'fa-circle-check', title: 'Signalen die je herkent', paragraphs: [
           'Iemand die zegt verliefd te zijn na een paar weken, die nooit kan videobellen, en die plotseling geld nodig heeft: dat is het patroon.',
-          'Vertrouw je gevoel als iets te mooi voelt om waar te zijn — en bespreek het altijd met iemand die je vertrouwt.',
+          'Vertrouw je gevoel als iets te mooi voelt om waar te zijn - en bespreek het altijd met iemand die je vertrouwt.',
         ] },
       ],
       quiz: {
@@ -558,8 +554,8 @@ const levels = {
           'Wachten tot ze zelf om geld vragen',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — een echte persoon kan altijd videobellen. Iemand die dat consequent weigert, is vrijwel zeker een oplichter.',
-        feedbackWrong: 'Videobellen is de enige echte check — foto\'s en adressen zijn makkelijk te vervalsen.',
+        feedbackCorrect: 'Klopt - een echte persoon kan altijd videobellen. Iemand die dat consequent weigert, is vrijwel zeker een oplichter.',
+        feedbackWrong: 'Videobellen is de enige echte check - foto\'s en adressen zijn makkelijk te vervalsen.',
       },
     },
   },
@@ -567,7 +563,7 @@ const levels = {
   l7: {
     id: 'l7', chapterId: 'h2', kind: 'interactive', icon: 'fa-phone-slash',
     nodeTitle: 'Bankhelpdeskfraude',
-    sjorsIntro: 'Je telefoon gaat. Kijk wie er belt en beslis wat je doet — luister dan naar het gesprek.',
+    sjorsIntro: 'Je telefoon gaat. Kijk wie er belt en beslis wat je doet - luister dan naar het gesprek.',
     scenario: {
       type: 'phone-sim',
       ringing: {
@@ -576,18 +572,18 @@ const levels = {
       },
       call: {
         transcript: [
-          { who: 'Beller', text: 'Goedemiddag, u spreekt met Bas Vermeer van de afdeling Veiligheidszaken van ING Bank. Wij hebben zojuist ongebruikelijke activiteiten gedetecteerd op uw rekening — dit is dringend.' },
+          { who: 'Beller', text: 'Goedemiddag, u spreekt met Bas Vermeer van de afdeling Veiligheidszaken van ING Bank. Wij hebben zojuist ongebruikelijke activiteiten gedetecteerd op uw rekening - dit is dringend.' },
           { who: 'Beller', highlight: true, text: '"Om uw account direct te beveiligen moeten we uw identiteit bevestigen. Kunt u uw pincode drie keer na elkaar inspreken? Dit is onze standaard verificatieprocedure."' },
         ],
         choices: [
-          { label: 'Je pincode geven — het klinkt officieel en dringend', outcome: 'wrong',
-            feedbackText: 'Je bank vraagt je nooit om je pincode — niet via telefoon, chat of e-mail. Dit is bankhelpdeskfraude: oplichters doen zich voor als de bank om je pincode en gegevens te stelen. Zodra ze die hebben, plunderen ze je rekening.' },
+          { label: 'Je pincode geven - het klinkt officieel en dringend', outcome: 'wrong',
+            feedbackText: 'Je bank vraagt je nooit om je pincode - niet via telefoon, chat of e-mail. Dit is bankhelpdeskfraude: oplichters doen zich voor als de bank om je pincode en gegevens te stelen. Zodra ze die hebben, plunderen ze je rekening.' },
           { label: 'Het gesprek beëindigen en zelf de bank bellen via het nummer op je bankpas of banksite', outcome: 'correct',
             feedbackTitle: 'Precies goed.',
-            feedbackText: 'Een echte bank vraagt nooit om je pincode. Door zelf te bellen — op het nummer dat jij al kende — verifieer je of er echt iets aan de hand is, zonder dat jij je gegevens blootgeeft.' },
+            feedbackText: 'Een echte bank vraagt nooit om je pincode. Door zelf te bellen - op het nummer dat jij al kende - verifieer je of er echt iets aan de hand is, zonder dat jij je gegevens blootgeeft.' },
           { label: 'Vragen naar zijn naam en medewerkersnummer, dan pas meegaan', outcome: 'risky',
             feedbackTitle: 'Alert, maar niet veilig.',
-            feedbackText: 'Oplichters hebben goede verhalen klaar, inclusief verzonnen namen en nummers. Geen enkele echte bankmedewerker vraagt ooit om je pincode — ongeacht hoe overtuigend ze klinken.' },
+            feedbackText: 'Oplichters hebben goede verhalen klaar, inclusief verzonnen namen en nummers. Geen enkele echte bankmedewerker vraagt ooit om je pincode - ongeacht hoe overtuigend ze klinken.' },
         ],
       },
     },
@@ -600,7 +596,7 @@ const levels = {
         { icon: 'fa-shield-halved', title: 'Gouden regel', paragraphs: [
           'Je bank vraagt je nooit om je PIN, pincode of OTP (eenmalige codes) per telefoon, chat of e-mail.',
           'Trap er ook niet in als er gevraagd wordt om een programma te installeren. Hierdoor kunnen oplichters namelijk je computer op afstand overnemen.',
-          'Hang op en bel zelf je bank via het nummer op je bankpas of website — niet via het nummer dat jij net hebt ontvangen.',
+          'Hang op en bel zelf je bank via het nummer op je bankpas of website - niet via het nummer dat jij net hebt ontvangen.',
         ] },
       ],
       quiz: {
@@ -612,7 +608,7 @@ const levels = {
           'Je adres ter verificatie',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — je PIN blijft altijd privé.',
+        feedbackCorrect: 'Klopt - je PIN blijft altijd privé.',
         feedbackWrong: 'Je PIN zal een echte bankmedewerker nooit vragen via de telefoon.',
       },
     },
@@ -631,24 +627,24 @@ const levels = {
       logoIcon: 'fa-id-card',
       loginBtnText: 'Inloggen',
       choices: [
-        { label: 'Inloggen — de site ziet er professioneel en echt uit', outcome: 'wrong',
-          feedbackText: 'Je gegevens zijn verstuurd naar een crimineel. "Digiid.nl" heeft twee keer de letter i in plaats van één — dat valt op het eerste gezicht nauwelijks op. Oplichters registreren bewust zulke look-alike domeinen om mensen te misleiden.' },
-        { label: 'De URL in de adresbalk goed bekijken — en de pagina verlaten', outcome: 'correct',
+        { label: 'Inloggen - de site ziet er professioneel en echt uit', outcome: 'wrong',
+          feedbackText: 'Je gegevens zijn verstuurd naar een crimineel. "Digiid.nl" heeft twee keer de letter i in plaats van één - dat valt op het eerste gezicht nauwelijks op. Oplichters registreren bewust zulke look-alike domeinen om mensen te misleiden.' },
+        { label: 'De URL in de adresbalk goed bekijken - en de pagina verlaten', outcome: 'correct',
           feedbackTitle: 'Goed gezien!',
-          feedbackText: '"digiid.nl" heeft twee i\'s — de echte dienst is "digid.nl". Één letter verschil, groot gevolg. Controleer altijd de URL voor je inlogt, en navigeer bij twijfel zelf naar de echte site via je favorieten.' },
+          feedbackText: '"digiid.nl" heeft twee i\'s - de echte dienst is "digid.nl". Één letter verschil, groot gevolg. Controleer altijd de URL voor je inlogt, en navigeer bij twijfel zelf naar de echte site via je favorieten.' },
       ],
     },
     theory: {
       accordion: [
         { icon: 'fa-globe', title: 'Hoe een neppe inlogpagina werkt', paragraphs: [
-          'Oplichters maken een exacte kopie van een bekende website — zoals DigiD, je bank of een webshop — en registreren een domeinnaam die er heel op lijkt.',
-          'Ze sturen je via mail of sms naar die neppe pagina. Je typt niets fout, alles ziet er goed uit — maar je gegevens worden naar de crimineel gestuurd in plaats van naar de echte dienst.',
-        ], video: { key: 'l8-theory-v1', title: 'Neppe inlogpagina\'s herkennen' } },
+          'Oplichters maken een exacte kopie van een bekende website - zoals DigiD, je bank of een webshop - en registreren een domeinnaam die er heel op lijkt.',
+          'Ze sturen je via mail of sms naar die neppe pagina. Je typt niets fout, alles ziet er goed uit - maar je gegevens worden naar de crimineel gestuurd in plaats van naar de echte dienst.',
+        ] },
         { icon: 'fa-magnifying-glass', title: 'Hoe je de echte pagina herkent', paragraphs: [
           'Controleer altijd de URL in de adresbalk: is het domein precies correct, zonder extra letters, koppeltekens of vreemd uitziende toevoegingen?',
           'Zoek de site zelf op, in plaats van op een link in een mail te klikken.',
-          'Controleer ook het hangslotsymbool en "https://" in de adresbalk — dat geeft aan dat de verbinding versleuteld is.',
-          'Twijfel je toch? Bel het bedrijf op het nummer dat je al had — nooit op een nummer in de verdachte mail zelf.',
+          'Controleer ook het hangslotsymbool en "https://" in de adresbalk - dat geeft aan dat de verbinding versleuteld is.',
+          'Twijfel je toch? Bel het bedrijf op het nummer dat je al had - nooit op een nummer in de verdachte mail zelf.',
         ] },
       ],
       quiz: {
@@ -660,8 +656,8 @@ const levels = {
           'Wachten tot je bank je een sms stuurt met een link',
         ],
         correctIndex: 2,
-        feedbackCorrect: 'Klopt — je favorieten of zelf intypen is het veiligst. Zoekresultaten en links in mails kunnen nep zijn.',
-        feedbackWrong: 'Niet de veiligste route. Gebruik je favorieten of typ het adres zelf in — zo kom je gegarandeerd op de echte site.',
+        feedbackCorrect: 'Klopt - je favorieten of zelf intypen is het veiligst. Zoekresultaten en links in mails kunnen nep zijn.',
+        feedbackWrong: 'Niet de veiligste route. Gebruik je favorieten of typ het adres zelf in - zo kom je gegarandeerd op de echte site.',
       },
     },
   },
@@ -681,11 +677,11 @@ const levels = {
         phone: '0800-MICROSOFT\n0800 642 776 728',
       },
       choices: [
-        { label: 'Het nummer bellen — dit klinkt urgent', outcome: 'wrong',
-          feedbackText: 'Dit is nep tech support-fraude. Dat "noodhulp"-nummer verbindt je met een crimineel die doet alsof hij van Microsoft is. Ze vragen je om software te installeren waarmee ze afstand-toegang krijgen tot je computer — en dan gaan ze aan de haal met je bestanden of bankgegevens.' },
+        { label: 'Het nummer bellen - dit klinkt urgent', outcome: 'wrong',
+          feedbackText: 'Dit is nep tech support-fraude. Dat "noodhulp"-nummer verbindt je met een crimineel die doet alsof hij van Microsoft is. Ze vragen je om software te installeren waarmee ze afstand-toegang krijgen tot je computer - en dan gaan ze aan de haal met je bestanden of bankgegevens.' },
         { label: 'Het browser-tabblad sluiten of de computer herstarten', outcome: 'correct',
           feedbackTitle: 'Precies goed.',
-          feedbackText: 'Microsoft stuurt je nooit zulke pop-ups — ze weten niet eens dat jij dit scherm ziet. Dit soort meldingen werkt via gewone webscripts, geen echte virusscan. Altijd gewoon het tabblad sluiten. Als je zeker wil zijn: herstart de computer.' },
+          feedbackText: 'Microsoft stuurt je nooit zulke pop-ups - ze weten niet eens dat jij dit scherm ziet. Dit soort meldingen werkt via gewone webscripts, geen echte virusscan. Altijd gewoon het tabblad sluiten. Als je zeker wil zijn: herstart de computer.' },
         { label: 'Op de link in het scherm klikken voor meer informatie', outcome: 'wrong',
           feedbackText: 'Klikken op links in dit soort schermen kan écht malware installeren. Het enige juiste is de pagina sluiten, zonder ergens op te klikken.' },
       ],
@@ -696,9 +692,9 @@ const levels = {
           'Oplichters maken een webpagina die de browser "bevriest" met een alarmerend scherm, inclusief nep-geluidseffecten en een telefoonnummer.',
           'Wie belt, krijgt iemand aan de lijn die doet alsof hij van Microsoft of Apple is. Ze overtuigen je "bewijs" te zien van virussen en vragen dan om software te installeren waarmee ze afstand-toegang krijgen.',
           'Zo kunnen ze wachtwoorden stelen, bestanden versleutelen, of betaalprogramma\'s installeren.',
-        ], video: { key: 'l9-theory-v1', title: 'Nep tech support herkennen' } },
+        ] },
         { icon: 'fa-circle-check', title: 'Wat je doet als dit scherm verschijnt', paragraphs: [
-          'Klik nergens op — zelfs het kruisje kan een valkuil zijn op zo\'n nepscherm.',
+          'Klik nergens op - zelfs het kruisje kan een valkuil zijn op zo\'n nepscherm.',
           'Sluit het tabblad via de tabbladbalk boven in je browser, of gebruik Taakbeheer (Windows) / Forceer afsluiten (Mac) om de browser geforceerd te sluiten.',
           'Heeft iemand toch gebeld en heb je diegene toegang gegeven? Ontkoppel de wifi, zet de computer uit en neem contact op met een echte IT-expert of bel de Fraudehelpdesk.',
         ] },
@@ -707,13 +703,13 @@ const levels = {
         question: 'Je ziet een alarmerend scherm met de tekst dat je computer besmet is en een Microsoft-nummer om te bellen. Wat doe je?',
         options: [
           'Het nummer bellen om te vragen wat er aan de hand is',
-          'Het browser-tabblad sluiten — Microsoft stuurt dit soort meldingen nooit',
+          'Het browser-tabblad sluiten - Microsoft stuurt dit soort meldingen nooit',
           'Je wachtwoord veranderen op de site die het scherm toont',
           'Op de link in het scherm klikken voor meer uitleg',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — dit is altijd nep. Browser sluiten, eventueel herstarten.',
-        feedbackWrong: 'Dit soort scherm is altijd nep. Nooit het nummer bellen of ergens op klikken — gewoon het tabblad of de browser sluiten.',
+        feedbackCorrect: 'Klopt - dit is altijd nep. Browser sluiten, eventueel herstarten.',
+        feedbackWrong: 'Dit soort scherm is altijd nep. Nooit het nummer bellen of ergens op klikken - gewoon het tabblad of de browser sluiten.',
       },
     },
   },
@@ -730,12 +726,12 @@ const levels = {
         { text: 'PostNL: Uw pakket (NL84730283) kon helaas niet worden bezorgd. Er zijn €1,95 douanekosten vereist. Betaal binnen 24 uur via: postnl-bezorging.ru/pakket of uw pakket wordt retour gestuurd.' },
       ],
       choices: [
-        { label: '€1,95 betalen via de link — dat is toch nauwelijks geld', outcome: 'wrong',
+        { label: '€1,95 betalen via de link - dat is toch nauwelijks geld', outcome: 'wrong',
           feedbackText: 'De link gaat niet naar PostNL, maar naar een nepsite die je betaalgegevens steelt. Oplichters kiezen bewust een klein bedrag zodat je er niet lang over nadenkt. Eenmaal ingevoerd zijn je kaartgegevens in handen van de oplichter.' },
         { label: 'De link negeren en zelf het track-and-trace checken op postnl.nl', outcome: 'correct',
           feedbackTitle: 'Precies.',
-          feedbackText: 'PostNL stuurt je nooit een betaallink per sms voor douanekosten. Controleer altijd via de echte PostNL-app of via postnl.nl — het pakket is gewoon te vinden als er echt iets mee is.' },
-        { label: 'Het bericht doorsturen naar vrienden — kennen zij dit?', outcome: 'risky',
+          feedbackText: 'PostNL stuurt je nooit een betaallink per sms voor douanekosten. Controleer altijd via de echte PostNL-app of via postnl.nl - het pakket is gewoon te vinden als er echt iets mee is.' },
+        { label: 'Het bericht doorsturen naar vrienden - kennen zij dit?', outcome: 'risky',
           feedbackTitle: 'Begrijpelijk, maar...',
           feedbackText: 'Je verspreidt zo de oplichterij verder. Vrienden kunnen zomaar op de link klikken. Beter: het bericht melden bij Fraudehelpdesk.nl en direct verwijderen.' },
       ],
@@ -744,9 +740,9 @@ const levels = {
       accordion: [
         { icon: 'fa-box', title: 'Pakketfraude', paragraphs: [
           'Oplichters sturen massaal sms-berichten met een neppe post- of pakketdienst als afzender. Ze kiezen bewust een vaag, geloofwaardig scenario: "er zijn douanekosten" of "uw pakket is tegengehouden".',
-          'Het gevraagde bedrag is expres laag — je twijfelt minder over €1,95 dan over €195. Maar zodra je betaalt, staan je kaartgegevens op de server van de oplichter.',
+          'Het gevraagde bedrag is expres laag - je twijfelt minder over €1,95 dan over €195. Maar zodra je betaalt, staan je kaartgegevens op de server van de oplichter.',
           'Vaak is er ook sprake van haast. Er wordt gebruik gemaakt van teksten zoals "direct betalen". Laat dit je niet onder druk zetten.',
-        ], video: { key: 'l10-theory-v1', title: 'Pakketfraude via sms herkennen' } },
+        ] },
         { icon: 'fa-magnifying-glass', title: 'Echt van nep onderscheiden', paragraphs: [
           'De echte PostNL, DHL of DPD sturen nooit een betaallink per sms voor douanekosten.',
           'Er wordt bij echte bedrijven nooit via de mail of sms gevraagd naar je persoonlijke gegevens.',
@@ -756,14 +752,14 @@ const levels = {
       quiz: {
         question: 'Je krijgt een sms van "DHL" dat je €2,50 moet betalen voor douanekosten, met betaallink. Wat doe je?',
         options: [
-          'Betalen — het is maar een klein bedragje',
+          'Betalen - het is maar een klein bedragje',
           'De link doorklikken om eerst te kijken waar je uitkomt',
           'De link negeren en zelf checken op de echte DHL-site of -app',
           'Het bericht bewaren voor als het pakket aankomt',
         ],
         correctIndex: 2,
-        feedbackCorrect: 'Klopt — altijd zelf naar de officiële site, nooit via de link in het bericht.',
-        feedbackWrong: 'Controleer altijd zelf via de echte DHL-site of -app — links in dit soort berichten gaan bijna nooit naar de echte dienst.',
+        feedbackCorrect: 'Klopt - altijd zelf naar de officiële site, nooit via de link in het bericht.',
+        feedbackWrong: 'Controleer altijd zelf via de echte DHL-site of -app - links in dit soort berichten gaan bijna nooit naar de echte dienst.',
       },
     },
   },
@@ -776,18 +772,18 @@ const levels = {
     sjorsIntro: 'Je zit in een café en wil verbinding maken met wifi. Kijk goed naar de beschikbare netwerken voor je een keuze maakt.',
     scenario: {
       type: 'wifi-chooser',
-      setting: '☕ Grand Café De Hoek — Amsterdam',
+      setting: '☕ Grand Café De Hoek - Amsterdam',
       intro: 'Je haalt je laptop tevoorschijn en opent de wifi-instellingen. Je ziet twee netwerken.',
       networks: [
         { id: 'official',  name: 'GrandCafe_DeHoek',   secured: true,  bars: 3, label: 'Beveiligd netwerk' },
         { id: 'evil-twin', name: 'GrandCafe_DeHoek_',  secured: false, bars: 5, label: 'Open netwerk' },
       ],
       choices: [
-        { label: 'Verbinding maken met "GrandCafe_DeHoek_" — sterkste signaal!', outcome: 'wrong',
-          feedbackText: 'Dit is een "Evil Twin"-netwerk. Oplichters zetten bewust een netwerk neer met een bijna-identieke naam én het sterkste signaal. Al je wifi-verkeer gaat nu door de handen van de aanvaller — inclusief wachtwoorden.' },
-        { label: 'Verbinding maken met "GrandCafe_DeHoek" — ziet er officieel uit', outcome: 'risky',
+        { label: 'Verbinding maken met "GrandCafe_DeHoek_" - sterkste signaal!', outcome: 'wrong',
+          feedbackText: 'Dit is een "Evil Twin"-netwerk. Oplichters zetten bewust een netwerk neer met een bijna-identieke naam én het sterkste signaal. Al je wifi-verkeer gaat nu door de handen van de aanvaller - inclusief wachtwoorden.' },
+        { label: 'Verbinding maken met "GrandCafe_DeHoek" - ziet er officieel uit', outcome: 'risky',
           feedbackTitle: 'Beter, maar nog niet ideaal.',
-          feedbackText: 'Je kiest tenminste niet de evil twin — goed. Maar openbaar wifi is nooit helemaal veilig. Gebruik altijd een VPN als je op openbaar wifi werkt, of schakel over naar je eigen mobiele data.' },
+          feedbackText: 'Je kiest tenminste niet de evil twin - goed. Maar openbaar wifi is nooit helemaal veilig. Gebruik altijd een VPN als je op openbaar wifi werkt, of schakel over naar je eigen mobiele data.' },
         { label: 'Het personeel vragen welk netwerk echt van het café is, daarna pas verbinden', outcome: 'correct',
           feedbackTitle: 'Precies goed.',
           feedbackText: 'Door te vragen weet je zeker welk netwerk officieel is. Gebruik bij voorkeur ook een VPN op openbaar wifi, of schakel voor gevoelige zaken over naar je eigen mobiele data.' },
@@ -797,13 +793,13 @@ const levels = {
       accordion: [
         { icon: 'fa-user-ninja', title: 'Wat een man-in-the-middle-aanval is', paragraphs: [
           'Bij een man-in-the-middle-aanval (MITM) zet de oplichter zichzelf tussen jou en hetgene waar je toegang tot wilt.',
-          'Het lijkt of je bijvoorbeeld rechtstreeks met je bank praat, maar de aanvaller leest mee en kan gegevens aanpassen — zonder dat jij of de bank iets daarvan merkt.',
+          'Het lijkt of je bijvoorbeeld rechtstreeks met je bank praat, maar de aanvaller leest mee en kan gegevens aanpassen - zonder dat jij of de bank iets daarvan merkt.',
           'Op openbaar WiFi is dit technisch haalbaar via een "Evil Twin"-netwerk: een wifi-netwerk met een bijna-identieke naam als de WiFi waar je toegang wilt.',
         ], video: { key: 't7-v1', title: 'Man-in-the-middle en Evil Twin uitgelegd' } },
         { icon: 'fa-lock', title: 'Hoe HTTPS en een VPN je beschermen', paragraphs: [
           'HTTPS versleutelt de verbinding. Zelfs als een aanvaller meekijkt, ziet die alleen onleesbare data.',
           'Een VPN versleutelt ook welke sites je bezoekt en maskeert je IP-adres. Handig op openbaar wifi.',
-          'Controleer altijd het slotje in de adresbalk — zeker op openbare wifi.',
+          'Controleer altijd het slotje in de adresbalk - zeker op openbare wifi.',
         ] },
       ],
       quiz: {
@@ -815,27 +811,27 @@ const levels = {
           'Het is onzichtbaar voor normale apparaten',
         ],
         correctIndex: 1,
-        feedbackCorrect: 'Klopt — bijna-identieke naam + sterkste signaal is het klassieke Evil Twin-patroon.',
+        feedbackCorrect: 'Klopt - bijna-identieke naam + sterkste signaal is het klassieke Evil Twin-patroon.',
         feedbackWrong: 'Een Evil Twin gebruikt bijna dezelfde naam als het officiële netwerk, en heeft opzettelijk het sterkste signaal om apparaten aan te trekken.',
       },
     },
   },
 
-  /* ============================ H5 — Afsluittoets ============================ */
+  /* ============================ H5 - Afsluittoets ============================ */
 
   l11: {
     id: 'l11', chapterId: 'h5', kind: 'interactive', icon: 'fa-graduation-cap',
     nodeTitle: 'Afsluittoets',
-    sjorsIntro: 'Je hebt alle onderdelen doorlopen — dit is de grote afsluittoets. Er zijn 10 vragen over alles wat je hebt geleerd. Slaag je voor 70% of hoger, dan ontvang je je Cyber-Rijbewijs.',
+    sjorsIntro: 'Je hebt alle onderdelen doorlopen - dit is de grote afsluittoets. Er zijn 10 vragen over alles wat je hebt geleerd. Slaag je voor 70% of hoger, dan ontvang je je Cyber-Rijbewijs.',
     scenario: {
       type: 'final-quiz',
       questions: [
         {
           id: 'q1',
-          context: 'Je krijgt een WhatsApp van een onbekend nummer: "Hoi, dit is mijn nieuwe nummer. Ik zit klem — kun je me €650 voorschieten?"',
+          context: 'Je krijgt een WhatsApp van een onbekend nummer: "Hoi, dit is mijn nieuwe nummer. Ik zit klem - kun je me €650 voorschieten?"',
           question: 'Wat is de juiste eerste stap?',
           options: [
-            'Meteen overmaken — het klinkt dringend',
+            'Meteen overmaken - het klinkt dringend',
             'Bellen op het vertrouwde, bekende nummer van die persoon',
             'Het bericht beantwoorden voor meer informatie',
             'Het nummer blokkeren',
@@ -865,7 +861,7 @@ const levels = {
             'Het geeft aan dat het bestand versleuteld is',
           ],
           correctIndex: 2,
-          explanation: '".exe" staat voor executable — een programma. Achter ".pdf.exe" gaat geen document schuil maar software, die zichzelf installeert zodra je erop klikt.',
+          explanation: '".exe" staat voor executable - een programma. Achter ".pdf.exe" gaat geen document schuil maar software, die zichzelf installeert zodra je erop klikt.',
         },
         {
           id: 'q4',
@@ -889,20 +885,20 @@ const levels = {
             'Of u de rekening van afgelopen maand hebt nagekeken',
           ],
           correctIndex: 1,
-          explanation: 'Je pincode blijft altijd privé — een bank vraagt er nooit naar, per telefoon, chat of e-mail. Dit is het meest misbruikte trucje bij bankhelpdeskfraude.',
+          explanation: 'Je pincode blijft altijd privé - een bank vraagt er nooit naar, per telefoon, chat of e-mail. Dit is het meest misbruikte trucje bij bankhelpdeskfraude.',
         },
         {
           id: 'q6',
           context: 'Op een parkeerautomaat zit een los stickertje met een QR-code: "Scan hier voor sneller betalen!"',
           question: 'Wat is de beste actie?',
           options: [
-            'Scannen en betalen — het staat op de automaat',
+            'Scannen en betalen - het staat op de automaat',
             'Scannen maar eerst de link controleren',
             'De sticker verwijderen en het melden aan de gemeente',
             'Een andere automaat zoeken',
           ],
           correctIndex: 2,
-          explanation: 'Losse stickers op automaten zijn klassieke "quishing". Door hem te verwijderen bescherm je ook anderen — en de gemeente wil dit weten.',
+          explanation: 'Losse stickers op automaten zijn klassieke "quishing". Door hem te verwijderen bescherm je ook anderen - en de gemeente wil dit weten.',
         },
         {
           id: 'q7',
@@ -911,7 +907,7 @@ const levels = {
           options: [
             'Een echte noodsituatie die hulp vraagt',
             'Een technisch probleem met haar videobel-app',
-            'Datingfraude — dit is het klassieke patroon',
+            'Datingfraude - dit is het klassieke patroon',
             'Een misverstand dat opgehelderd kan worden',
           ],
           correctIndex: 2,
@@ -919,16 +915,16 @@ const levels = {
         },
         {
           id: 'q8',
-          context: 'Tijdens het surfen verschijnt plotseling een pop-up in je browser: "KRITIEKE WAARSCHUWING — Uw computer is besmet! Bel Microsoft: 0800-xxx."',
+          context: 'Tijdens het surfen verschijnt plotseling een pop-up in je browser: "KRITIEKE WAARSCHUWING - Uw computer is besmet! Bel Microsoft: 0800-xxx."',
           question: 'Wat doe je?',
           options: [
-            'Het nummer bellen — misschien is het echt',
+            'Het nummer bellen - misschien is het echt',
             'Het browser-tabblad sluiten of de browser herstarten',
             'Op de link in het scherm klikken voor meer informatie',
             'Je wachtwoord veranderen via de knop in het scherm',
           ],
           correctIndex: 1,
-          explanation: 'Microsoft stuurt nooit zulke browser-pop-ups. Dit is altijd nep. Tabblad sluiten — niets aanklikken, niets bellen.',
+          explanation: 'Microsoft stuurt nooit zulke browser-pop-ups. Dit is altijd nep. Tabblad sluiten - niets aanklikken, niets bellen.',
         },
         {
           id: 'q9',
@@ -937,7 +933,7 @@ const levels = {
           options: [
             'Het gevraagde bedrag van €1,95',
             'Het pakketnummer in het bericht',
-            'De link naar "postnl-betaling.ru" — een nep-domein',
+            'De link naar "postnl-betaling.ru" - een nep-domein',
             'De afzendernaam "PostNL"',
           ],
           correctIndex: 2,
@@ -945,11 +941,11 @@ const levels = {
         },
         {
           id: 'q10',
-          context: 'In een café zie je: "CafeDuivenvoorde" (beveiligd, 3 balken) en "CafeDuivenvoorde_" (open, 5 balken — sterkste signaal!).',
+          context: 'In een café zie je: "CafeDuivenvoorde" (beveiligd, 3 balken) en "CafeDuivenvoorde_" (open, 5 balken - sterkste signaal!).',
           question: 'Welk netwerk is waarschijnlijk het gevaarlijkst?',
           options: [
-            '"CafeDuivenvoorde" — het beveiligde netwerk',
-            '"CafeDuivenvoorde_" — bijna-identieke naam, sterkste signaal, open',
+            '"CafeDuivenvoorde" - het beveiligde netwerk',
+            '"CafeDuivenvoorde_" - bijna-identieke naam, sterkste signaal, open',
             'Ze zijn even gevaarlijk',
             'Openbaar wifi is altijd veilig als het café er voor betaalt',
           ],
@@ -966,7 +962,7 @@ const levels = {
 const levelOrder = chapters.reduce((acc, c) => acc.concat(c.levelIds), []);
 
 /* ---------------------------------------------------------------
-   AUDIO — Web Audio API, geen externe bestanden
+   AUDIO - Web Audio API, geen externe bestanden
    --------------------------------------------------------------- */
 const Sfx = (() => {
   let ctx;
@@ -1008,9 +1004,9 @@ function sjorsLine(text){
 }
 function chapterNumberOf(chapterId){ return chapters.findIndex(c => c.id === chapterId) + 1; }
 function headerEyebrowFor(level){
-  if(level.kind === 'theory') return `Theorie — hoofdstuk ${chapterNumberOf(level.chapterId)}`;
+  if(level.kind === 'theory') return `Theorie - hoofdstuk ${chapterNumberOf(level.chapterId)}`;
   const n = levelOrder.filter(id => levels[id].kind === 'interactive').indexOf(level.id) + 1;
-  return `Level ${n} — in de praktijk`;
+  return `Level ${n} - in de praktijk`;
 }
 function isLevelUnlocked(id){
   if(state.devMode) return true;
@@ -1108,9 +1104,9 @@ function wireLogin(){
     showScreen('screen-dashboard');
     renderDashboard();
     if(state.devMode){
-      showSjorsTip('🔓 Dev-modus actief — alle onderdelen zijn ontgrendeld.');
+      showSjorsTip('🔓 Dev-modus actief - alle onderdelen zijn ontgrendeld.');
     } else {
-      showSjorsTip(`Welkom, ${state.username}. Onder elkaar zie je de route met alle onderdelen — werk ze van boven naar onder af, ik spring overal tussendoor met een tip.`);
+      showSjorsTip(`Welkom, ${state.username}. Onder elkaar zie je de route met alle onderdelen - werk ze van boven naar onder af, ik spring overal tussendoor met een tip.`);
     }
   });
 }
@@ -1129,11 +1125,11 @@ function dashboardIntroHtml(){
   const total = levelOrder.length;
   let text;
   if(done === 0){
-    text = `Welkom, ${esc(state.username)}. Hieronder zie je de route: elk bolletje is een situatie of een stukje uitleg. Werk ze van boven naar onder af — een volgend onderdeel gaat pas open zodra het vorige is afgerond.`;
+    text = `Welkom, ${esc(state.username)}. Hieronder zie je de route: elk bolletje is een situatie of een stukje uitleg. Werk ze van boven naar onder af - een volgend onderdeel gaat pas open zodra het vorige is afgerond.`;
   } else if(done === total){
     text = 'Je hebt alle onderdelen doorlopen. Onderaan de route wacht je Cyber-Rijbewijs.';
   } else {
-    text = `Goed bezig — ${done} van de ${total} onderdelen staan al op groen. Ga verder waar je gebleven was.`;
+    text = `Goed bezig - ${done} van de ${total} onderdelen staan al op groen. Ga verder waar je gebleven was.`;
   }
   return sjorsLine(text);
 }
@@ -1204,7 +1200,7 @@ function renderDashboard(){
 }
 
 /* ---------------------------------------------------------------
-   LEVEL — algemene dispatch
+   LEVEL - algemene dispatch
    --------------------------------------------------------------- */
 function isScenarioStage(level){
   return level.kind === 'interactive' && runtime.stage !== 'theory';
@@ -1246,7 +1242,7 @@ function renderChatScenario(level, sc){
     <h3>${sc.headline}</h3>
     <p class="scenario-lede">${sc.lede}</p>
     <div class="chat-window">
-      <div class="chat-sender"><i class="fa-solid fa-circle-user"></i> ${sc.contact.name} — ${sc.contact.sub}</div>
+      <div class="chat-sender"><i class="fa-solid fa-circle-user"></i> ${sc.contact.name} - ${sc.contact.sub}</div>
       ${sc.messages.map(m => `<div class="chat-bubble">${m.text}</div>`).join('')}
     </div>
     ${renderChoiceList(sc.choices)}
@@ -1362,7 +1358,7 @@ function renderInboxFlags(level, sc){
   </div>`;
 }
 /* ---------------------------------------------------------------
-   INBOX-INVESTIGATE (l3) — harder email investigation
+   INBOX-INVESTIGATE (l3) - harder email investigation
    --------------------------------------------------------------- */
 function renderInboxInvestigate(level, sc){
   const found = runtime.foundFlags || new Set();
@@ -1462,7 +1458,7 @@ function wireInboxInvestigate(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   DATING-SIM (l6) — step-by-step dating app experience
+   DATING-SIM (l6) - step-by-step dating app experience
    --------------------------------------------------------------- */
 function renderDatingSim(level, sc){
   if(!runtime.datingStarted) return renderDatingProfile(sc);
@@ -1551,7 +1547,7 @@ function wireDatingSim(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   PHONE-SIM (l7) — ringing phone → call transcript
+   PHONE-SIM (l7) - ringing phone → call transcript
    --------------------------------------------------------------- */
 function renderPhoneSim(level, sc){
   if(runtime.phoneDeclined) return renderPhoneDeclined(level, sc);
@@ -1624,7 +1620,7 @@ function wirePhoneSim(level, sc){
       updateHeaderProgress();
     }
     runtime.phoneDeclined = true;
-    runtime.feedback = { kind: 'correct', title: 'Goed instinct!', text: 'Je hoeft nooit in te gaan op zo\'n telefoontje. Bel je bank altijd zelf terug via het nummer op je bankpas of banksite — nooit via een nummer dat iemand jou geeft. Dan weet je zeker wie je aan de lijn hebt.' };
+    runtime.feedback = { kind: 'correct', title: 'Goed instinct!', text: 'Je hoeft nooit in te gaan op zo\'n telefoontje. Bel je bank altijd zelf terug via het nummer op je bankpas of banksite - nooit via een nummer dat iemand jou geeft. Dan weet je zeker wie je aan de lijn hebt.' };
     Sfx.success();
     renderLevelMain();
   });
@@ -1645,7 +1641,7 @@ function wirePhoneSim(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   PARKING-QR (l4) — visuele parkeerautomaat met plaksticker
+   PARKING-QR (l4) - visuele parkeerautomaat met plaksticker
    --------------------------------------------------------------- */
 function renderParkingQr(level, sc){
   return `<div class="scenario-card">
@@ -1680,7 +1676,7 @@ function renderParkingQr(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   INBOX-ATTACHMENT (l5) — e-mail met zichtbare .exe-bijlage
+   INBOX-ATTACHMENT (l5) - e-mail met zichtbare .exe-bijlage
    --------------------------------------------------------------- */
 function renderInboxAttachment(level, sc){
   const em = sc.email;
@@ -1709,7 +1705,7 @@ function renderInboxAttachment(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   FAKE-SITE (l8) — neppe inlogpagina in browser-frame
+   FAKE-SITE (l8) - neppe inlogpagina in browser-frame
    --------------------------------------------------------------- */
 function renderFakeSite(level, sc){
   return `<div class="scenario-card">
@@ -1745,7 +1741,7 @@ function renderFakeSite(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   TECH-SUPPORT-POPUP (l9) — nep Windows-beveiligingspop-up
+   TECH-SUPPORT-POPUP (l9) - nep Windows-beveiligingspop-up
    --------------------------------------------------------------- */
 function renderTechSupportPopup(level, sc){
   const p = sc.popup;
@@ -1792,7 +1788,7 @@ function renderTechSupportPopup(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   SMS-PHISHING (l10) — nep pakket-sms
+   SMS-PHISHING (l10) - nep pakket-sms
    --------------------------------------------------------------- */
 function renderSmsPhishing(level, sc){
   return `<div class="scenario-card">
@@ -1834,7 +1830,7 @@ function renderScenario(level){
 }
 
 /* ---------------------------------------------------------------
-   WIFI-CHOOSER (t7) — café laptop met wifi-netwerken
+   WIFI-CHOOSER (t7) - café laptop met wifi-netwerken
    --------------------------------------------------------------- */
 function renderWifiChooser(level, sc){
   function signalBars(count){
@@ -1873,7 +1869,7 @@ function renderWifiChooser(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   FINAL-QUIZ (l11) — grote afsluittoets
+   FINAL-QUIZ (l11) - grote afsluittoets
    --------------------------------------------------------------- */
 function renderFinalQuiz(level, sc){
   if(runtime.finalDone && !runtime.finalReview) return renderFinalQuizResult(level, sc);
@@ -1969,7 +1965,7 @@ function renderFinalQuizResult(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   WIRE — parking-qr drag
+   WIRE - parking-qr drag
    --------------------------------------------------------------- */
 function wireParkingQr(level, sc){
   const sticker = document.getElementById('qr-sticker');
@@ -2020,7 +2016,7 @@ function wireParkingQr(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   WIRE — inbox-attachment click op .exe
+   WIRE - inbox-attachment click op .exe
    --------------------------------------------------------------- */
 function wireInboxAttachment(level, sc){
   const row = document.getElementById('attachment-row');
@@ -2039,7 +2035,7 @@ function wireInboxAttachment(level, sc){
 }
 
 /* ---------------------------------------------------------------
-   WIRE — final-quiz navigatie en opties
+   WIRE - final-quiz navigatie en opties
    --------------------------------------------------------------- */
 function wireFinalQuiz(level, sc){
   if(!runtime.finalAnswers) runtime.finalAnswers = {};
@@ -2067,11 +2063,14 @@ function wireFinalQuiz(level, sc){
   if(reviewBtn) reviewBtn.addEventListener('click', () => { runtime.finalQ = 0; runtime.finalReview = true; renderLevelMain(); });
   const backResultBtn = document.getElementById('fq-next-result');
   if(backResultBtn) backResultBtn.addEventListener('click', () => { runtime.finalReview = false; renderLevelMain(); });
-}
+
+  document.querySelectorAll('[data-video-key]').forEach(card => {
+    card.addEventListener('click', () => openVideoModal(card.getAttribute('data-video-key'), card.getAttribute('data-video-title')));
+  });}
 
 
 /* ---------------------------------------------------------------
-   SCENARIO — wiring & afhandelen van een keuze
+   SCENARIO - wiring & afhandelen van een keuze
    --------------------------------------------------------------- */
 function resolveOutcome(level, choiceLike){
   if(choiceLike.outcome === 'wrong'){
@@ -2175,7 +2174,7 @@ function wireScenarioEvents(level){
 }
 
 /* ---------------------------------------------------------------
-   THEORIE — accordion + quiz
+   THEORIE - accordion + quiz
    --------------------------------------------------------------- */
 function renderAccordionItem(item, index){
   const isOpen = runtime.openAccordion === index;
@@ -2294,7 +2293,7 @@ function openVideoModal(key, title){
   } else {
     stage = `<div class="video-pending">
         <i class="fa-solid fa-clapperboard"></i>
-        <p>Sjors is deze video aan het inspreken — komt binnenkort!</p>
+        <p>Sjors is deze video aan het inspreken - komt binnenkort!</p>
       </div>`;
   }
 
@@ -2326,12 +2325,12 @@ function openHackedOverlay(level, choiceLike){
         <h2>Helaas, gehackt!</h2>
         <div class="sjors-says"><b>Sjors legt uit</b>${choiceLike.feedbackText}</div>
         <div class="hacked-actions">
-          <button class="btn btn-primary btn-lg" id="hacked-video-btn" type="button"><i class="fa-solid fa-circle-play"></i> Bekijk de uitleg</button>
+          ${level.id !== 't7' ? `<button class="btn btn-primary btn-lg" id="hacked-video-btn" type="button"><i class="fa-solid fa-circle-play"></i> Bekijk de uitleg</button>` : ''}
           <button class="btn btn-ghost btn-lg" id="hacked-retry-btn" type="button">Probeer opnieuw</button>
         </div>
       </div>
     </div>`;
-  document.getElementById('hacked-video-btn').addEventListener('click', () => {
+  if(level.id !== 't7') document.getElementById('hacked-video-btn').addEventListener('click', () => {
     closeOverlay();
     openVideoModal(`${level.id}-uitleg`, level.nodeTitle);
   });
@@ -2369,7 +2368,7 @@ function openResetConfirm(){
 }
 
 /* ---------------------------------------------------------------
-   MALVERTISING — onverwachte "update vereist"-pop-up
+   MALVERTISING - onverwachte "update vereist"-pop-up
    --------------------------------------------------------------- */
 function scheduleMalvertising(){
   if(state.malvertisingShown) return;
@@ -2399,7 +2398,7 @@ function dismissMalvertising(){
   state.malvertisingShown = true; saveState();
   document.getElementById('malvertising-root').innerHTML = '';
   Sfx.success();
-  showToast('Slim — onverwachte pop-ups negeren is precies de juiste reflex.', 'fa-shield-halved');
+  showToast('Slim - onverwachte pop-ups negeren is precies de juiste reflex.', 'fa-shield-halved');
 }
 function triggerMalvertisingTrap(){
   state.malvertisingShown = true; saveState();
@@ -2413,7 +2412,7 @@ function triggerMalvertisingTrap(){
         <h2>Helaas, ook dit was nep.</h2>
         <div class="sjors-says">
           <b>Sjors legt uit</b>
-          Dit soort schermen duikt vaak op via advertenties op heel gewone websites — "malvertising" genoemd.
+          Dit soort schermen duikt vaak op via advertenties op heel gewone websites - "malvertising" genoemd.
           Een knop als "Nu updaten" installeert geen update, maar besmet juist je apparaat.
           Een echte systeemupdate vraag je nooit aan via een pop-up op een website.
         </div>
@@ -2424,7 +2423,7 @@ function triggerMalvertisingTrap(){
 }
 
 /* ---------------------------------------------------------------
-   SJORS — mascotte-widget
+   SJORS - mascotte-widget
    --------------------------------------------------------------- */
 function showSjorsTip(text){
   const bubble = document.getElementById('sjors-bubble');
